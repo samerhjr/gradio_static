@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>Gradio</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="static/landing/style/home.css" rel="stylesheet">
+  </head>
+  <body>
+    <header class="primary">
+      <img src="static/landing/img/logo_inline.png" />
+      <nav>
+        <a class="dropbtn" onclick="myFunction()">
+          Projects
+          <img src="static/landing/img/down.png" height="10">
+        </a>
+        <div id="myDropdown" class="dropdown-content">
+          <em>Gradio has released several open source projects to the machine learning community:</em>
+          <a href="https://github.com/gradio-app/gradio">
+            <strong>Gradio library</strong><br>
+            A library to easily share models with interfaces for quick collaborations.
+          </a>
+        </div>
+        <a href="#request">Request Demo</a>
+      </nav>
+    </header>
+    <div id="hero" style="background-image: url('static/landing/img/city.svg')">
+      <h2>Do More With Your Data</h2>
+      <h3>Magnify the power of your data labeling, coverage, valuation, and quality.</h3>
+      <a href="#request" id="request_button" class="primary">Request Demo</a>
+    </div>
+    <div class="info_box">
+      <img src="static/landing/img/stock.jpg">
+      <div class="info">
+        <h4>Understand Your Data</h4>
+        <p>Understand your labeling quality and coverage - and quickly identify mislabeled datapoints and high value point populations.</p>
+      </div>
+    </div>
+    <div class="info_box">
+      <div class="info">
+        <h4>Expand Your Data</h4>
+        <p>Make your dataset more valuable by generating labels and data to expand coverage, remove bias, and improve model performance. </p>
+      </div>
+      <img src="static/landing/img/stock2.jpg">
+    </div>
+    <form action="https://formspree.io/aliabid94@gmail.com" method="POST">
+      <h3 id="request">Request a Demo</h3>
+      <div class="input_row">
+        <label>
+          First Name:<br>
+          <input type="text" name="first">
+        </label>
+        <label>
+          Last Name:<br>
+          <input type="text" name="last">
+        </label>
+      </div>
+      <div class="input_row">
+        <label>
+          Company / Institution:<br>
+          <input type="text" name="company">
+        </label>
+        <label>
+          Domain:<br>
+          <input type="text" name="domain" placeholder="Self Driving, Medical Imaging, etc.">
+        </label>
+      </div>
+      <div class="input_row">
+        <label>
+          Additional Details (optional):
+          <textarea value="details"></textarea>
+        </label>
+      </div>
+      <input class="primary" id="submit" type="submit">
+    </form>
+    <script>
+      function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+      }
+
+      // Close the dropdown menu if the user clicks outside of it
+      window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          var i;
+          for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+    </script>
+  <body>
+</html>
