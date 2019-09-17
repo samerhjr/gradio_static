@@ -1,0 +1,44 @@
+#logo {
+    height: 50px;
+}
+nav {
+    display: flex
+}
+nav a {
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 20px;
+    margin-left: 8px;
+}
+a.current {
+    color: #d76902;
+}
+#data {
+    color: #d76902;
+}
+.label-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -20px;
+}
+.label-row label {
+    flex: 200px 1 0;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+#contact input[type=text], #contact input[type=email], #contact textarea {
+    display: block;
+    border: none;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.2em;
+    margin-top: 4px;
+}
+#pear {
+    color: yellowgreen;
+    font-weight: bold;
+}
+.pricing-table-main img {
+    width: 80%;
+    margin-left: 10%;
+}

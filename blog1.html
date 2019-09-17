@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gradio | Blog</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="dist/css/custom.css">
+    <link rel="stylesheet" href="dist/css/blog.css">
+    <link rel="stylesheet" href="dist/css/blog_post.css">
+	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+</head>
+<body class="is-boxed">
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+							<a href="#">
+								<img id="logo" class="header-logo-image" src="dist/images/logo.png" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                    <nav>
+                        <a href="index.html">Home</a>
+                        <a class="current" href="blog.html">Blog</a>
+                        <a href="index.html#lets-chat">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <div class="container">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+                            
+                            <div class="pricing-tables-wrap">
+                                <div class="pricing-table">
+                                    <div class="pricing-table-inner is-revealing">
+                                        <div class="pricing-table-main">
+                                            <div class="pricing-table-header pb-24">
+                                                <span class="h4">Performing with Limited Labeling Resources</span>
+                                            </div>
+                                            <div class="text-xs">
+                                                <p>For most organizations, the bottleneck in achieving a high-quality dataset is not in acquiring data, but in labeling data. The human labor involved in labeling can be costly in both time and money. Gradio’s data engine makes the most effective use of an organization’s labeling budget by identifying the datapoints in the unlabeled dataset that would provide the highest value to the model if they were labeled. Gradio then performs augmentations on these datapoints to expand coverage. The Gradio-powered labeled dataset allows the model to perform at a level that would normally have required a dataset many multiples in size.</p>
+                                                <p>We’ll see this in action on a US government-provided consumer financial complaint dataset that classifies the domain of a consumer complaint. Each complaint is classified as one of five categories, such as “debt” or “credit”. There are 2000 complaints in this dataset.</p>
+                                                <p>The first technique that we present is of dataset valuation. Imagine that all 2000 datapoints from the training set are available to us, but none of them are labeled. Because labeling is expensive in this scenario, we only have the budget to label a certain sample size of the data. We’ll simulate budgets that allow us various sample sizes – in this instance, sample sizes of 25, 100, 250, 500, and 1000 complaints. Let’s randomly select which datapoints to label at each budget level and train models at each corresponding dataset size.</p>
+                                                <p>With data valuation, Gradio can direct labelers towards the data points that would provide the most value in improving the model. For example, if the labeling budget only allowed for 500 of the 2000 reviews to be labeled, Gradio’s algorithms can inform labelers the best first 100 datapoints to label. After training the model on these 100 datapoints, Gradio would analyze the model and the remaining dataset, and provide the next 100 datapoints that would give the most value to the model. The model would retrain over these additional 100 datapoints. This process would repeat until 500 datapoints are labeled at which point the budget is exhausted.</p>
+                                                <p>We now have two datasets at each sample size – one with randomly sampled datapoints, and one Gradio-directed sampling.</p>
+                                                <p>We now apply the second technique to Gradio’s datasets. For each of these datasets, we augment them by making copies of the datapoints in the datasets and transforming them using Gradio’s extensive library of transformations. This expands the effective size of each dataset significantly.</p>
+                                                <p>With two datasets at each sample size, we can now plot the performance of models trained on the randomly sampled dataset against models trained on the Gradio-powered dataset.</p>
+                                                <img id="graph" src="dist/images/big_graph1.png">                                                    
+                                                <p>We see that a Gradio-powered dataset can make the model perform at accuracy levels equivalent to a dataset of much larger size. With just 25 samples, the Gradio driven dataset gives performance at levels greater than a random 500 sample dataset. At 100 samples, the Gradio dataset performs better than the 1000 sample training set without Gradio’s directed labeling and augmentations.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+
+						</div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="footer-copyright">Backed by <a target="_blank" id="pear" href="http://pear.vc">Pear VC</a>.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+</body>
+</html>

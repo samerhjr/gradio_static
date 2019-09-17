@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gradio | Blog</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="dist/css/custom.css">
+    <link rel="stylesheet" href="dist/css/blog.css">
+    <link rel="stylesheet" href="dist/css/blog_post.css">
+	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+</head>
+<body class="is-boxed">
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+							<a href="#">
+								<img id="logo" class="header-logo-image" src="dist/images/logo.png" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                    <nav>
+                        <a href="index.html">Home</a>
+                        <a class="current" href="blog.html">Blog</a>
+                        <a href="index.html#lets-chat">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section>
+                <div class="container">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+                            
+                            <div class="pricing-tables-wrap">
+                                <div class="pricing-table">
+                                    <div class="pricing-table-inner is-revealing">
+                                        <div class="pricing-table-main">
+                                            <div class="pricing-table-header pb-24">
+                                                <span class="h4">Augmentation vs. Small Datasets and Class Imbalance</span>
+                                            </div>
+                                            <div class="text-xs">
+                                                    <p>The Harvard n2c2 clinical notes dataset consists of doctor notes of a patient visit, and classifies each patient as non-smoker, former smoker, or current smoker. The dataset is quite limited, with the training dataset consisting of 140 notes and the test set consisting of 25 notes. This dataset also suffers from class imbalance, as only 33 of the 140 notes are labelled as current smokers. </p>
+                                                    <p>Because the training dataset is so small in this scenario, we will label everything in this dataset and just compare the effects of the augmentation step. All 140 training notes are labelled. Gradio runs its augmentation algorithm on a copy of the dataset. One model is trained on the augmented dataset, and another on the raw original dataset. The accuracy of these models is shown below:</p>
+                                                    <img id="graph" src="dist/images/big_graph2.png">                                                    
+                                                    <p>With Gradio’s augmentations, the dataset clearly trains the more performant model. We see clear improvements in the accuracy of the models when Gradio’s labelling and augmentation are employed. These techniques provide models accuracy usually only found in datasets many multiples in size of the original dataset. With Gradio, a company can save large amounts of resources that otherwise would have been spent on data acquisition and labelling.</p>
+                                                    
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+
+						</div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="footer-copyright">Backed by <a target="_blank" id="pear" href="http://pear.vc">Pear VC</a>.</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+</body>
+</html>

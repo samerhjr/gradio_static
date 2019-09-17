@@ -1,0 +1,14 @@
+.pricing-tables-wrap {
+    justify-content: flex-start !important;
+}
+.pricing-table {
+    padding-left: 0; 
+}
+.hero-copy {
+    width: auto !important;
+}
+
+#graph {
+    max-width: 600px;
+    margin: 36px auto;
+}
