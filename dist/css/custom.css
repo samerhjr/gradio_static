@@ -34,11 +34,25 @@ a.current {
     font-size: 1.2em;
     margin-top: 4px;
 }
-#pear {
-    color: yellowgreen;
-    font-weight: bold;
+.footer-copyright a:first-child {
+    margin-right: 40px;
 }
 .pricing-table-main img {
     width: 80%;
     margin-left: 10%;
+}
+
+.footer-social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-copyright {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-copyright img {
+    height: 40px;
 }

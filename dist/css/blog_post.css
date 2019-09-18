@@ -11,3 +11,7 @@
     max-width: none !important;
     margin-right: 0 !important;
 }
+
+.pricing-table a {
+    color: cornflowerblue;
+}
