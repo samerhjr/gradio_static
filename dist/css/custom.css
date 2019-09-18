@@ -42,6 +42,11 @@ a.current {
     margin-left: 10%;
 }
 
+.cta-cta {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .footer-social-links {
     display: flex;
     justify-content: center;
