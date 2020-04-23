@@ -1,215 +1,129 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
+﻿<html lang="en" id="index">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gradio</title>
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="dist/css/style.css">
-    <link rel="stylesheet" href="dist/css/custom.css">
-	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gradio</title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="style/index.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150995863-1"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-150995863-1');</script>
 </head>
-<body class="is-boxed">
-    <div class="body-wrap">
-        <header class="site-header">
-            <div class="container">
-                <div class="site-header-inner">
-                    <div class="brand header-brand">
-                        <h1 class="m-0">
-							<a href="index.html">
-								<img id="logo" class="header-logo-image" src="dist/images/logo.png" alt="Logo">
-                            </a>
-                        </h1>
-                    </div>
-                    <nav>
-                        <a class="current" href="index.html">Home</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="#lets-chat">Contact</a>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <section class="hero">
-                <div class="container">
-                    <div class="hero-inner">
-						<div class="hero-copy">
-	                        <h1 class="hero-title mt-0">Your <span id="data">Data</span>. At Its Full Potential.</h1>
-	                        <p class="hero-paragraph">You have lots of data. We use the latest research to clean, label, and augment it.</p> 
-	                        <p class="hero-paragraph">See how powerful your dataset can really be.</p> 
-	                        <div class="hero-cta"><a class="button button-primary" href="#lets-chat">Contact Us</a></div>
-						</div>
-						<div class="hero-figure anime-element">
-							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
-								<rect width="528" height="396" style="fill:transparent;" />
-							</svg>
-							<div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
-							<div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
-							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
-							<div class="hero-figure-box hero-figure-box-05"></div>
-							<div class="hero-figure-box hero-figure-box-06"></div>
-							<div class="hero-figure-box hero-figure-box-07"></div>
-							<div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
-							<div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
-							<div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
-						</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="features section">
-                <div class="container">
-					<div class="features-inner section-inner has-bottom-divider">
-                        <div class="pricing-header text-center">
-                            <h2 class="section-title mt-0">How Gradio Can Help</h2>
-                            <p class="section-paragraph mb-0">We’re bringing our machine learning research from Stanford to the industry to improve your dataset and decrease labeling requirements by up to 55%. </p>
-                        </div>
-                        <div class="features-wrap">
-							<div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-										<img src="dist/images/valuate.svg">
-                                    </div>
-                                    <h4 class="feature-title mt-24">Valuate Unlabeled Data</h4>
-                                    <p class="text-sm mb-0">Of your unlabeled data, Gradio identifies highest value points to label for maximum model improvements. </p>
-                                </div>
-                            </div>
-                            <div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-										<img src="dist/images/identify.svg">
-                                    </div>
-                                    <h4 class="feature-title mt-24">Identify Mislabeled Data</h4>
-                                    <p class="text-sm mb-0">Gradio identifies the datapoints that are mislabeled and are hurting your model performance.</p>
-                                </div>
-                            </div>
-                            <div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-										<img src="dist/images/augment.svg">
-                                    </div>
-                                    <h4 class="feature-title mt-24">Augment Your Data</h4>
-                                    <p class="text-sm mb-0">Based on your existing data, Gradio generates new data to expand into new use cases and increase coverage.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="pricing section">
-                <div class="container-sm">
-                    <div class="pricing-inner section-inner">
-                        <div class="pricing-header text-center">
-                            <h2 class="section-title mt-0">Highlighted Posts</h2>
-                        </div>
-						<div class="pricing-tables-wrap">
-                            <div class="pricing-table">
-                                <div class="pricing-table-inner is-revealing">
-                                    <div class="pricing-table-main">
-                                        <div class="pricing-table-header pb-24">
-                                            <div class="pricing-table-price"><span class="h4">Performing with Limited Labeling Resources</span></div>
-                                        </div>
-                                        <img src="dist/images/graph1.png">
-										<div class="text-xs pt-24 pb-24">Gradio can maximize a limited labeling budget by directing labeling towards high value datapoints, as demonstrated on a public customer complaint dataset.</div>
-                                    </div>
-                                    <div class="pricing-table-cta mb-8">
-                                        <a class="button button-primary button-shadow button-block" href="blog1.html">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pricing-table">
-                                <div class="pricing-table-inner is-revealing">
-                                    <div class="pricing-table-main">
-                                        <div class="pricing-table-header pb-24">
-                                            <div class="pricing-table-price"><span class="h4">Augmentation vs. Small Datasets and Class Imbalance</span></div>
-                                        </div>
-                                        <img src="dist/images/graph2.png">
-										<div class="text-xs pt-24 pb-24">Gradio can mitigate the effects of a small dataset with class imbalance, as demonstrated on a public clinical notes dataset.</div>
-                                    </div>
-                                    <div class="pricing-table-cta mb-8">
-                                        <a class="button button-primary button-shadow button-block" href="blog2.html">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-			<section class="cta section" id="lets-chat">
-				<div class="container">
-					<div class="cta-inner section-inner">
-                        <h3 class="section-title mt-0">Let's Chat</h3>
-                        <form id="contact" action="https://formspree.io/admin@gradio.app" method="POST">
-                            <div class="label-row">
-                              <label>
-                                Name
-                                <input type="text" name="name">
-                              </label>
-                              <label>
-                                Email
-                                <input type="email" name="email">
-                              </label>  
-                            </div>
-                            <div class="label-row">
-                              <label>
-                                Organization / Company
-                                <input type="text" name="organization">
-                              </label>
-                              <label>
-                                Domain
-                                <input type="text" name="domain" placeholder="e.g. Customer Support">
-                              </label>  
-                            </div>
-                            <div class="label-row">
-                              <label>
-                                Details
-                                <textarea name="details"></textarea>
-                              </label>
-                            </div>
-                            <div class="cta-cta">
-                                <input type="submit" class="button button-primary button-wide-mobile">
-                            </div>
-                        </form>
-					</div>
-				</div>
-			</section>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="site-footer-inner">
-                <ul class="footer-social-links list-reset">
-                    <li>
-                        <a target="_blank" href="https://www.linkedin.com/company/gradio/about/">
-                            <span class="screen-reader-text">LinkedIn</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="gray"/>
-                            </svg>
-                          </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://twitter.com/teamGradio">
-                            <span class="screen-reader-text">Twitter</span>
-                            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M16 3c-.6.3-1.2.4-1.9.5.7-.4 1.2-1 1.4-1.8-.6.4-1.3.6-2.1.8-.6-.6-1.5-1-2.4-1-1.7 0-3.2 1.5-3.2 3.3 0 .3 0 .5.1.7-2.7-.1-5.2-1.4-6.8-3.4-.3.5-.4 1-.4 1.7 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.5-.4C.7 7.7 1.8 9 3.3 9.3c-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H0c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4C15 4.3 15.6 3.7 16 3z" fill="gray"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                      <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-size="large" data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>                        
-                    </li>
-                </ul>                  
-                <div class="footer-copyright"><a target="_blank" id="pear" href="http://pear.vc"><img src="dist/images/pear.png"></a> <a target="_blank" href="http://stanford.edu"><img src="dist/images/stanford.png"></a></div>
-            </div>
+<body>
+  <div id="body-wrap">
+    <header>
+      <div class="container">
+        <h1 class="primary">Gradio</h1>
+        <nav>
+          <a href="#contact-box">Contact Us</a>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="container" id="top-text">
+          <div>
+          <h2>The Secure Data Platform.</h2>
+          <p class="secondary">Redact sensitive content from your data, on-premise.</p>
+          </div>
+          <a  href="#contact-box">
+            <button id="contact-link" class="ui button purple">Talk to An Expert</button id="contact-link">
+          </a>
         </div>
-    </footer>
-
-    <script src="dist/js/main.min.js"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>    
+        <div id="examples-holder">
+          <div class="container" id="examples">
+            <div class="display-screen">
+              <div class="image-holder shadow">
+                <img src="images/spreadsheet.svg">
+              </div>
+              <div class="caption">
+                Structured Data
+              </div>
+            </div>
+            <div class="display-screen">
+              <div class="image-holder shadow">
+                <img src="images/document.svg">
+              </div>
+              <div class="caption">
+                Documents &amp; Text
+              </div>
+            </div>
+            <div class="display-screen">
+              <div class="image-holder shadow">
+                <img src="images/audio.svg">
+              </div>
+              <div class="caption">
+                Speech
+              </div>
+            </div>
+            <div class="display-screen">
+              <div class="image-holder shadow">
+                <img src="images/mona.svg">
+              </div>
+              <div class="caption">
+                Images
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="logos">
+        <img src="images/logos/klarity.png">
+        <img src="images/logos/radai.png">
+        <img src="images/logos/tarteel.png">
+      </section>
+      <section id="statements_sec">
+        <div class="container">
+          <div id="statements">
+            <div class="statement">
+              <img src="images/accurate.svg">
+              <h4>Highly Accurate</h4>
+              <p>Gradio's redaction models have been trained to capture sensitive data at over 99% accuracy. Names, locations, and other potentially sensitive content can be targeted for removal. </p>
+            </div>
+            <div class="statement">
+              <img src="images/secure.svg">
+              <h4>On Premise</h4>
+              <p>Our solution runs on your machines, so nothing ever leaves premises. Keep your data safe. </p>
+            </div>
+            <div class="statement">
+              <img src="images/fast.svg">
+              <h4>Lightning Fast</h4>
+              <p>Gradio can redact thousands of documents or images, or millions of database rows, in minutes. We don't compromise convenience for security. </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="container">
+        <h2>Structured Data</h2>
+        <div class="details">
+          <div>
+            <p>Track sensitive information in databases, API logs, data lakes, and other storage across your organization. Use Gradio technology to ensure your sensitive data never leaks. </p>
+            <p>Gradio can redact sensitive information by user priviledge, ensure only those with proper credentials can access sensitive data. It can track this data as it transforms throughout your organization for maximum security.</p>
+          </div>
+          <img src="images/data.png">
+        </div>
+        <h2>Documents &amp; Text</h2>
+        <div class="details">
+          <div>Gradio can analyze text and documents (both digital and scans) to find targeted sensitive information. It can automatically redact sensitive information for maximum security. </div>
+          <img src="images/files.jpg">
+        </div>
+      </section>
+      <section class="container" id="contact-sec">
+        <div id="contact-box" class="shadow">
+          <h3>Talk with an Expert.</h3>
+          <p>Interested in implementing our solutions on your data? Get in touch.</p>
+          <form class="ui form" method="POST" action="https://formspree.io/admin@gradio.app">
+            <div class="field">
+              <div class="field">
+                <input type="email" name="email" placeholder="Email Address">
+              </div>
+            </div>
+            <button class="ui purple button" type="submit" id="submit">Submit</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 </body>
 </html>
