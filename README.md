@@ -1,1 +1,1 @@
-# Langing page: www.gradio.app
+# Landing page: www.gradio.app
