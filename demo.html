@@ -1,0 +1,224 @@
+﻿
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Gradio: Text Redaction Demo</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+  	<link rel="stylesheet" type="text/css" href="style/demo.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>PII Categories</h3>
+            </div>
+
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="check-redact-names" checked>
+			  <label class="form-check-label" for="check-redact-names">
+			    First & last names
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="check-redact-organization" checked>
+			  <label class="form-check-label" for="check-redact-organization">
+			    Organizations
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="check-redact-city-country" checked>
+			  <label class="form-check-label" for="check-redact-city-country">
+			    Cities & countries
+			  </label>
+			</div>
+			<div class="form-check">
+			  <input class="form-check-input" type="checkbox" value="" id="check-redact-date" checked>
+			  <label class="form-check-label" for="check-redact-date">
+			    Months and days
+			  </label>
+			</div>
+			<div>&nbsp;</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Phone #s
+			  </label>
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Years
+			  </label>
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Zip codes
+			  </label>
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    SSNs
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Email addresses
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Health Plan #s
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Web URLs
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    IP Addresses
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Certificate License #s
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Web URLs
+			  </label>	
+			</div>
+			<div class="form-check form-check-locked">
+				<i class="fas fa-lock"></i>  
+			  <label class="form-check-label" for="defaultCheck2">
+			    Medical conditions
+			  </label>	
+			</div>
+
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                	<div id="demo-heading"> <strong><span class="purple">Gradio:</span> Text Redaction Demo  </strong> </div>
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Toggle Categories</span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html#contact-box">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div contenteditable id="input-text">
+            <p><strong>Legal brief:</strong> The applicants <span class="redact-organization">Sharman</span> Ltd and <span class="redact-names"> Ms. Nicola Anne Hemming</span> are each the subject of asset preservation orders made by <span class="redact-names">Wilcox J</span> on <span class="redact-date">8 March</span> 2005. <span class="redact-organization">Sharman</span> Ltd was one of ten respondents to infringement of copyright proceedings brought by the present respondents ('the Music companies') in respect of the operation of what was described by the parties as the the primary proceedings.</p>
+
+            <p><span class="redact-names">Wilcox J</span> made orders on <span class="redact-date">8 March</span> 2005 requiring <span class="redact-organization">Sharman</span> Ltd to disclose on affidavit the description and value of all of their assets, wherever situated, and to specify whether those assets were held by each applicant either beneficially or in trust for any other person or entity. <span class="redact-names">Wilcox J</span> delivered judgment on the complex issues of liability arising in the primary proceedings on <span class="redact-date">5 September</span> 2005.</p>
+
+            <p>In the meantime, <span class="redact-names">Ms. Nicola Anne Hemming</span> had filed two disclosure affidavits pursuant to <span class="redact-names">Wilcox J</span>'s orders whilst <span class="redact-organization">Sharman</span> Ltd. had unsuccessfully sought several stays on various grounds of that same order insofar as it applied to them (see <span class="redact-city-country">Australia</span> v. <span class="redact-organization">Sharman</span> Ltd per <span class="redact-names">Helix J</span>, delivered <span class="redact-date">22 September</span> 2005). Disclosure affidavits were eventually sworn by <span class="redact-names">Mr. Hassan</span> on <span class="redact-date">18 September</span> 2006, which were later superseded by further affidavits sworn also by <span class="redact-names">Mr. Hassan</span> to the same effect, settling the case.</p>
+        	</div>
+        	<div class="line"></div>
+            <div>
+                  <p style="font-style:italic;	">Write your own text above and run live demo.  <button class="btn btn-primary btn-cloud"> <i class="fas fa-play"></i> &nbsp;Redact In Cloud</button> <button class="btn btn-secondary btn-premise"> <i class="fas fa-lock"></i>&nbsp; Download Redacted </button> <button class="btn btn-secondary btn-premise"> <i class="fas fa-lock"></i>&nbsp; Redact on Premise </button></p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+            $('#check-redact-names').change(function(){
+	    	    if($(this).is(':checked')){ $('.redact-names').css('color', 'transparent')}
+				else { $('.redact-names').css('color', 'black') }
+            })
+            $('#check-redact-organization').change(function(){
+	    	    if($(this).is(':checked')){ $('.redact-organization').css('color', 'transparent')}
+				else { $('.redact-organization').css('color', 'black') }
+            })
+            $('#check-redact-date').change(function(){
+	    	    if($(this).is(':checked')){ $('.redact-date').css('color', 'transparent')}
+				else { $('.redact-date').css('color', 'black') }
+            })
+            $('#check-redact-city-country').change(function(){
+	    	    if($(this).is(':checked')){ $('.redact-city-country').css('color', 'transparent')}
+				else { $('.redact-city-country').css('color', 'black') }
+            })
+
+
+            $('.btn-cloud').click(function(){
+
+				$("#input-text p").each(function()
+				{
+					var thisParagraph = $(this)
+					var form = new FormData();
+					console.log('Sent >>>>>', thisParagraph.html())
+					form.append("text", thisParagraph.html());
+					var settings = {
+					  "url": "https://api.gradio.app/text-redactio/",
+					  "method": "POST",
+					  "timeout": 0,
+					  "processData": false,
+					  "mimeType": "multipart/form-data",
+					  "contentType": false,
+					  "data": form
+					};
+					$.ajax(settings).done(function (response) {
+					  console.log('Received <<<<<<', response)
+					  thisParagraph.html(response)
+					});                        	
+				});
+            })
+
+        });
+    </script>
+</body>
+
+</html>
