@@ -1,2 +1,2 @@
 # Our landing page
-- www.gradio.app
+- Published using Gradio Pages at: www.gradio.app
