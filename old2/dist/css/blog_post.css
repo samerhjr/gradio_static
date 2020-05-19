@@ -1,0 +1,17 @@
+.pricing-tables-wrap {
+    max-width: 100% !important;
+}
+
+.hero-copy {
+    flex-grow: 1 !important;
+    padding-right: 0 !important;
+}
+
+.pricing-table {
+    max-width: none !important;
+    margin-right: 0 !important;
+}
+
+.pricing-table a {
+    color: cornflowerblue;
+}

@@ -1,138 +1,249 @@
-﻿<html lang="en" id="index">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gradio</title>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="style/index.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Gradio</title>
+        <link href="css/styles.css" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    <nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light">
+                        <div class="container">
+                            <a class="navbar-brand" href="index.html">Gradio</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto mr-lg-5">
+                                    <li class="nav-item"><a class="nav-link" href="index.html">Home </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="index.html">Solutions </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="index.html">Why Gradio </a></li>
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150995863-1"></script>
-  <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-150995863-1');</script>
-</head>
-<body>
-  <div id="body-wrap">
-    <header>
-      <div class="container">
-        <h1 class="primary">Gradio</h1>
-        <nav>
-          <a href="#contact-box">Contact Us</a>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <section class="hero">
-        <div class="container" id="top-text">
-          <div>
-          <h2>The Secure Data Platform.</h2>
-          <p class="secondary">Redact sensitive content from your data, on-premise.</p>
-          </div>
-          <a  href="#contact-box">
-            <button id="contact-link" class="ui button purple">Talk to An Expert</button id="contact-link">
-          </a>
-          <a  href="demo.html">
-            <button id="contact-link" class="ui button violet">Live Demo</button id="contact-link">
-          </a>
-        </div>
-        <div id="examples-holder">
-          <div class="container" id="examples">
-            <div class="display-screen">
-              <div class="image-holder shadow">
-                <img src="images/spreadsheet.svg">
-              </div>
-              <div class="caption">
-                Structured Data
-              </div>
-            </div>
-            <div class="display-screen">
-              <div class="image-holder shadow">
-                <img src="images/document.svg">
-              </div>
-              <div class="caption">
-                Documents &amp; Text
-              </div>
-            </div>
-            <div class="display-screen">
-              <div class="image-holder shadow">
-                <img src="images/audio.svg">
-              </div>
-              <div class="caption">
-                Speech
-              </div>
-            </div>
-            <div class="display-screen">
-              <div class="image-holder shadow">
-                <img src="images/mona.svg">
-              </div>
-              <div class="caption">
-                Images
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="logos">
-        <img src="images/logos/klarity.png">
-        <img src="images/logos/radai.png">
-        <img src="images/logos/tarteel.png">
-      </section>
-      <section id="statements_sec">
-        <div class="container">
-          <div id="statements">
-            <div class="statement">
-              <img src="images/accurate.svg">
-              <h4>Highly Accurate</h4>
-              <p>Gradio's redaction models have been trained to capture sensitive data at over 99% accuracy. Names, locations, and other potentially sensitive content can be targeted for removal. </p>
-            </div>
-            <div class="statement">
-              <img src="images/secure.svg">
-              <h4>On Premise</h4>
-              <p>Our solution runs on your machines, so nothing ever leaves premises. Keep your data safe. </p>
-            </div>
-            <div class="statement">
-              <img src="images/fast.svg">
-              <h4>Lightning Fast</h4>
-              <p>Gradio can redact thousands of documents or images, or millions of database rows, in minutes. We don't compromise convenience for security. </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="container">
-        <h2>Structured Data</h2>
-        <div class="details">
-          <div>
-            <p>Track sensitive information in databases, API logs, data lakes, and other storage across your organization. Use Gradio technology to ensure your sensitive data never leaks. </p>
-            <p>Gradio can redact sensitive information by user priviledge, ensure only those with proper credentials can access sensitive data. It can track this data as it transforms throughout your organization for maximum security.</p>
-          </div>
-          <img src="images/data.png">
-        </div>
-        <h2>Documents &amp; Text</h2>
-        <div class="details">
-          <div>Gradio can analyze text and documents (both digital and scans) to find targeted sensitive information. It can automatically redact sensitive information for maximum security. </div>
-          <img src="images/files.jpg">
-        </div>
-      </section>
-      <section class="container" id="contact-sec">
-        <div id="contact-box" class="shadow">
-          <h3>Talk with an Expert.</h3>
-          <p>Interested in implementing our solutions on your data? Get in touch.</p>
-          <form class="ui form" method="POST" action="https://formspree.io/admin@gradio.app">
-            <div class="field">
-              <div class="field">
-                <input type="email" name="email" placeholder="Email Address">
-              </div>
-            </div>
-            <button class="ui purple button" type="submit" id="submit">Submit</button>
-          </form>
-        </div>
-      </section>
-    </main>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                                </ul>
+                                <a class="btn-primary btn rounded-pill px-4 ml-lg-4" href="https://shop.startbootstrap.com/sb-ui-kit-pro">Contact Us</a>
+                            </div>
+                        </div>
+                    </nav>
+                    <header class="page-header page-header-dark bg-img-repeat bg-secondary" style='background-image: url("assets/img/pattern-shapes.png")'>
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-6">
+                                        <!-- <div class="badge badge-marketing badge-pill badge-secondary-soft text-secondary mb-3">Get started</div> -->
+                                        <h1 class="page-header-title">The Data Platform for Medicine</h1>
+                                        <p class="page-header-text">Exctract valuable analytics from medical & biological data while ensuring compliance with HIPAA and privacy regulations. </p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="card rounded-lg text-dark">
+                                            <div class="card-header py-4">Talk with a medical data expert!</div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">First Name</label><input class="form-control rounded-pill" id="leadCapFirstName" type="text" /></div>
+                                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Last Name</label><input class="form-control rounded-pill" id="leadCapLastName" type="text" /></div>
+                                                    </div>
+                                                    <div class="form-group"><label class="small text-gray-600" for="leadCapEmail">Email address</label><input class="form-control rounded-pill" id="leadCapEmail" type="email" /></div>
+                                                    <div class="form-group"><label class="small text-gray-600" for="leadCapCompany">Company or Organization</label><input class="form-control rounded-pill" id="leadCapCompany" type="text" /></div>
+                                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4" type="submit">Talk to us</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-angled text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
+                        </div>
+                    </header>
+                    <section class="bg-white py-5">
+                        <div class="container">
+                            <div class="text-uppercase-expanded text-right mb-5 text-gray-300">Supporters and users</div>
+                            <div class="row brands text-gray-500 align-items-center">
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/stanford.png" width="100%">
+                                </div>
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/klarity.png" width="100%">
+                                </div>
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/radai.png" width="100%">
+                                </div>
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/pear.jpg" width="100%">
+                                </div>
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/tarteel.png" width="100%">
+                                </div>
+                                <div class="col-6 col-sm-4 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                                    <img src="assets/img/logos/cowboyvc.png" width="100%">
+                                </div>                                
+                            </div>
+                        </div>
+                        <div class="svg-border-angled text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
+                        </div>
+                    </section>
+                    <section class="bg-light pt-10">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-8 mb-5">
+                                    <div class="badge badge-marketing badge-pill badge-secondary-soft text-secondary mb-3">Solutions</div>
+                                    <h2>A suite of tools to handle sensitive medical data</h2>
+                                    <p class="lead">With Gradio, you can remove sensitive information from your data automatically and use it for downstream analytics or machine learning more easily!</p>
+                                </div>
+                            </div>
+                            <div class="row mb-n10 z-1">
+                                <div class="col-lg-6 mb-5">
+                                    <div class="card h-100">
+                                        <div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-xl bg-secondary-soft text-secondary mb-4"><i data-feather="user-x"></i></div>
+                                            <h5>Gradio De-identifier</h5>
+                                            <p class="card-text">Our on-premise software removes 18 configurable categories of sensitive information from unstructured data (clinical notes, scanned documents, speech recordings) or semi-structured data, such as logs, providing HIPAA compliance.</p>
+											<button class="btn btn-secondary btn-marketing btn-block rounded-pill mt-4 col-md-4" type="submit">See a Demo</button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="card h-100">
+                                        <div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-xl bg-success-soft text-success mb-4"><i data-feather="users"></i></div>
+                                            <h5>Gradio Synthesizer</h5>
+                                            <p class="card-text">We make it possible to share structured data securely, by replacing it with synthetic data that mimics the original structure of the data, but without any sensitive information. It's all automatic! </p>
+											<button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-6" type="submit">See an Example</button>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-5 mb-lg-0">
+                                    <div class="card h-100">
+                                        <div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-xl bg-primary-soft text-primary mb-4"><i data-feather="activity"></i></div>
+                                            <h5>Gradio Labeler (HIPAA-Compliant)</h5>
+                                            <p class="card-text">Need medical data labeled for machine learning? Our medically-trained labelers can label text, images, and speech. Think Amazon Mechanical Turk but HIPAA-compliant! </p>
+		                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-4" type="submit">Talk to us</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card h-100">
+                                        <div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-xl bg-warning-soft text-warning mb-4"><i data-feather="monitor"></i></div>
+                                            <h5>Gradio UI</h5>
+                                            <p class="card-text">Looking for a way to create rapid UIs around machine learning models? In 3 lines of code, wrap a drag-and-drop UI around your model so that your users can use it without writing any code or without having to send data back and forth.</p>
+			                                <button class="btn btn-secondary btn-marketing btn-block rounded-pill mt-4 col-md-4" type="submit">See a Demo</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-angled text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
+                        </div>
+                    </section>
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row align-items-center">
+                                    <h4 class="text-primary">Why Gradio?</h4>
+                                    <p class="lead mb-0">We're a team of research scientists & engineers who believe that there's so much potential value in medical data. We built Gradio to solve the problems that we faced in unlocking this value. We've built Gradio with several important factors in mind:</p>
+                            </div>
+                            <p>&nbsp;</p>
+                            <div class="row text-center">
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <img src="assets/img/accurate.svg" class="why-images">
+                                    <h3>Highly Accurate</h3>
+                                    <p class="mb-0">Gradio's redaction models capture sensitive data at 99+% recall. Names, locations, and other sensitive content can be individually selected for removal.</p>
+                                </div>
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <img src="assets/img/secure.svg" class="why-images">
+                                    <h3>Secure and On-premise</h3>
+                                    <p class="mb-0">Our solution runs on your machines, so nothing ever leaves your premises. With Gradio, you keep your data and you keep it safe.</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <img src="assets/img/fast.svg" class="why-images">
+                                    <h3>Lightning Fast</h3>
+                                    <p class="mb-0">Gradio can redact thousands of documents or images, or millions of database rows, in minutes. We don't compromise convenience for security.</p>
+                                </div>                                
+                            </div>
+                            <p>&nbsp;</p>                            
+                            <div class="row">
+	                            <p class="lead mb-0">Gradio works for you, no matter what kind of data you have:</p>                                          	
+                            </div>
+                            <p>&nbsp;</p>                            
+                            <div class="row text-center examples-holder">
+                                <div class="col-lg-3 mb-5 mb-lg-0">
+                                    <img src="assets/img/spreadsheet.svg" class="data-images">
+                                    <h3>Structured Data</h3>
+                                </div>
+                                <div class="col-lg-3 mb-5 mb-lg-0">
+                                    <img src="assets/img/document.svg" class="data-images">
+                                    <h3>Documents & Text</h3>
+                                </div>
+                                <div class="col-lg-3 mb-5 mb-lg-0">
+                                    <img src="assets/img/audio.svg" class="data-images">
+                                    <h3>Speech</h3>
+                                </div>
+                                <div class="col-lg-3">
+                                    <img src="assets/img/mona.svg" class="data-images">
+                                    <h3>Images</h3>
+                                </div>                                
+                            </div>                            
+                        </div>
+	                    <div class="svg-border-angled text-light">
+	                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
+	                    </div>
+	                </section>
+                <section class="bg-light" style="padding-bottom: 30px">
+                    <div class="container">
+                        <div class="text-uppercase-expanded text-right mb-5 text-gray-300">Contact us</div>
+                    </div>
 
-</body>
+                    <div class="col-lg-12">
+                        <div class="card rounded-lg text-dark">
+                            <div class="card-header py-4">Learn how you can get more value from your medical data!</div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">First Name</label><input class="form-control rounded-pill" id="leadCapFirstName" type="text" /></div>
+                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Last Name</label><input class="form-control rounded-pill" id="leadCapLastName" type="text" /></div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapFirstName">Email address</label><input class="form-control rounded-pill" id="leadCapFirstName" type="text" /></div>
+                                        <div class="form-group col-md-6"><label class="small text-gray-600" for="leadCapLastName">Company or Organization</label><input class="form-control rounded-pill" id="leadCapLastName" type="text" /></div>
+                                    </div>
+                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-4 offset-md-4" type="submit">Talk to us</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                </main>
+            </div>
+
+            <div id="layoutDefault_footer">
+                <footer class="footer pb-5 mt-auto bg-white footer-light">
+                    <div class="container">
+                        <hr class="my-5" />
+                        <div class="row align-items-center">
+                            <div class="col-md-6 small">Copyright &copy; Gradio 2020</div>
+<!--                             <div class="col-md-6 text-md-right small">
+                                <a href="javascript:void(0);">Privacy Policy</a>
+                                &middot;
+                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            </div> -->
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
