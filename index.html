@@ -21,12 +21,25 @@
                             <a class="navbar-brand" href="index.html">Gradio</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto mr-lg-5">
-                                    <li class="nav-item"><a class="nav-link" href="index.html">Home </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index.html">Solutions </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="index.html">Why Gradio </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Home </a></li>
+                                    <li class="nav-item dropdown dropdown-lg no-caret">
+                                        <a class="nav-link dropdown-toggle" id="navbarDropdownPages" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Solutions<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                                        <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownPages">
+                                            <div class="row no-gutters">
+                                                <div class="col-lg-6 p-lg-5">
+                                                    <h6 class="dropdown-header text-primary">Solutions</h6>
+                                                    <a class="dropdown-item " href="#gradio-deidentifier-section">Gradio De-identifier</a>
+                                                    <a class="dropdown-item" href="#gradio-synthesizer-section">Gradio Synthesizer</a>
+                                                    <a class="dropdown-item" href="#gradio-labeler-section">Gradio Labeler</a>
+                                                    <a class="dropdown-item" href="#gradio-ui-section">Gradio UI</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#why-gradio-section">Why Gradio </a></li>
 
                                 </ul>
-                                <a class="btn-primary btn rounded-pill px-4 ml-lg-4" href="https://shop.startbootstrap.com/sb-ui-kit-pro">Contact Us</a>
+                                <a class="btn-primary btn rounded-pill px-4 ml-lg-4" href="#contact-us-section">Contact Us</a>
                             </div>
                         </div>
                     </nav>
@@ -90,7 +103,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
                         </div>
                     </section>
-                    <section class="bg-light pt-10">
+                    <section class="bg-light pt-10" id="solutions-section">
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-8 mb-5">
@@ -99,7 +112,7 @@
                                     <p class="lead">With Gradio, you can remove sensitive information from your data automatically and use it for downstream analytics or machine learning more easily!</p>
                                 </div>
                             </div>
-                            <div class="row mb-n10 z-1">
+                            <div class="row mb-n10 z-1" id="gradio-deidentifier-section">
                                 <div class="col-lg-6 mb-5">
                                     <div class="card h-100">
                                         <div class="card-body p-5">
@@ -110,7 +123,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-5">
+                                <div class="col-lg-6 mb-5" id="gradio-synthesizer-section">
                                     <div class="card h-100">
                                         <div class="card-body p-5">
                                             <div class="icon-stack icon-stack-xl bg-success-soft text-success mb-4"><i data-feather="users"></i></div>
@@ -120,17 +133,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 mb-5 mb-lg-0">
+                                <div class="col-lg-6 mb-5 mb-lg-0" id="gradio-labeler-section">
                                     <div class="card h-100">
                                         <div class="card-body p-5">
                                             <div class="icon-stack icon-stack-xl bg-primary-soft text-primary mb-4"><i data-feather="activity"></i></div>
                                             <h5>Gradio Labeler (HIPAA-Compliant)</h5>
                                             <p class="card-text">Need medical data labeled for machine learning? Our medically-trained labelers can label text, images, and speech. Think Amazon Mechanical Turk but HIPAA-compliant! </p>
-		                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-4" type="submit">Talk to us</button>
+		                                    <button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-6" type="submit">Get a quote</button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-6" id="gradio-ui-section">
                                     <div class="card h-100">
                                         <div class="card-body p-5">
                                             <div class="icon-stack icon-stack-xl bg-warning-soft text-warning mb-4"><i data-feather="monitor"></i></div>
@@ -146,7 +159,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
                         </div>
                     </section>
-                    <section class="bg-white py-10">
+                    <section class="bg-white py-10" id="why-gradio-section">
                         <div class="container">
                             <div class="row align-items-center">
                                     <h4 class="text-primary">Why Gradio?</h4>
@@ -172,7 +185,7 @@
                             </div>
                             <p>&nbsp;</p>                            
                             <div class="row">
-	                            <p class="lead mb-0">Gradio works for you, no matter what kind of data you have:</p>                                          	
+	                            <p class="lead mb-0 text-center" style="width:100%">Gradio works for you, no matter what kind of data you have:</p>                                          	
                             </div>
                             <p>&nbsp;</p>                            
                             <div class="row text-center examples-holder">
@@ -198,7 +211,7 @@
 	                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
 	                    </div>
 	                </section>
-                <section class="bg-light" style="padding-bottom: 30px">
+                <section class="bg-light" style="padding-bottom: 30px" id="contact-us-section">
                     <div class="container">
                         <div class="text-uppercase-expanded text-right mb-5 text-gray-300">Contact us</div>
                     </div>
