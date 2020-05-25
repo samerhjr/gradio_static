@@ -8,7 +8,8 @@
         <meta name="author" content="" />
         <title>Gradio</title>
         <link href="css/styles.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="assets/img/favicon.png" />
+        <link rel="stylesheet" type="text/css" href="css/synthesizer.css">
+        <link rel="icon" type="image/x-icon" href="assets/img/gradio_logo_alpha.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
     </head>
@@ -18,33 +19,147 @@
                 <main>
                     <nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light">
                         <div class="container">
-                            <a class="navbar-brand" href="index.html">Gradio</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+                            <a class="navbar-brand" href="index.html"><img src="assets/img/gradio_logo_alpha.png" style="height:2rem"> Gradio</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul class="navbar-nav ml-auto mr-lg-5">
                                     <li class="nav-item"><a class="nav-link" href="index.html">Home </a></li>
-                                    <li class="nav-item dropdown dropdown-lg no-caret">
-                                        <a class="nav-link dropdown-toggle" id="navbarDropdownPages" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Solutions<i class="fas fa-chevron-right dropdown-arrow"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownPages">
-                                            <div class="row no-gutters">
-                                                <div class="col-lg-6 p-lg-5">
-                                                    <h6 class="dropdown-header text-primary">Solutions</h6>
-                                                    <a class="dropdown-item " href="index.html#gradio-deidentifier-section">Gradio De-identifier</a>
-                                                    <a class="dropdown-item" href="index.html#gradio-synthesizer-section">Gradio Synthesizer</a>
-                                                    <a class="dropdown-item" href="index.html#gradio-labeler-section">Gradio Labeler</a>
-                                                    <a class="dropdown-item" href="index.html#gradio-ui-section">Gradio UI</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="index.html#gradio-deidentifier-section">Solutions </a></li>                            
                                     <li class="nav-item"><a class="nav-link" href="index.html#why-gradio-section">Why Gradio </a></li>
 
                                 </ul>
-                                <a class="btn-primary btn rounded-pill px-4 ml-lg-4" href="#contact-us-section">Contact Us</a>
+                                <a class="btn-primary btn rounded-pill px-4 ml-lg-4" href="index.html#contact-us-section">Contact Us</a>
                             </div>
                         </div>
                     </nav>
                 </main>
             </div>
+
+        <div>
+
+        <!-- Page Content  -->
+    <section class="bg-light pt-5" id="solutions-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <h1>Synthetic Data: A Tutorial</h1>
+                    <p class="lead">Do you have questions about what synthetic data is, or whether synthetic data is right for you?  In this tutorial, we're going to cover:
+                        <ul>
+                            <li>What is synthetic data useful for?</li>
+                            <li>How does synthetic data compare to other privacy techniques?</li>
+                            <li>Does synthetic data affect downstream analytics or machine learning?</li> 
+                            <li>How can you try synthetic data on your own dataset?</li>                                                       
+                        </ul>
+                    </p>
+                    <p class="lead">
+                        Let's start with a definition: <strong>synthetic data</strong> is artificial data that is designed to be similar in structure to real data, but without any sensitive information. It is generated based on a model of how we expect the data to be distributed. Since it does not include any real data, it eliminates the need for masking or subsetting, and can be used safely for testing and sharing.
+                    </p>
+                    <p class="lead">
+                        With Gradio, synthetic data is generated based on the real data that you collect. This is so valuable because it allows you to continue to get value from data that you collect while still preserving privacy (more on that ahead!).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <h1>When to Use Synthetic Data?</h1>
+                    <p class="lead">When you need to <strong>work with sensitive data</strong>, you should be using synthetic data instead of real data. </p>
+                    <p class="lead"> For example, if you are sharing customer data with your development team, there are risks that the data might leak, exposing your customers' privacy. These exposures carry financial and reputation risks that your company can <em>easily avoid</em> using synthetic data, which can be generated by Gradio on-demand, mimicking the structure and characteristics of real data. Here are some common reasons why a company like yours might use synthetic data:</p>
+                    <p class="lead"> 
+                        <ul>
+                            <li>You want to build a test suite with representative data, but can't use real data for regulatory reasons.</li>
+                            <li>Your data scientists are building tools to analyze patient data, but you don't want to share data even <em>internally</em> for the sake of patient privacy</li>                            
+                            <li>You want to share data <em>externally</em> with a 3rd party analytics vendor, but want to make sure no intellectual property is leaked.</li>
+                        </ul>
+                    </p>
+                    <p class="text-center">
+                        <img class="illustration" src="assets/img/gradio-synthesizer-worfklow.png">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>    
+    <section class="bg-light py-5" style="padding-bottom: 0px !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <h1>Synthetic Data vs. Anonymization vs. Encryption</h1>
+                    <p class="lead">Is synthetic data the only tool for you to protect sensitive data? Nope, you may be familiar with <b>encryption</b>, in which your data is converted or hashed into secret code that hides the information's true meaning. The main limitation with encryption is that it is not designed to be decrypted on the fly, making the data difficult to use for downstream analysis or machine learning. Encryption is a good tool for <em>data at rest</em>, not <em>data at work</em>.</p>
+
+                    <p class="lead"> Alternatively, there exist classification <b>anonymization</b> methods to remove certain kinds of sensitive information or metadata from data. While sometimes useful, anonymization is a blunt hammer in that it often removes a lot of value from the information as well. Synthetic data can often provide a more fine-grained approach that allows you to preserve the value in information while still mitigating privacy and security-related risks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-white py-5" style="padding-bottom: 0px !important">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+                    <h1>How Does Synthetic Data Affect Downstream Analysis?</h1>
+                    <p class="lead">As mentioned earlier, one of the key advantages of synthetic data is that it allows you to preserve the value of your machine learning or analytics pipelines, while simply swapping out your original sensitive data with synthetic data. In a variety of experiments, synthetic data consistently provides higher value than other anonymization methods. </p>
+
+                    <p class="text-center">
+                        <img class="illustration" src="assets/img/gradio-synthesizer-value.png">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-light pt-5" id="solutions-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-5">
+
+                    <p class="lead">Will synthetic data work for you? The best way to is to <b>try our simple APIs</b> yourself. Our team is here to show you additional experiments & help you try synthetic data on your own dataset.  
+                    <center>
+                   <a href="index.html#contact-us-section"><button class="btn btn-primary btn-marketing btn-block rounded-pill mt-4 col-md-4" type="submit">Try Synthetic Data Now</button></a>
+                    </center>
+                </p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+            $('#check-redact-names').change(function(){
+                if($(this).is(':checked')){ $('.redact-names').css('color', 'transparent')}
+                else { $('.redact-names').css('color', 'black') }
+            })
+            $('#check-redact-organization').change(function(){
+                if($(this).is(':checked')){ $('.redact-organization').css('color', 'transparent')}
+                else { $('.redact-organization').css('color', 'black') }
+            })
+            $('#check-redact-date').change(function(){
+                if($(this).is(':checked')){ $('.redact-date').css('color', 'transparent')}
+                else { $('.redact-date').css('color', 'black') }
+            })
+            $('#check-redact-city-country').change(function(){
+                if($(this).is(':checked')){ $('.redact-city-country').css('color', 'transparent')}
+                else { $('.redact-city-country').css('color', 'black') }
+            })
+
+        });
+    </script>
+
+
+        </div>            
 
             <div id="layoutDefault_footer">
                 <footer class="footer pb-5 mt-auto bg-white footer-light">
