@@ -1,147 +1,217 @@
 <html>
-  <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123499302-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'UA-123499302-2');
-    </script>
-    <title>Gradio</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <link href="style/style.css" rel="stylesheet">
-    <link href="style/home.css" rel="stylesheet">
-    <link href="gradio/gradio.css" rel="stylesheet">
-    <link href="gradio/vendor/cropper.css" rel="stylesheet">
-  </head>
-  <body>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123499302-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-123499302-2');
+  </script>
+  <title>Gradio</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link href="style/style.css" rel="stylesheet">
+  <link href="static/css/gradio.css" rel="stylesheet">
+  <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header class="container">
+    <img id="logo" src="img/logo_inline.png" />
     <nav>
-      <a class="selected" href="index.html">Gradio</a>
+      <a class="selected" href="index.html">Home</a>
       <a href="getting_started.html">Getting Started</a>
-      <a href="sharing.html">Sharing</a>
-      <a href="blog.html">Blog</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="docs.html">Docs</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <div id="hero-section"><!--
-   --><div id="intro">
-        <img id="logo" src="img/logo.png"/>
-        <p>Gradio is a free, open-source python library that helps machine
-          learning researchers <strong>interact</strong> with and <strong>share</strong> their machine
-        learning models with collaborators and clients with only a few lines of extra code.</p>
-        <p>With gradio, you can easily generate in-browser interfaces that
-        enable you to enter various forms of input for your model and explore
-          the behavior of your model immediately. Gradio also generates <strong>links</strong>
-        that can be shared with collaborators and other audiences, so they can
-        interact with the model without setting up any software or even having
-        any background in machine learning or software at all!</p>
-        <p>Visit the <a href="https://github.com/abidlabs/gradio"
-        target="_blank">Gradio GitHub >></a></p>
-        <p>Gradio was developed by researchers at Stanford University and is
-        under the Apache license.</p>
-      </div><!--
-   --><div id="demos">
-        <!-- <div id="demo-nav">
-          <button demo="1" class="selected demo-link">
-            <span class="demo-count">Demo 1</span><br>Handwriting Digit
-          </button>
-          <button demo="2" class="demo-link">
-            <span class="demo-count">Demo 2</span><br>Impressionist Painter
-          </button>
-          <button demo="3" class="demo-link">
-            <span class="demo-count">Demo 3</span><br>Expression Detection
-          </button>
-          <button demo="4" class="demo-link">
-            <span class="demo-count">Demo 4</span><br>Text Summaries
-          </button>
-          <button demo="5" class="demo-link">
-            <span class="demo-count">Demo 5</span><br>Hotdog or Not Hotdog
-          </button>
-        </div> -->
-        <div id="demo-code">
-          <div id="demo-code-label">image_detector.py</div>
+  </header>
+  <main>
+    <div id="hero" class="container">
+      <h2>Interfaces for your ML Models</h2>
+      <div id="tagline">Generate an easy-to-use UI for your machine learning model, function, or API with only a few
+        lines of code. Integrate directly into your Python notebook.</div>
+      <a class="github-button" href="https://github.com/gradio-app" data-size="large"
+        aria-label="Follow @gradio-app on GitHub">Follow @gradio-app</a>
+      <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="large"
+        data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>
+    </div>
+    <div id="demos" class="container">
+      <p>Below are a few demos to show how Gradio can be used. Check the <a href="gallery.html">Gallery</a> for full
+        code examples.</p>
+      <div id="demo-nav">
+        <button demo="1" class="selected demo-link">
+          <span class="demo-count">Digit Classifier</span><br>img &rarr; {label: confidence}
+        </button>
+        <button demo="2" class="demo-link">
+          <span class="demo-count">Q&A with Context</span><br>(text, text) &rarr; text
+        </button>
+        <button demo="3" class="demo-link">
+          <span class="demo-count">Face Segmentation</span><br>webcam &rarr; img
+        </button>
+        <button demo="4" class="demo-link">
+          <span class="demo-count">Outbreak Forecast</span><br>(number, text, list[text], bool) &rarr; plot
+        </button>
+      </div>
+      <div class="demo-window" demo="1">
+        <div class="demo-code">
           <div class="codeblock"><code>
-            import <span class="var">gradio</span>, tensorflow as <span
-                class="var">tf</span><br>
-            <span class="var">image_mdl</span> = tf.keras.models.<span
-                class="func">Sequential()</span><br>
-            <span class="comm"># ... define and train the model as you would
-                normally</span><br>
-            <span class="var">io</span> = gradio.<span
-                class="func">Interface(</span><span
-                class="var">inputs</span>=“imageupload", <span
-                class="var">outputs</span>=“label”, <span
-                class="var">model_type</span>=“keras”,<span
-                class="var">model</span>=image_mdl<span
-                class="func">)</span><br>
-            io.<span class="func">launch()</span>
-          </code></div>
+              import <varl>gradio</varl> as <varl>gr</varl><br><br>
+              def <func>recognize_digit(</func><varl>img</varl><func>)</func>:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement digit recognition logic on input numpy array </comm><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return confidence dictionary for labels </comm><br><br>
+              gr.<func>Interface(</func><varl>fn</varl>=<func>recognize_digit</func>, 
+              <varl>inputs</varl>="sketchpad", <varl>outputs</varl>="label"<func>)</func>.<func>launch()</func>
+            </code></div>
         </div>
         <div class="instructions">
-          The code above produces produces an interface like this. Click submit to get the prediction!
+          The code above produces produces the interface below. Draw a digit on the sketchpad below and click submit to get a prediction!
         </div>
-        <div id="gradio">
-          <div class="panel">
-            <div class="gradio input image_file">
-              <div class="role">Input</div>
-              <div class="input_image drop_mode">
-                <div class="input_caption">Drop Image Here<br>- or -<br>Click to Upload</div>
-                <img />
-              </div>
-              <input class="hidden_upload" type="file" accept="image/x-png,image/gif,image/jpeg" />
+        <div id="panels">
+          <div class="panel input_panel">
+            <div class="input_interfaces">
+            </div>          
+            <div class="panel_buttons">
+              <input class="submit" type="submit" value="submit"/>
+              <input class="clear" type="reset" value="clear">
             </div>
-            <input class="submit" type="submit" value="Submit"/><!--
-         --><input class="clear" type="reset" value="Clear">
-          </div><!--
-       --><div class="panel">
-           <div class="gradio output classifier">
-             <div class="panel_head">
-               <div class="role">Output</div>
-             </div>
-             <div class="output_class"></div>
-             <div class="confidence_intervals">
-             </div>
-           </div>
-         </div>
+          </div>
+          <div class="panel output_panel">
+            <div id="loading" class="interface invisible">
+              <img id="loading_in_progress" src="static/img/logo_loading.gif">
+              <img id="loading_failed" src="static/img/logo_error.png">
+            </div>
+            <div class="output_interfaces">
+            </div>          
+            <div class="panel_buttons">
+              <input type="text" class="flag_message" placeholder="(Optional message for flagging)"/>
+              <input type="button" class="panel_button flag" value="flag"/>
+            </div>
+          </div>
         </div>
-      </div><!--
- --></div>
-    <img id="invisible_img" style="display: none" />
-    <div id="summaries">
-      <div id="setup" class="summary_box">
-        <h2>Fast, easy setup</h2>
-        <p>Using gradio only requires adding a couple lines of code to your
-        project. You can install gradio from pip and deploy your model in
+      </div>
+      <div class="demo-window" demo="2">
+        <div class="demo-code">
+          <div class="codeblock"><code>
+              import <varl>gradio</varl> as <varl>gr</varl><br><br>
+              def <func>answer_question(</func><varl>context</varl>, <varl>question</varl><func>)</func>:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement Q&amp;A model</comm><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return answer to question</comm><br><br>
+              gr.<func>Interface(</func><varl>fn</varl>=<func>answer_question</func>, 
+              <varl>inputs</varl>=["textbox", "text"], <varl>outputs</varl>="text"<func>)</func>.<func>launch()</func>
+            </code></div>
+        </div>
+        <div class="instructions">
+          Provide a context paragraph and ask a question that can be answered with the context information. Click submit to get the answer!
+        </div>
+      </div>      
+      <div class="demo-window" demo="3">
+        <div class="demo-code">
+          <div class="codeblock"><code>
+              import <varl>gradio</varl> as <varl>gr</varl><br><br>
+              def <func>face_segmentation(</func><varl>img</varl><func>)</func>:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement face segmentation model on input 200x200 numpy array</comm><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return segmentation mask as numpy array</comm><br><br>
+              <varl>webcam</varl> = gr.in.Webcam(<varl>shape</varl>=(200, 200))<br>
+              gr.<func>Interface(</func><varl>fn</varl>=<func>face_segmentation</func>, 
+              <varl>inputs</varl>=webcam, <varl>outputs</varl>="image"<func>)</func>.<func>launch()</func>
+            </code></div>
+        </div>
+        <div class="instructions">
+          Take a snapshot from your webcam and click submit to generate a face segmentation.  
+        </div>
+      </div> 
+      <div class="demo-window" demo="4">
+        <div class="demo-code">
+          <div class="codeblock"><code>
+              import <varl>gradio</varl> as <varl>gr</varl>, <varl>matplotlib.pyplot</varl> as <varl>plt</varl><br><br>
+              def <func>outbreak_forecast(</func><varl>r</varl>, <varl>month</varl>, <varl>countries</varl>, <varl>social_distancing</varl><func>)</func>:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... run model to forecast outbreak and generate plots</comm><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return plt</comm><br><br>
+              <varl>r</varl> = gr.in.Slider(1, 5, label="R number")<br>
+              <varl>month</varl> = gr.in.Dropdown(["May", "June", "July"])<br>
+              <varl>countries</varl> = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])<br>
+              <varl>social_distancing</varl> = gr.in.Checkbox(label="Assume Social Distancing?")<br><br>
+              gr.<func>Interface(</func><varl>fn</varl>=<func>outbreak_forecast</func>, 
+              <varl>inputs</varl>=[r, month, countries, social_distancing], <varl>outputs</varl>="plot"<func>)</func>.<func>launch()</func>
+            </code></div>
+        </div>
+        <div class="instructions">
+          Provide the parameters below and click submit to view the forecast of a simulated disease outbreak.
+        </div>
+      </div>      
+    </div>
+  </main>
+  <div id="summaries" class="container">
+    <div id="setup" class="summary_box">
+      <h3>Fast, easy setup</h3>
+      <p>Creating a Gradio interface only requires adding a couple lines of code to your
+        project. You can install Gradio from pip and deploy your model in
         seconds. Once launched, you can choose from a variety of interface
         types to interact with, iterate over, and improve your models.</p>
-        <p>More on <a href="getting_started.html">Getting Stared >></a><p>
-      </div>
-      <div id="present" class="summary_box">
-        <h2>Present and share</h2>
-        <p>Gradio presents an interface that is intuitive to engineers and
+      <p>More on <a href="getting_started.html">Getting Stared >></a>
+      <p>
+    </div>
+    <div id="present" class="summary_box">
+      <h3>Present and share</h3>
+      <p>Gradio presents an interface that is intuitive to engineers and
         non-engineers alike, and thus a valuable tool in sharing insights from
-        your models. When gradio launches a model, it also creates a link you
+        your models. When Gradio launches a model, it also creates a link you
         can share with colleagues that lets them interact with the model
         on your computer remotely from their own devices.</p>
-        <p>More on <a href="sharing.html">Sharing >></a><p>
-      </div>
-      <div id="embed" class="summary_box">
-        <h2>Embed and go</h2>
-        <p>Gradio can be embedded in Jupyter and Colab notebooks, in blogs and
+      <p>More on <a href="sharing.html">Sharing >></a>
+      <p>
+    </div>
+    <div id="embed" class="summary_box">
+      <h3>Embed and go</h3>
+      <p>Gradio can be embedded in Jupyter and Colab notebooks, in blogs and
         websites, and screenshotted for use in research papers. These features
         all help your models be more easily shared and consumed with a larger
         audience.</p>
-      </div>
     </div>
-    <footer>
-      <img src="img/logo_inline.png" />
-    </footer>
-    <script src="gradio/vendor/jquery.min.js"></script>
-    <script src="gradio/image_upload.js"></script>
-    <script src="gradio/label.js"></script>
-    <script src="gradio/vendor/cropper.js"></script>
-    <script src="https://unpkg.com/ml5@0.1.3/dist/ml5.min.js"></script>
-    <script src="js/models.js"></script>
+  </div>
+  <footer>
+    <img src="img/logo_inline.png" />
+  </footer>
+  <script src="js/vendor/jquery.min.js"></script>
+  <script src="static/js/utils.js"></script>
+  <script src="static/js/all_io.js"></script>
+  <script src="static/js/interfaces/input/csv.js"></script>
+  <script src="static/js/interfaces/input/image.js"></script>
+  <script src="static/js/vendor/sketchpad.js"></script>
+  <script src="static/js/interfaces/input/sketchpad.js"></script>
+  <script src="static/js/interfaces/input/textbox.js"></script>
+  <script src="static/js/interfaces/input/radio.js"></script>
+  <script src="static/js/interfaces/input/checkbox_group.js"></script>
+  <script src="static/js/interfaces/input/checkbox.js"></script>
+  <script src="static/js/interfaces/input/dropdown.js"></script>
+  <script src="static/js/interfaces/input/slider.js"></script>
+  <script src="static/js/interfaces/input/csv.js"></script>
+  <script src="static/js/vendor/webcam.min.js"></script>
+  <script src="static/js/interfaces/input/webcam.js"></script>
+  <script src="static/js/interfaces/input/microphone.js"></script>
+  <script src="static/js/vendor/wavesurfer.min.js"></script>
+  <script src="static/js/vendor/p5.min.js"></script>
+  <script src="static/js/vendor/p5.sound.min.js"></script>
+  <script src="static/js/vendor/p5.dom.min.js"></script>
+  <script src="static/js/interfaces/output/image.js"></script>
+  <script src="static/js/interfaces/output/label.js"></script>
+  <script src="static/js/interfaces/output/textbox.js"></script>
+  <script src="static/js/share.js"></script>
+  <script src="static/js/load_history.js"></script>
+  <script src="static/js/load_interfaces.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script>
+    $(".demo-link").click(function() {
+      let demo_num = $(this).attr("demo");
+      $(".demo-link").removeClass("selected");
+      $(this).addClass("selected");
+      $(".demo-window").hide();
+      $(`.demo-window[demo="${demo_num}"]`).show();      
+    })
+  </script>
   <body>
+
 </html>

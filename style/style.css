@@ -1,7 +1,17 @@
+html {
+  font-size: 16px;
+}
 body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 1em;
   margin: 0;
+  margin-top: 10px;
+}
+.container {
+  max-width: 1028px;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  margin: 0 auto;
 }
 body > div, body > nav {
   margin-left: 60px;
@@ -10,6 +20,7 @@ body > div, body > nav {
 a {
   text-decoration: none;
   color: black;
+  font-weight: bold;
 }
 p {
   line-height: 2em;
@@ -29,6 +40,14 @@ button, input[type="submit"], input[type="reset"] {
 a:hover, button:hover {
   color: #ed9013;
 }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+header img {
+  height: 40px;
+}
 nav {
   display: flex;
   justify-content: flex-end;
@@ -41,33 +60,79 @@ nav a {
   margin-left: 30px;
   padding: 5px 0px;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 1rem;
 }
 nav a.selected {
   border-bottom: solid 2px #ed9013;
 }
 .codeblock {
   background-color: #F6F6F6;
-  line-height: 1.4em;
-  padding: 4px;
+  line-height: 1.3rem;
+  padding: 8px;
 }
 code {
   background-color: #F6F6F6;
 }
-code .var {
+code varl {
   color: #c95532;
 }
-code .func {
+code func {
   color: #ed9013;
 }
-code .comm {
+code comm {
   color: #888;
 }
+#hero {
+  padding: 32px 12px 48px;
+  text-align: center;
+}
+h2 {
+  font-size: 2.5rem;
+}
+#tagline {
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  margin: 20px 40px;
+  color: gray;
+  font-weight: normal;
+}
 footer {
+  margin-top: 40px;
   background-color: #f6f6f6;
   text-align: center;
 }
-nav img, footer img {
-  height: 24px;
-  padding: 4px 0;
+footer img {
+  height: 32px;
+  padding: 8px 0;
+}
+#demo-nav {
+  display: flex;
+}
+.demo-link {
+  font-size: 1rem;
+  padding: 8px 16px 12px;
+  flex-grow: 1;
+}
+.demo-link.selected {
+  border: solid 1px lightgray;
+  border-bottom: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-weight: bold;
+}
+.demo-link:not(.selected) {
+  border-bottom: solid 1px lightgray;
+}
+.demo-window {
+  padding: 16px;
+  border: solid 1px lightgray;
+  border-top: none;
+  box-shadow: 0px 12px 28px -21px black;
+  margin-bottom: 60px;
+}
+.demo-window:not([demo="1"]) {
+  display: none;
+}
+.instructions {
+  padding: 16px 0;
 }
