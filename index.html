@@ -82,28 +82,7 @@
         <div class="instructions">
           The code above produces produces the interface below. Draw a digit on the sketchpad below and click submit to get a prediction!
         </div>
-        <div id="panels">
-          <div class="panel input_panel">
-            <div class="input_interfaces">
-            </div>          
-            <div class="panel_buttons">
-              <input class="submit" type="submit" value="submit"/>
-              <input class="clear" type="reset" value="clear">
-            </div>
-          </div>
-          <div class="panel output_panel">
-            <div id="loading" class="interface invisible">
-              <img id="loading_in_progress" src="static/img/logo_loading.gif">
-              <img id="loading_failed" src="static/img/logo_error.png">
-            </div>
-            <div class="output_interfaces">
-            </div>          
-            <div class="panel_buttons">
-              <input type="text" class="flag_message" placeholder="(Optional message for flagging)"/>
-              <input type="button" class="panel_button flag" value="flag"/>
-            </div>
-          </div>
-        </div>
+        <div id="interface_target"></div>
       </div>
       <div class="demo-window" demo="2">
         <div class="demo-code">
@@ -171,7 +150,7 @@
         <p>
       </div>
     </div>
-    <img src="img/demo-jupyter.JPG" id="notebook-shot">
+    <img src="img/demo-jupyter.jpg" id="notebook-shot">
   </div>
   <footer>
     <img src="img/logo_inline.png" />
