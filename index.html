@@ -30,29 +30,42 @@
   </header>
   <main>
     <div id="hero" class="container">
+      <img class="bg-image" src="img/demo-screenshot-1.jpg" width=360 style="top: 40; left: -40px">
+      <img class="bg-image" src="img/demo-screenshot-5.jpg" width=370 style="top: 200; left: 200px">
+      <img class="bg-image" src="img/demo-screenshot-3.jpg" width=340 style="top: 30; left: 400px">
+      <img class="bg-image" src="img/demo-screenshot-2.jpg" width=340 style="top: 200; left: 680px">
+      <img class="bg-image" src="img/demo-screenshot-4.jpg" width=300 style="top: 50; left: 800px">
       <h2>Interfaces for your ML Models</h2>
-      <div id="tagline">Generate an easy-to-use UI for your machine learning model, function, or API with only a few
+      <div id="tagline">Generate an easy-to-use UI for your ML model, function, or API with only a few
         lines of code. Integrate directly into your Python notebook.</div>
       <a class="github-button" href="https://github.com/gradio-app" data-size="large"
         aria-label="Follow @gradio-app on GitHub">Follow @gradio-app</a>
       <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="large"
         data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>
     </div>
+    <div id="tag2" class="container">
+      <p>
+        <span>Gradio wraps your Python function with customizable UI components to quickly create interfaces. Mix and match components to support any combination of inputs and outputs.</span>
+      </p>
+    </div>
     <div id="demos" class="container">
-      <p>Below are a few demos to show how Gradio can be used. Check the <a href="gallery.html">Gallery</a> for full
-        code examples.</p>
+      <p>Below are a few demos. Check the <a href="gallery.html">Gallery</a> for full code examples.</p>
       <div id="demo-nav">
         <button demo="1" class="selected demo-link">
-          <span class="demo-count">Digit Classifier</span><br>img &rarr; {label: confidence}
+          Digit Classifier
+          <div class="demo-type">img &rarr; {label: confidence}</div>
         </button>
         <button demo="2" class="demo-link">
-          <span class="demo-count">Q&A with Context</span><br>(text, text) &rarr; text
+          Q&A with Context
+          <div class="demo-type">(text, text) &rarr; text</div>
         </button>
         <button demo="3" class="demo-link">
-          <span class="demo-count">Face Segmentation</span><br>webcam &rarr; img
+          Face Segmentation
+          <div class="demo-type">webcam &rarr; img</div>
         </button>
         <button demo="4" class="demo-link">
-          <span class="demo-count">Outbreak Forecast</span><br>(number, text, list[text], bool) &rarr; plot
+          Outbreak Forecast
+          <div class="demo-type">(number, text, list[text], bool) &rarr; plot</div>
         </button>
       </div>
       <div class="demo-window" demo="1">
@@ -130,12 +143,11 @@
               def <func>outbreak_forecast(</func><varl>r</varl>, <varl>month</varl>, <varl>countries</varl>, <varl>social_distancing</varl><func>)</func>:<br>
               &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... run model to forecast outbreak and generate plots</comm><br>
               &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return plt</comm><br><br>
-              <varl>r</varl> = gr.in.Slider(1, 5, label="R number")<br>
+              <varl>r</varl> = gr.in.Slider(1, 5)<br>
               <varl>month</varl> = gr.in.Dropdown(["May", "June", "July"])<br>
-              <varl>countries</varl> = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])<br>
-              <varl>social_distancing</varl> = gr.in.Checkbox(label="Assume Social Distancing?")<br><br>
+              <varl>countries</varl> = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])<br><br>
               gr.<func>Interface(</func><varl>fn</varl>=<func>outbreak_forecast</func>, 
-              <varl>inputs</varl>=[r, month, countries, social_distancing], <varl>outputs</varl>="plot"<func>)</func>.<func>launch()</func>
+              <varl>inputs</varl>=[r, month, countries, "checkbox"], <varl>outputs</varl>="plot"<func>)</func>.<func>launch()</func>
             </code></div>
         </div>
         <div class="instructions">
@@ -145,32 +157,21 @@
     </div>
   </main>
   <div id="summaries" class="container">
-    <div id="setup" class="summary_box">
-      <h3>Fast, easy setup</h3>
-      <p>Creating a Gradio interface only requires adding a couple lines of code to your
-        project. You can install Gradio from pip and deploy your model in
-        seconds. Once launched, you can choose from a variety of interface
-        types to interact with, iterate over, and improve your models.</p>
-      <p>More on <a href="getting_started.html">Getting Stared >></a>
-      <p>
+    <div>
+      <div id="setup" class="summary_box">
+        <h3>Fast, easy setup</h3>
+        <p>Gradio can be installed directly through pip. Creating a Gradio interface only requires adding a couple lines of code to your project. You can choose from a variety of interface types to interface your function.</p>
+        <p>More on <a href="getting_started.html">Getting Started >></a>
+        <p>
+      </div>
+      <div id="present" class="summary_box">
+        <h3>Present and share</h3>
+        <p>Gradio can be embedded in Python notebooks or presented as a webpage. A Gradio interface can automatically generate a public link you can share with colleagues that lets them interact with the model on your computer remotely from their own devices.</p>
+        <p>More on <a href="sharing.html">Sharing >></a>
+        <p>
+      </div>
     </div>
-    <div id="present" class="summary_box">
-      <h3>Present and share</h3>
-      <p>Gradio presents an interface that is intuitive to engineers and
-        non-engineers alike, and thus a valuable tool in sharing insights from
-        your models. When Gradio launches a model, it also creates a link you
-        can share with colleagues that lets them interact with the model
-        on your computer remotely from their own devices.</p>
-      <p>More on <a href="sharing.html">Sharing >></a>
-      <p>
-    </div>
-    <div id="embed" class="summary_box">
-      <h3>Embed and go</h3>
-      <p>Gradio can be embedded in Jupyter and Colab notebooks, in blogs and
-        websites, and screenshotted for use in research papers. These features
-        all help your models be more easily shared and consumed with a larger
-        audience.</p>
-    </div>
+    <img src="img/demo-jupyter.JPG" id="notebook-shot">
   </div>
   <footer>
     <img src="img/logo_inline.png" />

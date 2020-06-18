@@ -23,7 +23,7 @@ a {
   font-weight: bold;
 }
 p {
-  line-height: 2em;
+  line-height: 1.7rem;
 }
 button, input[type="submit"], input[type="reset"] {
 	background: none;
@@ -83,17 +83,18 @@ code comm {
   color: #888;
 }
 #hero {
-  padding: 32px 12px 48px;
+  position: relative;
+  padding: 32px 12px 20px;
   text-align: center;
 }
 h2 {
+  padding: 100px 0;
   font-size: 2.5rem;
 }
 #tagline {
   font-size: 1.4rem;
   line-height: 2.4rem;
   margin: 20px 40px;
-  color: gray;
   font-weight: normal;
 }
 footer {
@@ -123,15 +124,45 @@ footer img {
 .demo-link:not(.selected) {
   border-bottom: solid 1px lightgray;
 }
+.demo-type {
+  font-size: 0.7rem;
+  font-weight: bold;
+}
 .demo-window {
   padding: 16px;
   border: solid 1px lightgray;
   border-top: none;
   box-shadow: 0px 12px 28px -21px black;
-  margin-bottom: 60px;
+  margin-bottom: 48px;
 }
 .demo-window:not([demo="1"]) {
   display: none;
+}
+#tag2 {
+  padding: 20px 0 0;
+}
+#tagline2 {
+  font-size: 1.2rem;
+}
+#summaries {
+  display: flex;
+  align-items: center;
+}
+#notebook-shot {
+  width: 600px;
+  margin-left: 54px;
+}
+
+.bg-image {
+  position: absolute;
+  z-index: -1;
+  opacity: 0.45;
+}
+.bg-image:hover {
+  opacity: 1;
+}
+h3 {
+  margin-top: 54px;
 }
 .instructions {
   padding: 16px 0;
