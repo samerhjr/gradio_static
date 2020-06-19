@@ -195,7 +195,6 @@
   <script src="static/js/vendor/webcam.min.js"></script>
   <script src="static/js/interfaces/input/webcam.js"></script>
   <script src="static/js/interfaces/input/microphone.js"></script>
-  <script src="static/js/vendor/wavesurfer.min.js"></script>
   <script src="static/js/vendor/p5.min.js"></script>
   <script src="static/js/vendor/p5.sound.min.js"></script>
   <script src="static/js/vendor/p5.dom.min.js"></script>
@@ -204,6 +203,7 @@
   <script src="static/js/interfaces/output/textbox.js"></script>
   <script src="static/js/share.js"></script>
   <script src="static/js/gradio.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
   <script>
     $(".demo-link").click(function() {
       let demo_num = $(this).attr("demo");
@@ -212,30 +212,69 @@
       $(".demo-window").hide();
       $(`.demo-window[demo="${demo_num}"]`).show();      
     })
-    var iface1 = gradio({
-      "input_interfaces": [
-        ["sketchpad", {"label": "sketch"}]
-      ],
-      "output_interfaces": [
-        ["label", {"label": "classification"}]
-      ],
-      "function_count": 1,
-      "live": false,
-      "show_input": true,
-      "show_output": true
-    }, function(data) {
-      return new Promise((resolve, reject) => {
-        resolve({"data": [
-          {
-            "confidences": [
-              {label: "5", confidence: 0.9879}, 
-              {label: "3", confidence: 0.0109}
-            ],
-            "label": "5"
-          }]
-        });
-      });              
-    }, "#interface_1");
+ 
+    canvas = document.createElement("canvas");
+    ctx = canvas.getContext("2d");
+    tf.loadLayersModel('demo/mnist/model.json').then(function(model) {
+      window.model = model;
+      var iface1 = gradio({
+        "input_interfaces": [
+          ["sketchpad", {"label": "sketch"}]
+        ],
+        "output_interfaces": [
+          ["label", {"label": "classification"}]
+        ],
+        "function_count": 1,
+        "live": true,
+        "show_input": true,
+        "show_output": true
+      }, function(data) {
+        return new Promise((resolve, reject) => {
+          var img = new Image();
+          img.onload = function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, 28, 28);
+            img_data = ctx.getImageData(0, 0, 28, 28).data;
+            console.log(img_data)
+            var input = [];
+            for (var i = 0; i < img_data.length; i += 4) {
+              input.push(img_data[i + 3] / 255);
+            }
+            console.log(Math.max(...input))
+            if (window.model) {
+              window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function(scores){
+                scores = scores[0];
+                let labeled_scores = []
+                for ([i, score] of scores.entries()) {
+                  labeled_scores.push([i, score]);
+                }
+                labeled_scores.sort(function(a, b) {
+                  return b[1] - a[1];
+                })
+                let confidences = [];
+                for (let i = 0; i < 4; i++) {
+                  l_score = labeled_scores[i];
+                  confidences.push({
+                    "label": l_score[0], 
+                    "confidence": l_score[1]
+                  })
+                }
+                let result = {
+                  "label": labeled_scores[0][0],
+                  "confidences": confidences
+                }
+                resolve({"data": [result]});
+              });
+            }
+          }
+          console.log(data[0])
+          img.src = data[0];
+        });              
+      }, "#interface_1");
+    })
+    
+
+
     var iface2 = gradio({
       "input_interfaces": [
         ["textbox", {"label": "context", "lines": 10}],
