@@ -11,7 +11,7 @@ const webcam = {
 //    this.target.find(".webcam_box").width(this.target.find(".webcam_box").width);
     let w = this.target.find(".webcam_box").width();
     let h = this.target.find(".webcam_box").height();
-    if (config.live) {
+    if (this.io_master.config.live) {
       this.target.find(".take_photo").hide();
     }
     let RATIO = 4/3;
@@ -28,7 +28,7 @@ const webcam = {
       io.state = "CAMERA_ON";
     }, 1000);
     this.target.find(".webcam_box, .take_photo").click(function() {
-      if (io.state != "CAMERA_ON" || config.live) {
+      if (io.state != "CAMERA_ON" || io.io_master.config.live) {
         return;
       }
       Webcam.snap(function(image_data) {
@@ -45,7 +45,7 @@ const webcam = {
   },
   submit: function() {
     var io = this;
-    if (config.live) {
+    if (this.io_master.config.live) {
       if (this.state == "CAMERA_ON") {
         Webcam.snap(function(image_data) {
           this.io_master.input(io.id, image_data);

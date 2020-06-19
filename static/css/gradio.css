@@ -5,10 +5,10 @@
   box-sizing: border-box;
 }
 .panel:first-child {
-  margin-right: 15px;
+  margin-right: 24px;
 }
 .panel:last-child {
-  margin-left: 15px;
+  margin-left: 8px;
 }
 .panel_header, .interface {
   background-color: whitesmoke;
@@ -36,7 +36,6 @@
 }
 .loading img {
   display: none;
-  height: 18px;
 }
 .panel_buttons {
   display: flex;
@@ -49,7 +48,7 @@
   display: none;
 }
 .submit, .clear, .panel_button {
-  background-color: #EEEEEE !important;
+  background-color: whitesmoke !important;
   flex-grow: 1;
   padding: 8px !important;
   box-sizing: border-box;
@@ -67,7 +66,7 @@
 }
 .flag_message {
   padding: 8px !important;
-  background-color: #EEEEEE !important;
+  background-color: whitesmoke !important;
 }
 
 .upload_zone {
@@ -116,7 +115,7 @@
 .flag.flagged {
   background-color: pink !important;
 }
-#loading {
+.loading {
   justify-content: center;
   align-items: center;
 }
