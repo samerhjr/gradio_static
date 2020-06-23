@@ -12,7 +12,7 @@
   </script>
   <title>Gradio</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="style/style.css" rel="stylesheet">
+  <link href="static/home/style/style.css" rel="stylesheet">
   <link href="static/css/gradio.css" rel="stylesheet">
   <link href="static/css/style.css" rel="stylesheet">
 
@@ -38,7 +38,7 @@
 
 <body>
   <header class="container">
-    <img id="logo" src="img/logo_inline.png" />
+    <img id="logo" src="static/home/img/logo_inline.png" />
     <nav>
       <a class="selected" href="index.html">Home</a>
       <a href="getting_started.html">Getting Started</a>
@@ -49,11 +49,11 @@
   </header>
   <main>
     <div id="hero" class="container">
-      <img class="bg-image" src="img/demo-screenshot-1.jpg" width=360 style="top: 40; left: -40px">
-      <img class="bg-image" src="img/demo-screenshot-5.jpg" width=370 style="top: 200; left: 200px">
-      <img class="bg-image" src="img/demo-screenshot-3.jpg" width=340 style="top: 30; left: 400px">
-      <img class="bg-image" src="img/demo-screenshot-2.jpg" width=340 style="top: 200; left: 680px">
-      <img class="bg-image" src="img/demo-screenshot-4.jpg" width=300 style="top: 50; left: 800px">
+      <img class="bg-image" src="static/home/img/demo-screenshot-1.jpg" width=360 style="top: 40; left: -40px">
+      <img class="bg-image" src="static/home/img/demo-screenshot-5.jpg" width=370 style="top: 200; left: 200px">
+      <img class="bg-image" src="static/home/img/demo-screenshot-3.jpg" width=340 style="top: 30; left: 400px">
+      <img class="bg-image" src="static/home/img/demo-screenshot-2.jpg" width=340 style="top: 200; left: 680px">
+      <img class="bg-image" src="static/home/img/demo-screenshot-4.jpg" width=300 style="top: 50; left: 800px">
       <h2>Interfaces for your ML Models</h2>
       <div id="tagline">Generate an easy-to-use UI for your ML model, function, or API with only a few
         lines of code. Integrate directly into your Python notebook.</div>
@@ -172,13 +172,13 @@
         <p>
       </div>
     </div>
-    <img src="img/demo-jupyter.jpg" id="notebook-shot">
+    <img src="static/home/img/demo-jupyter.jpg" id="notebook-shot">
   </div>
   <footer>
-    <img src="img/logo_inline.png" />
+    <img src="static/home/img/logo_inline.png" />
   </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script src="js/vendor/jquery.min.js"></script>
+  <script src="static/js/vendor/jquery.min.js"></script>
   <script src="static/js/utils.js"></script>
   <script src="static/js/all_io.js"></script>
   <script src="static/js/interfaces/input/csv.js"></script>
@@ -215,7 +215,9 @@
  
     canvas = document.createElement("canvas");
     ctx = canvas.getContext("2d");
-    tf.loadLayersModel('demo/mnist/model.json').then(function(model) {
+    last_sketch = null;
+    last_output = null;
+    tf.loadLayersModel('static/home/mnist/model.json').then(function(model) {
       window.model = model;
       var iface1 = gradio({
         "input_interfaces": [
@@ -225,7 +227,7 @@
           ["label", {"label": "classification"}]
         ],
         "function_count": 1,
-        "live": true,
+        "live": false,
         "show_input": true,
         "show_output": true
       }, function(data) {
@@ -235,12 +237,10 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.drawImage(img, 0, 0, 28, 28);
             img_data = ctx.getImageData(0, 0, 28, 28).data;
-            console.log(img_data)
             var input = [];
             for (var i = 0; i < img_data.length; i += 4) {
               input.push(img_data[i + 3] / 255);
             }
-            console.log(Math.max(...input))
             if (window.model) {
               window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function(scores){
                 scores = scores[0];
@@ -267,7 +267,6 @@
               });
             }
           }
-          console.log(data[0])
           img.src = data[0];
         });              
       }, "#interface_1");
@@ -275,24 +274,16 @@
     
 
 
-    var iface2 = gradio({
-      "input_interfaces": [
-        ["textbox", {"label": "context", "lines": 10}],
-        ["textbox", {"label": "question", "lines": 1}],
-      ],
-      "output_interfaces": [
-        ["textbox", {"label": "answer", "lines": 10}],
-      ],
-      "function_count": 1,
-      "live": false,
-      "show_input": true,
-      "show_output": true
-    }, function(data) {
+    var iface2 = gradio({{config2|tojson}}, function(data) {
       return new Promise((resolve, reject) => {
-        resolve({
-          "data": [data[1] + " is five."]
+        $.ajax({type: "POST",
+          url: "/model/2",
+          data: JSON.stringify({"data": data}),
+          dataType: "json",
+          success: resolve,
+          error: reject,
         });
-      });              
+      });                          
     }, "#interface_2");
     var has_clicked_3 = false;
     $(".demo-link[demo=3]").click(function() {
@@ -300,45 +291,28 @@
         return;
       }
       has_clicked_3 = true;
-      var iface3 = gradio({
-        "input_interfaces": [
-          ["webcam", {}],
-        ],
-        "output_interfaces": [
-          ["image", {}],
-        ],
-        "function_count": 1,
-        "live": false,
-        "show_input": true,
-        "show_output": true
-      }, function(data) {
+      var iface3 = gradio({{config3|tojson}}, function(data) {
         return new Promise((resolve, reject) => {
-          resolve({
-            "data": data
+          $.ajax({type: "POST",
+            url: "/model/3",
+            data: JSON.stringify({"data": data}),
+            dataType: "json",
+            success: resolve,
+            error: reject,
           });
-        });              
+        });                          
       }, "#interface_3");      
     })
-    var iface4 = gradio({
-      "input_interfaces": [
-        ["slider", {"minimum": 1, "maximum": 4, "label": "R Number"}],
-        ["dropdown", {"choices": ["May", "June", "July"], "label": "Month"}],
-        ["checkboxgroup", {"choices": ["USA", "Canada", "Mexico", "UK"], "label": "Countries"}],
-        ["checkbox", {"label": "Social Distancing"}],
-      ],
-      "output_interfaces": [
-        ["image", {"label": "prediction curve"}],
-      ],
-      "function_count": 1,
-      "live": false,
-      "show_input": true,
-      "show_output": true
-    }, function(data) {
+    var iface4 = gradio({{config4|tojson}}, function(data) {
       return new Promise((resolve, reject) => {
-        resolve({
-          "data": [data[1] + " is five."]
+        $.ajax({type: "POST",
+          url: "/model/4",
+          data: JSON.stringify({"data": data}),
+          dataType: "json",
+          success: resolve,
+          error: reject,
         });
-      });              
+      });                          
     }, "#interface_4");
     </script>
   <body>

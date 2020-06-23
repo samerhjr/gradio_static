@@ -48,7 +48,7 @@ const webcam = {
     if (this.io_master.config.live) {
       if (this.state == "CAMERA_ON") {
         Webcam.snap(function(image_data) {
-          this.io_master.input(io.id, image_data);
+          io.io_master.input(io.id, image_data);
         });
       } else {
         window.setTimeout(function() {
