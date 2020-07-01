@@ -11,6 +11,7 @@
     gtag('config', 'UA-123499302-2');
   </script>
   <title>Gradio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <link href="static/home/style/style.css" rel="stylesheet">
   <link href="static/css/gradio.css" rel="stylesheet">
@@ -41,11 +42,10 @@
   <header class="container">
     <img id="logo" src="static/home/img/logo_inline.png" />
     <nav>
-      <a class="selected" href="index.html">Home</a>
-      <a href="getting_started.html">Getting Started</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="docs.html">Docs</a>
-      <a href="contact.html">Contact</a>
+      <a class="selected" href="/">Home</a>
+      <a href="/getting_started">Getting Started</a>
+      <a href="/gallery">Gallery</a>
+      <a href="/#contact-box">Contact</a>
     </nav>
   </header>
   <main>
@@ -55,7 +55,7 @@
       <img class="bg-image" src="static/home/img/demo-screenshot-3.jpg" width=340 style="top: 30; left: 400px">
       <img class="bg-image" src="static/home/img/demo-screenshot-2.jpg" width=340 style="top: 200; left: 680px">
       <img class="bg-image" src="static/home/img/demo-screenshot-4.jpg" width=300 style="top: 50; left: 800px">
-      <h2>Interfaces for your ML Models</h2>
+      <h2 id="slogan">Interfaces for your ML Models</h2>
       <div id="tagline">Generate an easy-to-use UI for your ML model, function, or API with only a few
         lines of code. Integrate directly into your Python notebook.</div>
       <a class="github-button" href="https://github.com/gradio-app" data-size="large"
@@ -175,6 +175,14 @@
     </div>
     <img src="static/home/img/demo-jupyter.jpg" id="notebook-shot">
   </div>
+  <div class="container" id="contact-box">
+    <h3>Contact Us.</h3>
+    <p>Want to integrate Gradio in a large team? We can help with Gradio enterprise. Get in touch.</p>
+    <form method="POST" action="https://formspree.io/aliabid94@gmail.com">
+      <input type="text" name="email" id="email" placeholder="Email">
+      <button type="submit" id="submit" class="primary">Submit</button>
+    </form>
+  </div>  
   <footer>
     <img src="static/home/img/logo_inline.png" />
   </footer>
