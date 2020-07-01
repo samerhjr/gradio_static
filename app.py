@@ -29,7 +29,7 @@ def model_api(m_id):
     })
 
 def run():
-    app.run()
+    app.run(port=5001)
 
 if __name__ == "__main__":
     run()
