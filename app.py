@@ -12,6 +12,14 @@ def home_page():
         config3=demo3.iface.get_config_file(),
         config4=demo4.iface.get_config_file())
 
+@app.route('/getting_started')
+def getting_started():
+    return render_template("getting_started.html")
+
+@app.route('/gallery')
+def gallery():
+    return render_template("gallery.html")
+
 @app.route('/model/<m_id>', methods=["POST"])
 def model_api(m_id):
     m_id = int(m_id)
