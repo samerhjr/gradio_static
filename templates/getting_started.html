@@ -43,23 +43,20 @@
       <p>Let's wrap a UI around MNIST. We've abstracted the model training
         from the code below, but you can see the full code by clicking the
         colab link or downloading the python notebook.</p>
-      <pre><code class="lang-python">
-        import tensorflow as tf
-        import gradio as gr
+<pre><code class="lang-python">import tensorflow as tf
+import gradio as gr
 
-        model = tf.keras.models.load_model('models/mnist.h5')
+model = tf.keras.models.load_model('models/mnist.h5')
 
-        def recognize_digit(inp):
-            prediction = model.predict(inp.reshape(1, 28, 28, 1)).tolist()[0]
-            return {str(i): prediction[i] for i in range(10)}
+def recognize_digit(inp):
+    prediction = model.predict(inp.reshape(1, 28, 28, 1)).tolist()[0]
+    return {str(i): prediction[i] for i in range(10)}
 
-        sketchpad = gr.inputs.Sketchpad()
-        label = gr.outputs.Label(num_top_classes=3)
+sketchpad = gr.inputs.Sketchpad()
+label = gr.outputs.Label(num_top_classes=3)
 
-        gr.Interface(fn=recognize_digit, inputs=sketchpad,
-          outputs=label, live=True).launch();
-
-        </code></pre>
+gr.Interface(fn=recognize_digit, inputs=sketchpad,
+  outputs=label, live=True).launch();</code></pre>
       <p>This code will produce the image below.</p>
       <div class="screenshot">
         <div class="colab">Click here to open this model in Colab!</div>
