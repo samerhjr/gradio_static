@@ -84,6 +84,7 @@ code comm {
 }
 #hero {
   position: relative;
+  overflow: hidden;
   padding: 20px 12px 20px;
   text-align: center;
 }
@@ -139,7 +140,8 @@ footer img {
   display: none;
 }
 #tag2 {
-  padding: 20px 0 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 #tagline2 {
   font-size: 1.2rem;
@@ -192,7 +194,7 @@ form {
   padding: 8px;
   border-radius: 2px;
 }
-.screenshot {
+.screenshot, .big_screenshot {
   cursor: pointer;
   position: relative;
   text-align: center;
@@ -215,6 +217,12 @@ form {
   max-width: 100%;
   max-height: 360px;
 }
+
+.big_screenshot img {
+  max-width: 100%;
+  max-height: 800px;
+}
+
 #gallery {
   display: flex;
   margin: -30px 0 0 -10px;
@@ -239,4 +247,23 @@ form {
   width: 100%;
   height: 140px;
   object-fit: cover;
+}
+
+@media only screen and (max-width: 900px) {
+  #summaries {
+    flex-direction: column;
+  }
+  #notebook-shot {
+    margin-left: 0;
+    max-width: 80%;
+  }
+  header {
+    display: block;
+  }
+  header img {
+    padding-top: 20px;
+  }
+  nav {
+    justify-content: center;
+  }
 }
