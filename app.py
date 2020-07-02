@@ -1,4 +1,4 @@
-from flask import request, Flask, Response, render_template, jsonify
+from flask import request, Flask, Response, render_template, jsonify, redirect
 from demo.qa import demo as demo2
 from demo.face_segment import demo as demo3
 from demo.outbreak import demo as demo4
@@ -12,13 +12,16 @@ def home_page():
         config3=demo3.iface.get_config_file(),
         config4=demo4.iface.get_config_file())
 
+
 @app.route('/getting_started')
 def getting_started():
     return render_template("getting_started.html")
 
-@app.route('/gallery')
-def gallery():
-    return render_template("gallery.html")
+
+@app.route('/hub')
+def hub():
+    return redirect("http://hub.gradio.app", code=302)
+
 
 @app.route('/model/<m_id>', methods=["POST"])
 def model_api(m_id):
@@ -36,8 +39,10 @@ def model_api(m_id):
         "data": output
     })
 
+
 def run():
     app.run()
+
 
 if __name__ == "__main__":
     run()
