@@ -18,6 +18,11 @@ def getting_started():
     return render_template("getting_started.html")
 
 
+@app.route('/sharing')
+def sharing():
+    return render_template("getting_started.html")
+
+
 @app.route('/hub')
 def hub():
     return redirect("http://hub.gradio.app", code=302)
