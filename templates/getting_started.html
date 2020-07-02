@@ -31,18 +31,74 @@
     <div class="container">
       <h2>Getting Started</h2>
       <p>Gradio can wrap almost any Python function with an easy to use interface. Let's take a look at a few examples.</p>
-      <h3> MNIST Digit Classifier
+    <h3> Hello World
+
+      <a
+            href="https://colab.research.google.com/drive/18ODkJvyxHutTN0P5APWyGFO_xwNcgHDZ?usp=sharing"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+      <p>Let's start with a basic function that greets an input name. We'll
+          wrap the function with a text to text interface.</p>
+<pre><code class="lang-python">import gradio as gr
+
+def greet(name):
+  return "Hello " + name + "!"
+
+gradio.Interface(greet, "text", "text").launch()</code></pre>
+      <p>This code will produce the image below. That's it!</p>
+        <div class="screenshot">
+        <img src="static/home/img/hello-world.png">
+        </div>
+
+    <h3> Inception Net
+
+      <a
+            href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+      <p>Let's wrap an Image-Label UI around Inception Net!</p>
+<pre><code class="lang-python">import gradio as gr
+import tensorflow as tf
+import numpy as np
+import requests
+
+mobile_net = tf.keras.applications.MobileNetV2()
+
+response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
+idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
+
+def classify_image(inp):
+  inp = np.expand_dims(inp, 0)
+  prediction = mobile_net.predict(inp).flatten()
+  return {idx_to_labels[i]: float(prediction[i]) for i in range(1000)}
+
+image = gr.inputs.Image(shape=(224, 224, 3))
+label = gr.outputs.Label(num_top_classes=3)
+
+gr.Interface(classify_image, image, label).launch()</code></pre>
+      <p>This code will produce the image below.</p>
+        <div class="screenshot">
+        <img src="static/home/img/inception-net.png">
+        </div>
+
+    <h3> Real-Time MNIST
 
       <a
             href="https://colab.research.google.com/drive/1LXJqwdkZNkt1J_yfLWQ3FLxbG2cAF8p4?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
-      <a
-              href="https://github.com/gradio-app/gradio-UI/blob/master/build-interface.py">Download .ipynb </a>
-      <br>
-      <p>Let's wrap a UI around MNIST. We've abstracted the model training
-        from the code below, but you can see the full code by clicking the
-        colab link or downloading the python notebook.</p>
+
+      <p>Let's wrap a sketchpad-label UI around MNIST. We will set
+          <code>live=True</code> inside <code>Interface()</code> to have
+          it run continuous prediction. We've
+          abstracted
+          the
+          model
+          training
+        from the code below, but you can see the full code on the colab
+          link.</p>
 <pre><code class="lang-python">import tensorflow as tf
 import gradio as gr
 
@@ -56,11 +112,10 @@ sketchpad = gr.inputs.Sketchpad()
 label = gr.outputs.Label(num_top_classes=3)
 
 gr.Interface(fn=recognize_digit, inputs=sketchpad,
-  outputs=label, live=True).launch();</code></pre>
+  outputs=label, live=True).launch()</code></pre>
       <p>This code will produce the image below.</p>
       <div class="screenshot">
-        <div class="colab">Click here to open this model in Colab!</div>
-        <img src="static/home/img/MNIST-live.png">
+        <img src="static/home/img/mnist-live.png">
       </div>
       <h3> Comparing Inception to MobileNet
 
@@ -68,56 +123,49 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
             href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
-      <a
-              href="https://github.com/gradio-app/gradio-UI/blob/master/build-interface.py">Download .ipynb </a>
-      <br>
       <p>What if we want to compare two models? The code below generates a
         UI that takes one image input and returns predictions from both
         Inception and MobileNet.</p>
-      <pre><code class="lang-python">
-        from imagenetlabels import idx_to_labels
-        import tensorflow as tf
-        import gradio as gr
-        import numpy as np
+      <pre><code class="lang-python">import gradio as gr
+from imagenetlabels import idx_to_labels
+import tensorflow as tf
+import numpy as np
 
 
-        mobile_net = tf.keras.applications.MobileNetV2()
-        inception_net = tf.keras.applications.InceptionV3()
+mobile_net = tf.keras.applications.MobileNetV2()
+inception_net = tf.keras.applications.InceptionV3()
 
 
-        def classify_image_with_mobile_net(im):
-            im = im.convert('RGB')
-            im = im.resize((224, 224))
-            arr = np.array(im).reshape((-1, 224, 224, 3))
-            arr = tf.keras.applications.mobilenet.preprocess_input(arr)
-            prediction = mobile_net.predict(arr).flatten()
-            return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+def classify_image_with_mobile_net(im):
+    im = im.convert('RGB')
+    im = im.resize((224, 224))
+    arr = np.array(im).reshape((-1, 224, 224, 3))
+    arr = tf.keras.applications.mobilenet.preprocess_input(arr)
+    prediction = mobile_net.predict(arr).flatten()
+    return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
 
 
-        def classify_image_with_inception_net(im):
-            im = im.convert('RGB')
-            im = im.resize((299, 299))
-            arr = np.array(im).reshape((-1, 299, 299, 3))
-            arr = tf.keras.applications.inception_v3.preprocess_input(arr)
-            prediction = inception_net.predict(arr).flatten()
-            return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+def classify_image_with_inception_net(im):
+    im = im.convert('RGB')
+    im = im.resize((299, 299))
+    arr = np.array(im).reshape((-1, 299, 299, 3))
+    arr = tf.keras.applications.inception_v3.preprocess_input(arr)
+    prediction = inception_net.predict(arr).flatten()
+    return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
 
 
-        imagein = gr.inputs.Image(cast_to="pillow")
-        label = gr.outputs.Label(num_top_classes=3)
+imagein = gr.inputs.Image(cast_to="pillow")
+label = gr.outputs.Label(num_top_classes=3)
 
-        gr.Interface(
-            [classify_image_with_mobile_net, classify_image_with_inception_net],
-            imagein,
-            label,
-            title="MobileNet vs. ImageNet",
-            description="Let's compare 2 state-of-the-art machine learning models that classify images into one of 1,000 categories: MobileNet (top), a lightweight model that has an accuracy of 0.704, vs. InceptionNet (bottom), a much heavier model that has an accuracy of 0.779."
-        ).launch();
-
-        </code></pre>
+gr.Interface(
+    [classify_image_with_mobile_net, classify_image_with_inception_net],
+    imagein,
+    label,
+    title="MobileNet vs. ImageNet",
+    description="Let's compare 2 state-of-the-art machine learning models that classify images into one of 1,000 categories: MobileNet (top), a lightweight model that has an accuracy of 0.704, vs. InceptionNet (bottom), a much heavier model that has an accuracy of 0.779."
+).launch();</code></pre>
       <p>This code will produce the image below.</p>
       <div class="screenshot">
-        <div class="colab">Click here to open this model in Colab!</div>
         <img src="static/home/img/inception.png">
       </div>
 
