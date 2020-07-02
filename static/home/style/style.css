@@ -194,7 +194,7 @@ form {
   padding: 8px;
   border-radius: 2px;
 }
-.screenshot {
+.screenshot, .big_screenshot {
   cursor: pointer;
   position: relative;
   text-align: center;
@@ -217,6 +217,12 @@ form {
   max-width: 100%;
   max-height: 360px;
 }
+
+.big_screenshot img {
+  max-width: 100%;
+  max-height: 800px;
+}
+
 #gallery {
   display: flex;
   margin: -30px 0 0 -10px;

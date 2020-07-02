@@ -117,7 +117,104 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
       <div class="screenshot">
         <img src="static/home/img/mnist-live.png">
       </div>
-      <h3> Comparing Inception to MobileNet
+
+        <h3> GPT-2
+
+      <a
+            href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+      <p>Let's wrap a text to text interface around GPT-2. </p>
+<pre><code class="lang-python">import gradio as gr
+import tensorflow as tf
+from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
+
+def generate_text(inp):
+    input_ids = tokenizer.encode(inp, return_tensors='tf')
+    beam_output = model.generate(input_ids, max_length=100, num_beams=5, no_repeat_ngram_size=2, early_stopping=True)
+    output = tokenizer.decode(beam_output[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
+    return ".".join(output.split(".")[:-1]) + "."
+
+output_text = gr.outputs.Textbox(lines=15)
+    gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
+    <p>This code
+        will produce the image below. That's it!</p>
+        <div class="screenshot">
+        <img src="static/home/img/gpt-2.png">
+        </div>
+
+
+        <h3> Multiple Inputs: BERT-QA
+
+      <a
+            href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+      <p>What if our model takes more than one input? Let's wrap a 2-input to
+          1-output interface around
+          BERT-QA. </p>
+<pre><code class="lang-python">import gradio as gr
+import sys
+sys.path.append("BERT-SQuAD")
+from bert import QA
+
+model = QA('bert-large-uncased-whole-word-masking-finetuned-squad')
+
+def qa_func(context, question):
+    return model.predict(context, question)["answer"]
+
+gr.Interface(qa_func,
+    [
+        gr.inputs.Textbox(lines=7, label="Context"),
+        gr.inputs.Textbox(lines=1, label="Question"),
+    ],
+    gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
+    <p>This code
+        will produce the image below.</p>
+        <div class="screenshot">
+        <img src="static/home/img/bert-qa.png">
+        </div>
+        <h3> Numerical Interface: Titanic Model
+
+      <a
+            href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+      <p>Let's wrap multiple input to label interface around a Titanic
+          model. We've hidden some of the model-related code below, but you
+          can see the full code on colab.
+      </p>
+<pre><code class="lang-python">import gradio as gr
+import pandas as pd
+import numpy as np
+import sklearn
+
+def predict_survival(sex, age, fare):
+    df = pd.DataFrame.from_dict({'Sex': [sex], 'Age': [age], 'Fare': [fare]})
+    df = encode_sex(df)
+    df = encode_fares(df)
+    df = encode_ages(df)
+    pred = clf.predict_proba(df)[0]
+    return {'Perishes': pred[0], 'Survives': pred[1]}
+
+sex = gr.inputs.Radio(['female', 'male'], label="Sex")
+age = gr.inputs.Slider(minimum=0, maximum=120, default=22, label="Age")
+fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (british pounds)")
+
+gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
+    <p>This code
+        will produce the image below. </p>
+        <div class="screenshot">
+        <img src="static/home/img/titanic.png">
+        </div>
+
+      <h3>Multiple Models: Comparing Inception to MobileNet
 
       <a
             href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing"><img
@@ -125,7 +222,8 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
       /></a></h3>
       <p>What if we want to compare two models? The code below generates a
         UI that takes one image input and returns predictions from both
-        Inception and MobileNet.</p>
+        Inception and MobileNet. We'll also add a title, description, and
+          sample images.</p>
       <pre><code class="lang-python">import gradio as gr
 from imagenetlabels import idx_to_labels
 import tensorflow as tf
@@ -164,14 +262,32 @@ gr.Interface(
     title="MobileNet vs. ImageNet",
     description="Let's compare 2 state-of-the-art machine learning models that classify images into one of 1,000 categories: MobileNet (top), a lightweight model that has an accuracy of 0.704, vs. InceptionNet (bottom), a much heavier model that has an accuracy of 0.779."
 ).launch();</code></pre>
-      <p>This code will produce the image below.</p>
-      <div class="screenshot">
-        <img src="static/home/img/inception.png">
+      <p>This code will produce the image below. Looks like MobileNet is
+          considerably faster! </p>
+      <div class="big_screenshot" >
+        <img src="static/home/img/inception-mobile.png">
+      </div>
+         <h2 id="sharing">Sharing your Gradio-UI Interfaces: </h2>
+        <p>
+            Interfaces can be shared by setting <code>share=True</code> in the
+            <code>launch()</code> method. That generates a share link.
+            If you're working out of colab, a share link is always
+            created. You can now send that link anywhere, and when users
+            interact with it, all the processing happens wherever you
+            generated it from, so long as its active. Links expire after 8
+            hours.
+        </p>
+
+        <div class="screenshot" >
+        <img src="static/home/img/sharing.png">
       </div>
 
-</div>
+    </div>
+  </main>
+
+
     <script src="static/js/prism.js"></script>
 
-<body>
+</body>
 
 </html>
