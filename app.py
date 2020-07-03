@@ -47,7 +47,6 @@ def model_api(m_id):
     })
 
 
-
 def run(debug=False):
     app.run(debug=debug, port=5001)
 
