@@ -38,15 +38,15 @@
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's start with a basic function that greets an input name. We'll
+      <p>Let's start with a basic function (no machine learning yet!) that greets an input name. We'll
           wrap the function with a text to text interface.</p>
 <pre><code class="lang-python">import gradio as gr
 
 def greet(name):
   return "Hello " + name + "!"
 
-gradio.Interface(greet, "text", "text").launch()</code></pre>
-      <p>This code will produce the image below. That's it!</p>
+gradio.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
+      <p>Based on the interfaces we specified, the code will produce an interface like the image below. That's it!</p>
         <div class="screenshot">
         <img src="static/home/img/hello-world.png">
         </div>

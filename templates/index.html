@@ -93,14 +93,14 @@
           <div class="codeblock"><code>
               import <varl>gradio</varl> as <varl>gr</varl><br><br>
               def <func>recognize_digit(</func><varl>img</varl><func>)</func>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement digit recognition logic on input numpy array </comm><br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return confidence dictionary for labels </comm><br><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement digit recognition model on input array </comm><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return dictionary of labels and confidences </comm><br><br>
               gr.<func>Interface(</func><varl>fn</varl>=<func>recognize_digit</func>, 
               <varl>inputs</varl>="sketchpad", <varl>outputs</varl>="label"<func>)</func>.<func>launch()</func>
             </code></div>
         </div>
         <div class="instructions">
-          The code above produces produces the interface below. Draw a number 0 through 9 on the sketchpad below and click submit to get the model classification!
+          The single line of code above produces produces the web interface below. Draw a number 0 through 9 on the sketchpad below and click submit to get the model classification!
         </div>
         <div id="interface_1"></div>
       </div>
@@ -116,7 +116,7 @@
             </code></div>
         </div>
         <div class="instructions">
-          Provide a context paragraph and ask a question that can be answered with the context information. Click submit to get the answer!
+          Provide a context paragraph and ask a question that can be answered with the context information. Go ahead, type in some information and a question. Then, click submit to get the answer!
         </div>
         <div id="interface_2"></div>
       </div>      

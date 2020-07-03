@@ -2,8 +2,10 @@ from flask import request, Flask, Response, render_template, jsonify, redirect
 from demo.qa import demo as demo2
 from demo.face_segment import demo as demo3
 from demo.outbreak import demo as demo4
+import sys
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def home_page():
@@ -45,9 +47,12 @@ def model_api(m_id):
     })
 
 
-def run():
-    app.run()
+def run(debug=False):
+    app.run(debug=debug)
 
 
 if __name__ == "__main__":
-    run()
+    if len(sys.argv) > 1:
+        run(debug=True)
+    else:
+        ren(debug=False)
