@@ -46,21 +46,19 @@ def greet(name):
   return "Hello " + name + "!"
 
 gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
-      <p>Based on the interfaces we specified, the code will produce an interface like the image below. That's it!</p>
+      <p>The code will produce an interface shown in image below. All Gradio needs to know is which function to wrap and what type of components the input and output interfaces should take!</p>
         <div class="screenshot">
         <img src="static/home/img/hello-world.png">
         </div>
 
-    <h3> Inception Net
+    <h3> MobileNet
 
       <a
             href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Now, let's do a machine learning example. We're going to wrap an interface around Inception Net! Since this
-      is an image classification model, we will use the <code>Image</code> input interface, and <code>Label</code>
-      output interface.</p>
+      <p>Now, let's do a machine learning example. We're going to wrap an interface around the image classifier MobileNet! Since this is an image classification model, we will use the <code>Image</code> input interface. We'll output a dictionary of labels and their corresponding confidence scores with the <code>Label</code> output interface.</p>
 
 <pre><code class="lang-python">import gradio as gr
 import tensorflow as tf
@@ -69,7 +67,7 @@ import requests
 
 mobile_net = tf.keras.applications.MobileNetV2()
 
-# Get human-readable labels for ImageNet
+# Download human-readable labels for ImageNet
 response = requests.get("https://git.io/Jep2M")
 idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(
     response.text.split("\n"))}
@@ -82,9 +80,9 @@ def classify_image(inp):
 image = gr.inputs.Image(shape=(224, 224, 3))
 label = gr.outputs.Label(num_top_classes=3)
 
-gr.Interface(classify_image, image, label).launch()</code></pre>
+gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pre>
       <p>This code will produce the interface below. The interface gives you a way to test
-      Inception Net by dragging and dropping images, but also allows you to use natural ways to modify the input image.
+      Inception Net by dragging and dropping images, but also allows you to use natural ways to modify the input image. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface function instead of using string shortcuts. The lets us use built-in preprocessing (such as image resizing) provided by these interfaces.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
 
         <div class="screenshot">
@@ -98,16 +96,7 @@ gr.Interface(classify_image, image, label).launch()</code></pre>
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-        <p>Let's wrap a <code>sketchpad</code>-to-<code>label</code> UI around MNIST. For this example, we'll take advantage of the
-            <em>live</em> feature in the library. Set
-          <code>live=True</code> inside <code>Interface()</code> to have
-          it run continuous prediction. We've
-          abstracted
-          the
-          model
-          training
-        from the code below, but you can see the full code on the colab
-          link.</p>
+        <p>Let's wrap a <code>sketchpad</code>-to-<code>label</code> UI around MNIST. For this example, we'll take advantage of the <em>live</em> feature in the library. Set <code>live=True</code> inside <code>Interface()</code> to have it run continuous prediction. We've abstracted the model training from the code below, but you can see the full code on the colab link.</p>
 <pre><code class="lang-python">import tensorflow as tf
 import gradio as gr
 
@@ -134,7 +123,7 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's wrap a text to text interface around GPT-2. </p>
+      <p>Let's wrap a text to text interface around GPT-2, a text generation model that works on provided starter text.</p>
 <pre><code class="lang-python">import gradio as gr
 import tensorflow as tf
 from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
@@ -150,26 +139,19 @@ def generate_text(inp):
 
 output_text = gr.outputs.Textbox(lines=15)
     gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
-    <p>This code
-        will produce the interface below. That's it!</p>
-        <div class="screenshot">
-        <img src="static/home/img/gpt-2.png">
-        </div>
+    <p>This code will produce the interface below. That's all that's needed!</p>
+    <div class="screenshot">
+      <img src="static/home/img/gpt-2.png">
+    </div>
 
-
-        <h3> Multiple Inputs: BERT-QA
-
+    <h3> Multiple Inputs: BERT-QA
       <a
             href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>What if our model takes more than one input? Let's wrap a 2-input to
-          1-output interface around
-          BERT-QA. </p>
+      <p>What if our model takes more than one input? Let's wrap a 2-input to 1-output interface around BERT-QA. </p>
 <pre><code class="lang-python">import gradio as gr
-import sys
-sys.path.append("BERT-SQuAD")
 from bert import QA
 
 model = QA('bert-large-uncased-whole-word-masking-finetuned-squad')
@@ -179,12 +161,11 @@ def qa_func(context, question):
 
 gr.Interface(qa_func,
     [
-        gr.inputs.Textbox(lines=7, label="Context"),
-        gr.inputs.Textbox(lines=1, label="Question"),
+        gr.inputs.Textbox(lines=7),
+        gr.inputs.Textbox(lines=1),
     ],
     gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
-    <p>This code
-        will produce the interface below.</p>
+    <p>As shown in the code, Gradio can wrap functions with multiple inputs or outputs, simply by taking the list of components needed. This code will produce the interface below.</p>
         <div class="screenshot">
         <img src="static/home/img/bert-qa.png">
         </div>
@@ -195,9 +176,7 @@ gr.Interface(qa_func,
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's wrap multiple input to label interface around a Titanic
-          model. We've hidden some of the model-related code below, but you
-          can see the full code on colab.
+      <p>Let's wrap multiple input to label interface around a Titanic model. We've hidden some of model-related code below, but you can see the full code on colab.
       </p>
 <pre><code class="lang-python">import gradio as gr
 import pandas as pd
@@ -217,8 +196,7 @@ age = gr.inputs.Slider(minimum=0, maximum=120, default=22, label="Age")
 fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (british pounds)")
 
 gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
-    <p>This code
-        will produce the interface below. </p>
+    <p>This code will produce the interface below. </p>
         <div class="screenshot">
         <img src="static/home/img/titanic.png">
         </div>
