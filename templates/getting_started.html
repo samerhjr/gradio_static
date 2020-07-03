@@ -31,7 +31,7 @@
     <div class="container">
       <h2>Getting Started</h2>
       <p>Gradio can wrap almost any Python function with an easy to use interface. Let's take a look at a few examples.</p>
-    <h3> Hello World
+    <h3> 0. Hello World
 
       <a
             href="https://colab.research.google.com/drive/18ODkJvyxHutTN0P5APWyGFO_xwNcgHDZ?usp=sharing"><img
@@ -46,12 +46,19 @@ def greet(name):
   return "Hello " + name + "!"
 
 gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
-      <p>The code will produce an interface shown in image below. All Gradio needs to know is which function to wrap and what type of components the input and output interfaces should take!</p>
+      <p>The core <code>Interface</code> class is initialized with three parameters:
+          <ul>
+            <li><code>fn</code>: the function to wrap</li>
+            <li><code>inputs</code>: the name of the input interface</li>
+            <li><code>outputs</code>: the name of the output interface</li>
+          </ul>
+        Calling the <code>launch()</code> function of the <code>Interface</code> object produces the interface shown in
+        image below. </p>
         <div class="screenshot">
         <img src="static/home/img/hello-world.png">
         </div>
 
-    <h3> MobileNet
+    <h3> 1. MobileNet
 
       <a
             href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing"><img
@@ -65,9 +72,9 @@ import tensorflow as tf
 import numpy as np
 import requests
 
-mobile_net = tf.keras.applications.MobileNetV2()
+mobile_net = tf.keras.applications.MobileNetV2()  # Load the model.
 
-# Download human-readable labels for ImageNet
+# Download human-readable labels for ImageNet.
 response = requests.get("https://git.io/Jep2M")
 idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(
     response.text.split("\n"))}
@@ -82,21 +89,27 @@ label = gr.outputs.Label(num_top_classes=3)
 
 gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pre>
       <p>This code will produce the interface below. The interface gives you a way to test
-      Inception Net by dragging and dropping images, but also allows you to use natural ways to modify the input image. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface function instead of using string shortcuts. The lets us use built-in preprocessing (such as image resizing) provided by these interfaces.
+      Inception Net by dragging and dropping images, and also allows you to use naturally modify the input image using image editing tools that
+          appear when you click EDIT. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface
+          function instead of using string shortcuts. The lets us use built-in preprocessing (e.g. image resizing)
+          and postprocessing (e.g. choosing the number of labels to display) provided by these
+            interfaces.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
 
         <div class="screenshot">
         <img src="static/home/img/inception-net.png">
         </div>
 
-    <h3> Real-Time MNIST
+    <h3> 2. Real-Time MNIST
 
       <a
             href="https://colab.research.google.com/drive/1LXJqwdkZNkt1J_yfLWQ3FLxbG2cAF8p4?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-        <p>Let's wrap a <code>sketchpad</code>-to-<code>label</code> UI around MNIST. For this example, we'll take advantage of the <em>live</em> feature in the library. Set <code>live=True</code> inside <code>Interface()</code> to have it run continuous prediction. We've abstracted the model training from the code below, but you can see the full code on the colab link.</p>
+        <p>Let's wrap a fun <code>Sketchpad</code>-to-<code>Label</code> UI around MNIST. For this example, we'll take advantage of the <em>live</em>
+            feature in the library. Set <code>live=True</code> inside <code>Interface()</code> to have it run continuous predictions.
+            We've abstracted the model training from the code below, but you can see the full code on the colab link.</p>
 <pre><code class="lang-python">import tensorflow as tf
 import gradio as gr
 
@@ -116,7 +129,7 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
         <img src="static/home/img/mnist-live.png">
       </div>
 
-        <h3> GPT-2
+        <h3> 3. GPT-2
 
       <a
             href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing"><img
@@ -144,7 +157,7 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <img src="static/home/img/gpt-2.png">
     </div>
 
-    <h3> Multiple Inputs: BERT-QA
+    <h3> 4. Multiple Inputs: BERT-QA
       <a
             href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
@@ -165,18 +178,22 @@ gr.Interface(qa_func,
         gr.inputs.Textbox(lines=1),
     ],
     gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
-    <p>As shown in the code, Gradio can wrap functions with multiple inputs or outputs, simply by taking the list of components needed. This code will produce the interface below.</p>
+    <p>As shown in the code, Gradio can wrap functions with multiple inputs or outputs, simply by taking the list of components needed.
+        The number of input components should match the number of parameters taken by <code>fn</code>. The number of
+        output components should match the number of values returned by <code>fn</code>. This code will produce the interface below.</p>
         <div class="screenshot">
         <img src="static/home/img/bert-qa.png">
         </div>
-        <h3> Numerical Interface: Titanic Model
+        <h3> 5. Numerical Interface: Titanic Model
 
       <a
             href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's wrap multiple input to label interface around a Titanic model. We've hidden some of model-related code below, but you can see the full code on colab.
+      <p>Many models have numeric or categorical inputs, which we support with a variety of interfaces.
+          Let's wrap multiple input to label interface around a Titanic survival model. We've hidden some of
+          model-related code below, but you can see the full code on colab.
       </p>
 <pre><code class="lang-python">import gradio as gr
 import pandas as pd
@@ -201,7 +218,7 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
         <img src="static/home/img/titanic.png">
         </div>
 
-      <h3>Multiple Models: Comparing Inception to MobileNet
+      <h3>6. Multiple Models: Comparing Inception to MobileNet
 
       <a
             href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing"><img
@@ -209,7 +226,7 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
       /></a></h3>
       <p>What if we want to compare two models? The code below generates a
         UI that takes one image input and returns predictions from both
-        Inception and MobileNet. We'll also add a title, description, and
+        Inception and MobileNet. We'll also add a title and a description. In the colab notebook, we also include
           sample images.</p>
       <pre><code class="lang-python">import gradio as gr
 from imagenetlabels import idx_to_labels
@@ -255,17 +272,48 @@ gr.Interface(
         <img src="static/home/img/inception-mobile.png">
       </div>
 
+
+        <h2 id="interfaces">List of Gradio Interfaces: </h2>
+        Here's a list of the interfaces we currently support, along with their preprocessing / postprocessing
+        parameters:
+        <h4> Input Interfaces</h4>
+        <ul>
+            <li><code>Sketchpad(shape=(28, 28), invert_colors=True, flatten=False, scale=1/255, shift=0,
+                 dtype='float64')</code></li>
+            <li><code>Webcam(image_width=224, image_height=224, num_channels=3, label=None)</code></li>
+            <li><code>Textbox(lines=1, placeholder=None, label=None, numeric=False)</code></li>
+            <li><code>Radio(choices, label=None)</code></li>
+            <li><code>Dropdown(choices, label=None)</code></li>
+            <li><code>CheckboxGroup(choices, label=None)</code></li>
+            <li><code>Slider(minimum=0, maximum=100, default=None, label=None)</code></li>
+            <li><code>Image(cast_to=None, shape=(224, 224, 3), image_mode='RGB',
+                 scale=1/127.5, shift=-1, label=None)</code></li>
+            <li><code>Microphone()</code></li>
+        </ul>
+        <h4> Output Interfaces</h4>
+        <ul>
+            <li><code>Label(num_top_classes=None, label=None)</code></li>
+            <li><code>KeyValues(label=None)</code></li>
+            <li><code>Textbox(lines=1, placeholder=None, label=None)</code></li>
+            <li><code>Image(label=None, plot=False)</code></li>
+        </ul>
+
+        <p>
+        <a href="/#contact-box">Let us know</a> what interfaces we should add next, or feel free to
+        contribute to the  <a href="https://github.com/gradio-app/gradio-UI" target="_blank">open-source library</a>.
+        </p><p>&nbsp;</p>
+
         <h2 id="sharing">Sharing your Gradio Interfaces: </h2>
         <p>
             Interfaces can be shared by setting <code>share=True</code> in the
             <code>launch()</code> method. Like this: </p>
 
-        <pre><code class="lang-python">gr.Interface(classify_image, image, label, share=True).launch()</code></pre>
+        <pre><code class="lang-python">gr.Interface(classify_image, image, label).launch(share=True)</code></pre>
 
             <p>
             This generates a public, shareable link that you can send to anybody! When you send this link, the user
             on the other side can try out the model in their browser. Because the processing happens on your device
-            (as long as it stays on!), you don't have to worry about any dependencies.
+            (as long as your device stays on!), you don't have to worry about any dependencies.
 
             If you're working out of colab notebook, a share link is always
             created. Links expire after 8 hours. Need longer links? <a href="/#contact-box">Contact us for Gradio Teams</a>.
