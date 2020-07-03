@@ -38,15 +38,15 @@
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's start with a basic function that greets an input name. We'll
-          wrap the function with a text to text interface.</p>
+      <p>Let's start with a basic function (no machine learning yet!) that greets an input name. We'll
+          wrap the function with a <code>Text</code> to <code>Text</code> interface.</p>
 <pre><code class="lang-python">import gradio as gr
 
 def greet(name):
   return "Hello " + name + "!"
 
-gradio.Interface(greet, "text", "text").launch()</code></pre>
-      <p>This code will produce the image below. That's it!</p>
+gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
+      <p>Based on the interfaces we specified, the code will produce an interface like the image below. That's it!</p>
         <div class="screenshot">
         <img src="static/home/img/hello-world.png">
         </div>
@@ -58,7 +58,10 @@ gradio.Interface(greet, "text", "text").launch()</code></pre>
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's wrap an Image-Label UI around Inception Net!</p>
+      <p>Now, let's do a machine learning example. We're going to wrap an interface around Inception Net! Since this
+      is an image classification model, we will use the <code>Image</code> input interface, and <code>Label</code>
+      output interface.</p>
+
 <pre><code class="lang-python">import gradio as gr
 import tensorflow as tf
 import numpy as np
@@ -66,8 +69,10 @@ import requests
 
 mobile_net = tf.keras.applications.MobileNetV2()
 
-response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
-idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
+# Get human-readable labels for ImageNet
+response = requests.get("https://git.io/Jep2M")
+idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(
+    response.text.split("\n"))}
 
 def classify_image(inp):
   inp = np.expand_dims(inp, 0)
@@ -78,7 +83,10 @@ image = gr.inputs.Image(shape=(224, 224, 3))
 label = gr.outputs.Label(num_top_classes=3)
 
 gr.Interface(classify_image, image, label).launch()</code></pre>
-      <p>This code will produce the image below.</p>
+      <p>This code will produce the interface below. The interface gives you a way to test
+      Inception Net by dragging and dropping images, but also allows you to use natural ways to modify the input image.
+          Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
+
         <div class="screenshot">
         <img src="static/home/img/inception-net.png">
         </div>
@@ -90,7 +98,8 @@ gr.Interface(classify_image, image, label).launch()</code></pre>
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Let's wrap a sketchpad-label UI around MNIST. We will set
+        <p>Let's wrap a <code>sketchpad</code>-to-<code>label</code> UI around MNIST. For this example, we'll take advantage of the
+            <em>live</em> feature in the library. Set
           <code>live=True</code> inside <code>Interface()</code> to have
           it run continuous prediction. We've
           abstracted
@@ -113,7 +122,7 @@ label = gr.outputs.Label(num_top_classes=3)
 
 gr.Interface(fn=recognize_digit, inputs=sketchpad,
   outputs=label, live=True).launch()</code></pre>
-      <p>This code will produce the image below.</p>
+      <p>This code will produce the interface below.</p>
       <div class="screenshot">
         <img src="static/home/img/mnist-live.png">
       </div>
@@ -142,7 +151,7 @@ def generate_text(inp):
 output_text = gr.outputs.Textbox(lines=15)
     gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
     <p>This code
-        will produce the image below. That's it!</p>
+        will produce the interface below. That's it!</p>
         <div class="screenshot">
         <img src="static/home/img/gpt-2.png">
         </div>
@@ -175,7 +184,7 @@ gr.Interface(qa_func,
     ],
     gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
     <p>This code
-        will produce the image below.</p>
+        will produce the interface below.</p>
         <div class="screenshot">
         <img src="static/home/img/bert-qa.png">
         </div>
@@ -209,7 +218,7 @@ fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (briti
 
 gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
     <p>This code
-        will produce the image below. </p>
+        will produce the interface below. </p>
         <div class="screenshot">
         <img src="static/home/img/titanic.png">
         </div>
@@ -262,20 +271,26 @@ gr.Interface(
     title="MobileNet vs. ImageNet",
     description="Let's compare 2 state-of-the-art machine learning models that classify images into one of 1,000 categories: MobileNet (top), a lightweight model that has an accuracy of 0.704, vs. InceptionNet (bottom), a much heavier model that has an accuracy of 0.779."
 ).launch();</code></pre>
-      <p>This code will produce the image below. Looks like MobileNet is
+      <p>This code will produce the interface below. Looks like MobileNet is
           considerably faster! </p>
       <div class="big_screenshot" >
         <img src="static/home/img/inception-mobile.png">
       </div>
-         <h2 id="sharing">Sharing your Gradio-UI Interfaces: </h2>
+
+        <h2 id="sharing">Sharing your Gradio Interfaces: </h2>
         <p>
             Interfaces can be shared by setting <code>share=True</code> in the
-            <code>launch()</code> method. That generates a share link.
-            If you're working out of colab, a share link is always
-            created. You can now send that link anywhere, and when users
-            interact with it, all the processing happens wherever you
-            generated it from, so long as its active. Links expire after 8
-            hours.
+            <code>launch()</code> method. Like this: </p>
+
+        <pre><code class="lang-python">gr.Interface(classify_image, image, label, share=True).launch()</code></pre>
+
+            <p>
+            This generates a public, shareable link that you can send to anybody! When you send this link, the user
+            on the other side can try out the model in their browser. Because the processing happens on your device
+            (as long as it stays on!), you don't have to worry about any dependencies.
+
+            If you're working out of colab notebook, a share link is always
+            created. Links expire after 8 hours. Need longer links? <a href="/#contact-box">Contact us for Gradio Teams</a>.
         </p>
 
         <div class="screenshot" >
