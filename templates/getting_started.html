@@ -138,7 +138,7 @@ def generate_text(inp):
     return ".".join(output.split(".")[:-1]) + "."
 
 output_text = gr.outputs.Textbox(lines=15)
-    gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
+gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
     <p>This code will produce the interface below. That's all that's needed!</p>
     <div class="screenshot">
       <img src="static/home/img/gpt-2.png">
