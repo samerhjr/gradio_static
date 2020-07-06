@@ -13,6 +13,14 @@ button, input[type="submit"], input[type="reset"], input[type="text"], input[typ
   -webkit-appearance: none;
   border-radius: 0;
 }
+
+.loading_time {
+  font-size: large;
+  color: #EEA45D;
+  text-align: right;
+  padding-top: 5px;
+}
+
 nav {
   text-align: center;
   padding: 16px 0 4px;
@@ -31,14 +39,19 @@ nav img {
   padding: 4px;
   border-radius: 2px;
 }
+#title {
+  text-align: center;
+}
+.container {
+  max-width: 1028px;
+  width: 100%;
+  margin: 0 auto;  
+}
 .panels {
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 1028px;
-  width: 100%;
-  margin: 0 auto;  
 }
 button.primary {
   color: white;
@@ -74,4 +87,28 @@ button.secondary {
 }
 #featured_history img {
   height: 60px;
+}
+#examples table {
+  border-collapse: collapse;
+  font-family: monospace;
+  padding: 8px;
+  background-color: whitesmoke;
+  border-right: solid 4px whitesmoke;
+  border-left: solid 4px whitesmoke;
+}
+#examples th {
+  padding: 8px;
+  text-align: left;
+  font-size: 18px;
+}
+#examples td {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#examples tbody tr:nth-child(odd) {
+  background-color: white;
+}
+#examples tbody tr:hover {
+  background-color: lightgray;
 }
