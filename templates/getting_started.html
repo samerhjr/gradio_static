@@ -41,7 +41,7 @@
 
 
       <a
-            href="https://colab.research.google.com/drive/18ODkJvyxHutTN0P5APWyGFO_xwNcgHDZ?usp=sharing"><img
+            href="https://colab.research.google.com/drive/18ODkJvyxHutTN0P5APWyGFO_xwNcgHDZ?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -65,14 +65,16 @@ gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
         <img src="static/home/img/hello-world.png">
         </div>
 
-    <h3> 1. MobileNet
+    <h3> 1. MobileNet in Tensorflow
 
       <a
-            href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
-      <p>Now, let's do a machine learning example. We're going to wrap an interface around the MobileNet image classifier! S
+      <p>Now, let's do a machine learning example. We're going to wrap an
+          interface around the MobileNet image classifier, which we'll load
+          using Tensorflow! S
           ince this is an image classification model, we will use the <code>Image</code> input interface.
           We'll output a dictionary of labels and their corresponding confidence scores with the <code>Label</code> output
           interface. (The original MobileNet architecture <a href="https://arxiv.org/abs/1704.04861" target="_blank">can be found here</a>)</p>
@@ -108,11 +110,62 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pr
         <div class="screenshot">
         <img src="static/home/img/inception-net.png">
         </div>
-
-    <h3> 2. Real-Time MNIST
+    <h3> 2. ResNet in Pytorch
 
       <a
-            href="https://colab.research.google.com/drive/1LXJqwdkZNkt1J_yfLWQ3FLxbG2cAF8p4?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1JC2vJxfCxg2xpJESzZN00QRDk2npzgZ2?usp=sharing" target="_blank"><img
+            src="https://colab.research.google.com/assets/colab-badge.svg"
+      /></a></h3>
+
+        <p>Let's now wrap a very similar model, ResNet, except this time in
+            Pytorch. We'll also use the <code>Image</code>
+            to <code>Label</code> interface. (The original ResNet architecture
+            <a href="https://arxiv.org/abs/1512.03385" target="_blank">can be found here</a>)</p>
+<pre><code class="lang-python">import gradio as gr
+import torch
+from torchvision import transforms
+import requests
+
+model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=True)
+model.eval()
+
+preprocess = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+])
+
+response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
+idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
+
+def predict(inp):
+  inp = inp.convert('RGB')
+  inp = inp.resize((224, 224))
+  input_tensor = preprocess(inp)
+  input_batch = input_tensor.unsqueeze(0)
+  if torch.cuda.is_available():
+      input_batch = input_batch.to('cuda')
+      model.to('cuda')
+  with torch.no_grad():
+      output = model(input_batch)
+  prediction = torch.nn.functional.softmax(output[0], dim=0)
+  return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+
+inputs = gr.inputs.Image(cast_to="pillow")
+outputs = gr.outputs.Label(num_top_classes=3)
+interface = gr.Interface(fn=predict, inputs=inputs, outputs=outputs)
+
+interface.launch()</code></pre>
+      <p>This code will produce the interface below.</p>
+      <div class="screenshot">
+        <img src="static/home/img/resnet.png">
+      </div>
+
+    <h3> 3. Real-Time MNIST
+
+      <a
+            href="https://colab.research.google.com/drive/1LXJqwdkZNkt1J_yfLWQ3FLxbG2cAF8p4?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -138,10 +191,10 @@ gr.Interface(fn=recognize_digit, inputs=sketchpad,
         <img src="static/home/img/mnist-live.png">
       </div>
 
-        <h3> 3. GPT-2
+        <h3> 4. GPT-2
 
       <a
-            href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -167,9 +220,9 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <img src="static/home/img/gpt-2.png">
     </div>
 
-    <h3> 4. Multiple Inputs: BERT-QA
+    <h3> 5. Multiple Inputs: BERT-QA
       <a
-            href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -197,10 +250,10 @@ gr.Interface(qa_func,
         <div class="screenshot">
         <img src="static/home/img/bert-qa.png">
         </div>
-        <h3> 5. Numerical Interface: Titanic Model
+        <h3> 6. Numerical Interface: Titanic Model
 
       <a
-            href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -232,18 +285,17 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
         <img src="static/home/img/titanic.png">
         </div>
 
-      <h3>6. Multiple Models: Comparing Inception to MobileNet
+      <h3>7. Multiple Models: Comparing Inception to MobileNet
 
       <a
-            href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing"><img
+            href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
       <p>What if we want to compare two models? The code below generates a
         UI that takes one image input and returns predictions from both
           <a href="https://arxiv.org/abs/1409.4842" target="_blank">Inception</a> and
           <a href="https://arxiv.org/abs/1704.04861" target="_blank">MobileNet</a>.
-          We'll also add a title and a description. In the colab notebook, we also include
-          sample images.</p>
+          We'll also add a title, description, and sample images.</p>
       <pre><code class="lang-python">import gradio as gr
 from imagenetlabels import idx_to_labels
 import tensorflow as tf
@@ -274,16 +326,24 @@ def classify_image_with_inception_net(im):
 
 imagein = gr.inputs.Image(cast_to="pillow")
 label = gr.outputs.Label(num_top_classes=3)
+sample_images = [
+                 ["https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_BE6RJF_16x9.jpg?itok=nP17Fm9H"],
+                 ["https://www.discoverboating.com/sites/default/files/inline-images/buying-a-sailboat-checklist.jpg"],
+                 ["https://external-preview.redd.it/lG5mI_9Co1obw2TiY0e-oChlXfEQY3tsRaIjpYjERqs.jpg?auto=webp&s=ea81982f44b83efbb803c8cff8953ee547624f70"]
+]
 
 gr.Interface(
     [classify_image_with_mobile_net, classify_image_with_inception_net],
     imagein,
     label,
-    title="MobileNet vs. ImageNet",
-    description="Let's compare 2 state-of-the-art machine learning models that classify images into one of 1,000 categories: MobileNet (top), a lightweight model that has an accuracy of 0.704, vs. InceptionNet (bottom), a much heavier model that has an accuracy of 0.779."
-).launch();</code></pre>
+    title="MobileNet vs. InceptionNet",
+    description="Let's compare 2 state-of-the-art machine learning models
+          that classify images into one of 1,000 categories: MobileNet (top),
+          a lightweight model that has an accuracy of 0.704, vs. InceptionNet
+          (bottom), a much heavier model that has an accuracy of 0.779.",
+    examples=sample_images).launch();</code></pre>
       <p>This code will produce the interface below. Looks like MobileNet is
-          considerably faster! </p>
+          about 3 times faster! </p>
       <div class="big_screenshot" >
         <img src="static/home/img/inception-mobile.png">
       </div>
@@ -313,6 +373,17 @@ gr.Interface(
             <li><code>Textbox(lines=1, placeholder=None, label=None)</code></li>
             <li><code>Image(label=None, plot=False)</code></li>
         </ul>
+
+        <p>Additionally, our <code>Image</code> input interface comes with
+            an 'edit' button which opens tools for cropping, flipping,
+            rotating, drawing over,
+            and applying filters to images. We've found that manipulating
+            images
+            in this way will often reveal hidden flaws in a model. </p>
+
+        <div class="screenshot">
+        <img src="static/home/img/editor.png">
+        </div>
 
         <p>
         <a href="/#contact-box">Let us know</a> what interfaces we should add next, or feel free to
