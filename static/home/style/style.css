@@ -267,3 +267,14 @@ form {
     justify-content: center;
   }
 }
+.flash {
+  animation: highlight 500ms ease-out;
+}
+@keyframes highlight {
+  0% {
+    background-color: gold;
+  }
+  100% {
+    background-color: whitesmoke;
+  }
+}

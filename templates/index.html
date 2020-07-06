@@ -45,7 +45,7 @@
       <a class="selected" href="/">Home</a>
       <a href="/getting_started">Getting Started</a>
       <a href="/hub">Hub</a>
-      <a href="/#contact-box">Contact</a>
+      <a id="contact-link" href="/#contact-box">Contact</a>
     </nav>
   </header>
   <main>
@@ -155,7 +155,7 @@
             </code></div>
         </div>
         <div class="instructions">
-          Provide the parameters below and click submit to view the forecast of a simulated disease outbreak.
+          Provide the parameters below and click submit to view the forecast of a simulated disease outbreak. This is <strong>not</strong> based on an actual disease and uses synthetic data.
         </div>
         <div id="interface_4"></div>
       </div>      
@@ -327,6 +327,17 @@
         });
       });                          
     }, "#interface_4");
+    if (window.location.href.includes("#contact")) {
+      window.setTimeout(function() {
+        $("#contact-box").addClass("flash")
+      }, 200);
+    }
+    $("#contact-link").click(function() {
+      $("#contact-box").removeClass("flash")
+      window.setTimeout(function() {
+        $("#contact-box").addClass("flash")
+      }, 100);
+    })
     </script>
   <body>
 
