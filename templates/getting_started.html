@@ -64,7 +64,7 @@ gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
         <img src="static/home/img/hello-world.png">
         </div>
 
-    <h3> 1. MobileNet in Tensorflow
+    <h3> 1. Inception Net in Tensorflow
 
       <a
             href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank"><img
@@ -72,29 +72,31 @@ gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
       /></a></h3>
 
       <p>Now, let's do a machine learning example. We're going to wrap an
-          interface around the MobileNet image classifier, which we'll load
+          interface around the InceptionV3 image classifier, which we'll load
           using Tensorflow! S
           ince this is an image classification model, we will use the <code>Image</code> input interface.
           We'll output a dictionary of labels and their corresponding confidence scores with the <code>Label</code> output
-          interface. (The original MobileNet architecture <a href="https://arxiv.org/abs/1704.04861" target="_blank">can be found here</a>)</p>
+          interface. (The original Inception Net architecture <a
+                  href="https://arxiv.org/abs/1409.4842" target="_blank">can be found here</a>)</p>
 
 <pre><code class="lang-python">import gradio as gr
 import tensorflow as tf
 import numpy as np
 import requests
 
-mobile_net = tf.keras.applications.MobileNetV2()  # Load the model.
+inception_net = tf.keras.applications.InceptionV3() # load the model
 
 # Download human-readable labels for ImageNet.
 response = requests.get("https://git.io/JJkYN")
 labels = response.text.split("\n")
 
 def classify_image(inp):
-  inp = np.expand_dims(inp, 0)
-  prediction = mobile_net.predict(inp).flatten()
+  inp = inp.reshape((-1, 299, 299, 3))
+  inp = tf.keras.applications.inception_v3.preprocess_input(inp)
+  prediction = inception_net.predict(inp).flatten()
   return {labels[i]: float(prediction[i]) for i in range(1000)}
 
-image = gr.inputs.Image(shape=(224, 224, 3))
+image = gr.inputs.Image(shape=(299, 299, 3))
 label = gr.outputs.Label(num_top_classes=3)
 
 gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pre>
@@ -139,7 +141,7 @@ def predict(inp):
     prediction = torch.nn.functional.softmax(model(inp)[0], dim=0)
   return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
 
-inputs = gr.inputs.Image(scale=1, shift=0)
+inputs = gr.inputs.Image()
 outputs = gr.outputs.Label(num_top_classes=3)
 interface = gr.Interface(fn=predict, inputs=inputs, outputs=outputs)
 
@@ -284,34 +286,33 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
           <a href="https://arxiv.org/abs/1704.04861" target="_blank">MobileNet</a>.
           We'll also add a title, description, and sample images.</p>
       <pre><code class="lang-python">import gradio as gr
-from imagenetlabels import idx_to_labels
 import tensorflow as tf
 import numpy as np
+from PIL import Image
+import requests
 
+response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
+idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
 
 mobile_net = tf.keras.applications.MobileNetV2()
 inception_net = tf.keras.applications.InceptionV3()
 
-
 def classify_image_with_mobile_net(im):
-    im = im.convert('RGB')
-    im = im.resize((224, 224))
-    arr = np.array(im).reshape((-1, 224, 224, 3))
-    arr = tf.keras.applications.mobilenet.preprocess_input(arr)
-    prediction = mobile_net.predict(arr).flatten()
-    return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+	arr = im.reshape((-1, 224, 224, 3))
+	arr = tf.keras.applications.mobilenet.preprocess_input(arr)
+	prediction = mobile_net.predict(arr).flatten()
+	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
 
 
 def classify_image_with_inception_net(im):
-    im = im.convert('RGB')
-    im = im.resize((299, 299))
-    arr = np.array(im).reshape((-1, 299, 299, 3))
-    arr = tf.keras.applications.inception_v3.preprocess_input(arr)
-    prediction = inception_net.predict(arr).flatten()
-    return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+	im = Image.fromarray(im.astype('uint8'), 'RGB')
+	im = im.resize((299, 299))
+	arr = np.array(im).reshape((-1, 299, 299, 3))
+	arr = tf.keras.applications.inception_v3.preprocess_input(arr)
+	prediction = inception_net.predict(arr).flatten()
+	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
 
-
-imagein = gr.inputs.Image(cast_to="pillow")
+imagein = gr.inputs.Image()
 label = gr.outputs.Label(num_top_classes=3)
 sample_images = [
                  ["https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_BE6RJF_16x9.jpg?itok=nP17Fm9H"],
