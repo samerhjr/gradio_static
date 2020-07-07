@@ -103,7 +103,8 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pr
       <p>This code will produce the interface below. The interface gives you a way to test
       Inception Net by dragging and dropping images, and also allows you to use naturally modify the input image using image editing tools that
           appear when you click EDIT. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface
-          function instead of using string shortcuts. The lets us use built-in preprocessing (e.g. image resizing)
+          function instead of using string shortcuts. This lets us use built-in
+          preprocessing (e.g. image resizing)
           and postprocessing (e.g. choosing the number of labels to display) provided by these
             interfaces.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
@@ -163,8 +164,10 @@ interface.launch()</code></pre>
             We've abstracted the model training from the code below, but you can see the full code on the colab link.</p>
 <pre><code class="lang-python">import tensorflow as tf
 import gradio as gr
+from urllib.request import urlretrieve
 
-model = tf.keras.models.load_model('models/mnist.h5')
+urlretrieve("https://gr-models.s3-us-west-2.amazonaws.com/mnist-model.h5","mnist-model.h5")
+model = tf.keras.models.load_model("mnist-model.h5")
 
 def recognize_digit(inp):
     prediction = model.predict(inp.reshape(1, 28, 28, 1)).tolist()[0]
@@ -350,7 +353,7 @@ gr.Interface(
             <li><code>Dropdown(choices, label=None)</code></li>
             <li><code>CheckboxGroup(choices, label=None)</code></li>
             <li><code>Slider(minimum=0, maximum=100, default=None, label=None)</code></li>
-            <li><code>Image(cast_to=None, shape=(224, 224, 3), image_mode='RGB',
+            <li><code>Image(shape=(224, 224, 3), image_mode='RGB',
                  scale=1/127.5, shift=-1, label=None)</code></li>
             <li><code>Microphone()</code></li>
         </ul>
