@@ -287,6 +287,7 @@ form {
   padding: 16px;
   position: sticky;
   top: 0;
+  margin-top:10px;
   height: 100vh;
 }
 #sidebar a {
