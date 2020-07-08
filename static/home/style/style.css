@@ -278,3 +278,7 @@ form {
     background-color: whitesmoke;
   }
 }
+:not(pre) > code[class*="language-"], pre[class*="language-"] {
+  background: whitesmoke !important;
+  margin-bottom: 20px !important;
+}

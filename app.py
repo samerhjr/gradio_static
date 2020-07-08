@@ -1,23 +1,46 @@
 from flask import request, Flask, Response, render_template, jsonify, redirect
-from demo.qa import demo as demo2
-from demo.face_segment import demo as demo3
-from demo.outbreak import demo as demo4
 import sys
+
+from demo.qa import demo as qa
+from demo.face_segment import demo as face_segment
+from demo.outbreak import demo as outbreak
+from demo.hello_world import demo as hello_world
+from demo.hello_world_2 import demo as hello_world_2
+from demo.hello_world_3 import demo as hello_world_3
+from demo.sepia import demo as sepia
+from demo.inception import demo as inception
+from demo.resnet import demo as resnet
+# from demo.gpt import demo as gpt
+# from demo.titanic import demo as titanic
+from demo.compare import demo as compare
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def home_page():
-    return render_template("index.html",
-        config2=demo2.iface.get_config_file(),
-        config3=demo3.iface.get_config_file(),
-        config4=demo4.iface.get_config_file())
+    demos = [qa, face_segment, outbreak]
+    return render_template("index.html", configs=[
+        demo.iface.get_config_file() for demo in demos
+    ])
 
 
 @app.route('/getting_started')
 def getting_started():
-    return render_template("getting_started.html")
+    demos = [
+        hello_world, 
+        hello_world_2, 
+        hello_world_3,
+        sepia, 
+        inception, 
+        resnet, 
+        resnet, # gpt, 
+        qa, 
+        resnet, # titanic, 
+        compare]
+    return render_template("getting_started.html", configs=[
+        demo.iface.get_config_file() for demo in demos
+    ])
 
 
 @app.route('/sharing')
@@ -34,16 +57,23 @@ def hub():
 def model_api(m_id):
     m_id = int(m_id)
     data = request.get_json(force=True)["data"]
-    if m_id == 2:
-        output = demo2.iface.process(data)
-    elif m_id == 3:
-        output = demo3.iface.process(data)
-    elif m_id == 4:
-        output = demo4.iface.process(data)
-    else:
-        raise ValueError
+    demos = [
+        qa, 
+        face_segment, 
+        outbreak, 
+        hello_world, 
+        hello_world_2, 
+        hello_world_3, 
+        sepia, 
+        inception, 
+        resnet, 
+        resnet, # gpt, 
+        qa, 
+        resnet, # titanic, 
+        compare]
+    output = demos[m_id].iface.process(data)
     return jsonify({
-        "data": output
+        "data": output[0]
     })
 
 

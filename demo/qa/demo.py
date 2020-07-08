@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bert import QA
 
 model = QA('bert-large-uncased-whole-word-masking-finetuned-squad')
-def qa_func(context, question):
+def qa_func(paragraph, question):
     return model.predict(context, question)["answer"]
 
 iface = gr.Interface(qa_func, 

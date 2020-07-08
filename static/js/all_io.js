@@ -38,10 +38,20 @@ var io_master_template = {
 
     for (let i = 0; i < this.output_interfaces.length; i++) {
       this.output_interfaces[i].output(data["data"][i]);
-//      this.output_interfaces[i].target.parent().find(`.loading_time[interface="${i}"]`).text("Latency: " + ((data["durations"][i])).toFixed(2) + "s");
     }
+    if (data["durations"]) {
+      let ratio = this.output_interfaces.length / data["durations"].length;
+      for (let i = 0; i < this.output_interfaces.length; i = i + ratio) {
+        this.output_interfaces[i].target.parent().find(`.loading_time[interface="${i + ratio - 1}"]`).text("Latency: " + ((data["durations"][i / ratio])).toFixed(2) + "s");
+      }
+    }
+
     if (this.config.live) {
-      this.gather();
+      var io = this;
+      var refresh_lag = this.config.refresh_lag || 0;
+      window.setTimeout(function() {
+        io.gather();
+      }, refresh_lag);
     } else {
       this.target.find(".loading").addClass("invisible");
       this.target.find(".output_interface").removeClass("invisible");
