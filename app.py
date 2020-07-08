@@ -4,15 +4,11 @@ import sys
 from demo.qa import demo as qa
 from demo.face_segment import demo as face_segment
 from demo.outbreak import demo as outbreak
+from demo.double import demo as double
 from demo.hello_world import demo as hello_world
 from demo.hello_world_2 import demo as hello_world_2
 from demo.hello_world_3 import demo as hello_world_3
 from demo.sepia import demo as sepia
-from demo.inception import demo as inception
-from demo.resnet import demo as resnet
-# from demo.gpt import demo as gpt
-# from demo.titanic import demo as titanic
-from demo.compare import demo as compare
 
 app = Flask(__name__)
 
@@ -28,19 +24,25 @@ def home_page():
 @app.route('/getting_started')
 def getting_started():
     demos = [
+        double,
         hello_world, 
         hello_world_2, 
         hello_world_3,
-        sepia, 
-        inception, 
-        resnet, 
-        resnet, # gpt, 
-        qa, 
-        resnet, # titanic, 
-        compare]
+        sepia,
+    ]
     return render_template("getting_started.html", configs=[
         demo.iface.get_config_file() for demo in demos
     ])
+
+
+@app.route('/docs')
+def docs():
+    return render_template("docs.html")
+
+
+@app.route('/ml_examples')
+def ml_examples():
+    return render_template("ml_examples.html")
 
 
 @app.route('/sharing')
@@ -61,16 +63,12 @@ def model_api(m_id):
         qa, 
         face_segment, 
         outbreak, 
+        double,
         hello_world, 
         hello_world_2, 
         hello_world_3, 
         sepia, 
-        inception, 
-        resnet, 
-        resnet, # gpt, 
-        qa, 
-        resnet, # titanic, 
-        compare]
+    ]
     output = demos[m_id].iface.process(data)
     return jsonify({
         "data": output[0]

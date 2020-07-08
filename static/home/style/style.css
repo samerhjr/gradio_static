@@ -163,7 +163,7 @@ footer img {
 .bg-image:hover {
   opacity: 1;
 }
-h3 {
+#index h3 {
   margin-top: 54px;
 }
 .instructions {
@@ -214,13 +214,8 @@ form {
   font-size: 18px;
 }
 .screenshot img {
-  max-width: 100%;
+  max-width: 80%;
   max-height: 360px;
-}
-
-.big_screenshot img {
-  max-width: 100%;
-  max-height: 800px;
 }
 
 #gallery {
@@ -281,4 +276,37 @@ form {
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
   background: whitesmoke !important;
   margin-bottom: 20px !important;
+}
+#docs {
+  display: flex;
+  position: relative;
+} 
+#sidebar {
+  background-color: whitesmoke;
+  flex: 0 0 200px;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+#sidebar a {
+  display: block;
+  padding: 2px 0;
+  font-weight: normal;
+  font-size: 14px;
+}
+#sidebar h4 {
+  margin-bottom: 12px;
+}
+#docs-content {
+  padding: 16px;
+}
+#docs-content h3 {
+  padding-top: 24px;
+}
+#docs-content #textbox {
+  padding-top: 8px;
+}
+#sidebar > :first-child, #docs-content > :first-child {
+  margin-top: 0;
 }

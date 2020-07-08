@@ -13,28 +13,46 @@
     <nav>
       <a href="/">Home</a>
       <a class="selected" href="/getting_started">Getting Started</a>
+      <a href="/docs">Docs</a>
+      <a href="/ml_examples">ML Examples</a>
       <a href="/hub">Hub</a>
-      <a href="/#contact-box">Contact</a>
+      <a id="contact-link" href="/#contact-box">Contact</a>
     </nav>
   </header>
   <main>
     <div class="container">
       <h2>Getting Started</h2>
-      <p>The Gradio library can be installed directly from pip.</p>
+      <h3>Quick Start</h3>
+      <p>To get Gradio running with a simple example, follow these three steps:</p>
+      <p>1. Install Gradio from pip.</p>
       <pre><code class="lang-bash">pip install gradio</code></pre>
+      <p>2. Run the code below as a Python script or in a Python notebook.</p>
+      <pre><code class="lang-python">import gradio as gr
+
+def double(num):
+  return 2 * num
+
+gr.Interface(fn=double, inputs="number", outputs="number").launch()</code></pre>
+      <p>3. The interface below will appear automatically within the Python notebook, or pop in a browser on <a href="http://localhost:7860">http://localhost:7860</a> if running from a script. </p>
+      <div id="interface_3"></div>
+      <h3>The Interface</h3>
+      <p>Gradio can wrap almost any Python function with an easy to use interface. That function could be anything from a simple tax calculator to a pretrained model. </p>
       <p>
-        Gradio can wrap almost any Python function with an easy to use interface. That function could be a pretrained
-        model you load, or a model you've trained yourself that's ready for inference. Let's take a look at a few
-        examples:
+        The core <code>Interface</code> class is initialized with three parameters:
+        <ul>
+          <li><code>fn</code>: the function to wrap</li>
+          <li><code>inputs</code>: the input component type(s)</li>
+          <li><code>outputs</code>: the output component type(s)</li>
+        </ul>
       </p>
+      With these three arguments, we can quickly create interfaces and launch them.
       <h3>
-        0. Hello World
+        Hello World
         <a href="https://colab.research.google.com/drive/18ODkJvyxHutTN0P5APWyGFO_xwNcgHDZ?usp=sharing" target="_blank">
           <img src="https://colab.research.google.com/assets/colab-badge.svg" />
         </a>
       </h3>
-      <p>Let's start with a basic function (no machine learning yet!) that greets an input name. We'll wrap the function
-        with a <code>text</code> to <code>text</code> interface.</p>
+      <p>Let's start with a basic function that greets an input name. We'll wrap the function with a <code>text</code> to <code>text</code> interface.</p>
 
       <pre><code class="lang-python">import gradio as gr
 
@@ -42,17 +60,10 @@ def greet(name):
   return "Hello " + name + "!"
 
 gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
-      <p>Calling the <code>launch()</code> function of the <code>Interface</code> object produces the interface above.
+      <p>Calling the <code>launch()</code> function of the <code>Interface</code> object produces the interface below.
       </p>
-      <div id="interface_3"></div>
-      <p>
-        The core <code>Interface</code> class is initialized with three parameters:
-      <ul>
-        <li><code>fn</code>: the function to wrap</li>
-        <li><code>inputs</code>: the name of the input interface</li>
-        <li><code>outputs</code>: the name of the output interface</li>
-      </ul>
-      </p>
+      <div id="interface_4"></div>
+      <h3>Customizable Components</h3>
       <p>
         What if we wanted to customize the input text field - for example, we wanted it to be larger and have a text
         hint? If we use the actual input class for <code>Textbox</code> instead of using the string shortcut, we have
@@ -67,8 +78,8 @@ iface = gr.Interface(
   greet, 
   gr.inputs.Textbox(lines=2, placeholder="Name Here..."), 
   "text")</code></pre>
-      <div id="interface_4"></div>
-      <p>As demonstrated above, we can pass parameters to the input component constructor to customize them.</p>
+      <div id="interface_5"></div>
+      <h3>Multiple Inputs and Outputs</h3>
       <p>
         Let's say we had a much more complex function, with multiple inputs and outputs. In the example below, we have a
         function that takes a string, boolean, and number, and returns a string and number. Take a look how we pass a
@@ -86,9 +97,11 @@ iface = gr.Interface(
   greet, 
   ["text", "checkbox", gr.inputs.Slider(0, 100)],
   ["text", "number"])</code></pre>
-      <div id="interface_5"></div>
+      <div id="interface_6"></div>
+      <p>We simply wrap  the components in a list. Furthermore, if we wanted to compare multiple functions that have the same input and return types, we can even pass a list of functions for quick comparison.</p>
+      <h3>Working with Images</h3>
       <p>Let's try an image to image function. When using the <code>Image</code> component, your function will receive a
-        numpy array of your specified size. We'll return an image as well in the form of a numpy array.</p>
+        numpy array of your specified size, with the shape <code>(width, height, 3)</code>, where the last dimension represents the RGB values. We'll return an image as well in the form of a numpy array.</p>
       <pre><code class="lang-python">import gradio as gr
 import numpy as np
 
@@ -102,262 +115,7 @@ def sepia(img):
 
 iface = gr.Interface(
   sepia, gr.inputs.Image(shape=(200, 200)), "image")</code></pre>
-      <div id="interface_6"></div>
-
-      <h3> 1. MobileNet in Tensorflow
-        <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">
-          <img src="https://colab.research.google.com/assets/colab-badge.svg" />
-        </a>
-      </h3>
-      <p>
-        Now, let's do a machine learning example. We're going to wrap an interface around the MobileNet image
-        classifier, which we'll load using Tensorflow! Since this is an image classification model, we will use the
-        <code>Image</code> input interface. We'll output a dictionary of labels and their corresponding confidence
-        scores with the <code>Label</code> output interface. (The original MobileNet architecture <a
-          href="https://arxiv.org/abs/1704.04861" target="_blank">can be found here</a>)
-      </p>
-
-      <pre><code class="lang-python">import gradio as gr
-import tensorflow as tf
-import numpy as np
-import requests
-
-inception_net = tf.keras.applications.InceptionV3() # load the model
-
-# Download human-readable labels for ImageNet.
-response = requests.get("https://git.io/JJkYN")
-labels = response.text.split("\n")
-
-def classify_image(inp):
-  inp = inp.reshape((-1, 299, 299, 3))
-  inp = tf.keras.applications.inception_v3.preprocess_input(inp)
-  prediction = inception_net.predict(inp).flatten()
-  return {labels[i]: float(prediction[i]) for i in range(1000)}
-
-image = gr.inputs.Image(shape=(299, 299, 3))
-label = gr.outputs.Label(num_top_classes=3)
-
-gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pre>
-      <p>This code will produce the interface below. The interface gives you a way to test
-      Inception Net by dragging and dropping images, and also allows you to use naturally modify the input image using image editing tools that
-          appear when you click EDIT. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface
-          function instead of using string shortcuts. This lets us use built-in
-          preprocessing (e.g. image resizing)
-          and postprocessing (e.g. choosing the number of labels to display) provided by these
-            interfaces.
-          Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
-
-        <div class="screenshot">
-        <img src="static/home/img/inception-net.png">
-        </div>
-    <h3> 2. ResNet in Pytorch
-
-      <a
-            href="https://colab.research.google.com/drive/1JC2vJxfCxg2xpJESzZN00QRDk2npzgZ2?usp=sharing" target="_blank"><img
-            src="https://colab.research.google.com/assets/colab-badge.svg"
-      /></a></h3>
-
-        <p>Let's now wrap a very similar model, ResNet, except this time in
-            Pytorch. We'll also use the <code>Image</code>
-            to <code>Label</code> interface. (The original ResNet architecture
-            <a href="https://arxiv.org/abs/1512.03385" target="_blank">can be found here</a>)</p>
-<pre><code class="lang-python">import gradio as gr
-import torch
-from torchvision import transforms
-import requests
-from PIL import Image
-
-model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=True)
-model.eval()
-
-response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
-idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
-
-def predict(inp):
-  inp = Image.fromarray(inp.astype('uint8'), 'RGB')
-  inp = transforms.ToTensor()(inp).unsqueeze(0)
-  with torch.no_grad():
-    prediction = torch.nn.functional.softmax(model(inp)[0], dim=0)
-  return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
-
-inputs = gr.inputs.Image()
-outputs = gr.outputs.Label(num_top_classes=3)
-interface = gr.Interface(fn=predict, inputs=inputs, outputs=outputs)
-
-interface.launch()</code></pre>
-      <p>This code will produce the interface below.</p>
-      <div id="interface_8"></div>
-
-      <h3>
-        4. GPT-2
-        <a href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
-        </a>
-      </h3>
-
-      <p>
-        Let's wrap a <code>Text</code> to <code>Text</code> interface around GPT-2, a text generation model that works on provided starter text. <a href="https://openai.com/blog/better-language-models/" target="_blank">Learn more about GPT-2</a> and similar language models.
-      </p>
-      <pre><code class="lang-python">import gradio as gr
-import tensorflow as tf
-from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
-
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
-
-def generate_text(inp):
-    input_ids = tokenizer.encode(inp, return_tensors='tf')
-    beam_output = model.generate(input_ids, max_length=100, num_beams=5, no_repeat_ngram_size=2, early_stopping=True)
-    output = tokenizer.decode(beam_output[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
-    return ".".join(output.split(".")[:-1]) + "."
-
-output_text = gr.outputs.Textbox(lines=15)
-gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
-      <p>
-        This code will produce the interface below. That's all that's needed!
-      </p>
-      <div id="interface_9"></div>
-
-      <h3> 5. Multiple Inputs: BERT-QA
-        <a href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"
-          target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a></h3>
-
-      <p>What if our model takes more than one input? Let's wrap a 2-input to 1-output interface around BERT-QA,
-        a model that can <a href="https://arxiv.org/abs/1909.05017" target="_blank">answer general questions</a>.
-        As shown in the code, Gradio can wrap functions with multiple inputs or outputs, simply by taking the list of
-        components needed.
-        The number of input components should match the number of parameters taken by <code>fn</code>. The number of
-        output components should match the number of values returned by <code>fn</code>. Similarly, if a model
-        returns multiple outputs, you can pass in a list of output interfaces.</p>
-      <pre><code class="lang-python">import gradio as gr
-from bert import QA
-
-model = QA('bert-large-uncased-whole-word-masking-finetuned-squad')
-
-def qa_func(context, question):
-    return model.predict(context, question)["answer"]
-
-gr.Interface(qa_func,
-    [
-        gr.inputs.Textbox(lines=7),
-        gr.inputs.Textbox(lines=1),
-    ],
-    gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
-      <p> This code will produce the interface below.</p>
-      <div id="interface_10"></div>
-
-      <h3>
-        6. Numerical Interface: Titanic Model
-        <a href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"
-          target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
-      </h3>
-
-      <p>
-        Many models have numeric or categorical inputs, which we support with a variety of interfaces. Let's wrap multiple input to label interface around a <a href="https://www.kaggle.com/c/titanic" target="_blank"> Titanic survival model</a>. We've hidden some of model-related code below, but you can see the full code on colab.
-      </p>
-      <pre><code class="lang-python">import gradio as gr
-import pandas as pd
-import numpy as np
-import sklearn
-
-def predict_survival(sex, age, fare):
-    df = pd.DataFrame.from_dict({'Sex': [sex], 'Age': [age], 'Fare': [fare]})
-    df = encode_sex(df)
-    df = encode_fares(df)
-    df = encode_ages(df)
-    pred = clf.predict_proba(df)[0]
-    return {'Perishes': pred[0], 'Survives': pred[1]}
-
-sex = gr.inputs.Radio(['female', 'male'], label="Sex")
-age = gr.inputs.Slider(minimum=0, maximum=120, default=22, label="Age")
-fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (british pounds)")
-
-gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
-      <p>This code will produce the interface below. </p>
-      <div id="interface_11"></div>
-
-      <h3>
-        7. Multiple Models: Comparing Inception to MobileNet
-        <a href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
-      </h3>
-      <p>
-        What if we want to compare two models? The code below generates a UI that takes one image input and returns predictions from both
-        <a href="https://arxiv.org/abs/1409.4842" target="_blank">Inception</a> and
-        <a href="https://arxiv.org/abs/1704.04861" target="_blank">MobileNet</a>.
-        We'll also add a title, description, and sample images.</p>
-      <pre><code class="lang-python">import gradio as gr
-import tensorflow as tf
-import numpy as np
-from PIL import Image
-import requests
-
-response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
-idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
-
-mobile_net = tf.keras.applications.MobileNetV2()
-inception_net = tf.keras.applications.InceptionV3()
-
-def classify_image_with_mobile_net(im):
-	arr = im.reshape((-1, 224, 224, 3))
-	arr = tf.keras.applications.mobilenet.preprocess_input(arr)
-	prediction = mobile_net.predict(arr).flatten()
-	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
-
-
-def classify_image_with_inception_net(im):
-	im = Image.fromarray(im.astype('uint8'), 'RGB')
-	im = im.resize((299, 299))
-	arr = np.array(im).reshape((-1, 299, 299, 3))
-	arr = tf.keras.applications.inception_v3.preprocess_input(arr)
-	prediction = inception_net.predict(arr).flatten()
-	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
-
-imagein = gr.inputs.Image()
-label = gr.outputs.Label(num_top_classes=3)
-sample_images = [
-                 ["https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_BE6RJF_16x9.jpg?itok=nP17Fm9H"],
-                 ["https://www.discoverboating.com/sites/default/files/inline-images/buying-a-sailboat-checklist.jpg"],
-                 ["https://external-preview.redd.it/lG5mI_9Co1obw2TiY0e-oChlXfEQY3tsRaIjpYjERqs.jpg?auto=webp&s=ea81982f44b83efbb803c8cff8953ee547624f70"]
-]
-
-gr.Interface(
-    [classify_image_with_mobile_net, classify_image_with_inception_net],
-    imagein,
-    label,
-    title="MobileNet vs. InceptionNet",
-    description="Let's compare 2 state-of-the-art machine learning models
-          that classify images into one of 1,000 categories: MobileNet (top),
-          a lightweight model that has an accuracy of 0.704, vs. InceptionNet
-          (bottom), a much heavier model that has an accuracy of 0.779.",
-    examples=sample_images).launch();</code></pre>
-      <p>This code will produce the interface below. Looks like MobileNet is
-        about 3 times faster! </p>
-      <div id="interface_12"></div>
-
-
-      <h2 id="interfaces">List of Gradio Interfaces: </h2>
-      Here's a list of the interfaces we currently support, along with their preprocessing / postprocessing
-      parameters:
-      <h4> Input Interfaces</h4>
-      <ul>
-        <li><code>Sketchpad(shape=(28, 28), invert_colors=True, flatten=False, scale=1/255, shift=0,
-                 dtype='float64')</code></li>
-        <li><code>Webcam(image_width=224, image_height=224, num_channels=3, label=None)</code></li>
-        <li><code>Textbox(lines=1, placeholder=None, label=None, numeric=False)</code></li>
-        <li><code>Radio(choices, label=None)</code></li>
-        <li><code>Dropdown(choices, label=None)</code></li>
-        <li><code>CheckboxGroup(choices, label=None)</code></li>
-        <li><code>Slider(minimum=0, maximum=100, default=None, label=None)</code></li>
-        <li><code>Image(shape=(224, 224, 3), image_mode='RGB',
-              scale=1/127.5, shift=-1, label=None)</code></li>
-        <li><code>Microphone()</code></li>
-      </ul>
-      <h4> Output Interfaces</h4>
-      <ul>
-        <li><code>Label(num_top_classes=None, label=None)</code></li>
-        <li><code>KeyValues(label=None)</code></li>
-        <li><code>Textbox(lines=1, placeholder=None, label=None)</code></li>
-        <li><code>Image(label=None, plot=False)</code></li>
-      </ul>
+      <div id="interface_7"></div>
 
       <p>Additionally, our <code>Image</code> input interface comes with
         an 'edit' button which opens tools for cropping, flipping,
@@ -365,18 +123,12 @@ gr.Interface(
         and applying filters to images. We've found that manipulating
         images
         in this way will often reveal hidden flaws in a model. </p>
-      <p>&nbsp;</p>
-      <div class="screenshot">
-        <img src="static/home/img/editor.png">
-      </div>
-      <p>&nbsp;</p>
+      <p>That's all you need to get started with Gradio! To see a list of all the components available, check out the <a href="/docs">Docs</a>. To see some examples of ML models using Gradio, check out the <a href="/ml_examples">ML Examples</a> page.</p>
       <p>
         <a href="/#contact-box">Let us know</a> what interfaces we should add next, or feel free to
         contribute to the <a href="https://github.com/gradio-app/gradio-UI" target="_blank">open-source library</a>.
       </p>
-      <p>&nbsp;</p>
-
-      <h2 id="sharing">Sharing your Gradio Interfaces & Privacy: </h2>
+      <h3 id="sharing">Sharing Interfaces & Privacy</h3>
       <p>
         Interfaces can be shared by setting <code>share=True</code> in the
         <code>launch()</code> method. Like this: </p>
@@ -396,12 +148,9 @@ gr.Interface(
       <p>
         Need longer links, or private links? <a href="/#contact-box">Contact us for Gradio Teams</a>.
       </p>
-      <p>&nbsp;</p>
-
       <div class="screenshot">
         <img src="static/home/img/sharing.png">
       </div>
-
     </div>
   </main>
   <footer>

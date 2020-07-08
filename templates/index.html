@@ -12,11 +12,13 @@
     <nav>
       <a class="selected" href="/">Home</a>
       <a href="/getting_started">Getting Started</a>
+      <a href="/docs">Docs</a>
+      <a href="/ml_examples">ML Examples</a>
       <a href="/hub">Hub</a>
       <a id="contact-link" href="/#contact-box">Contact</a>
     </nav>
   </header>
-  <main>
+  <main id="index">
     <div id="hero" class="container">
       <img class="bg-image" src="static/home/img/demo-screenshot-1.jpg" width=360 style="top: 40; left: -40px">
       <img class="bg-image" src="static/home/img/demo-screenshot-5.jpg" width=370 style="top: 200; left: 200px">
@@ -26,8 +28,6 @@
       <h2 id="slogan">Interfaces for your ML Models</h2>
       <div id="tagline">Generate an easy-to-use UI for your ML model, function, or API with only a few
         lines of code. Integrate directly into your Python notebook, or share a link with anyone.</div>
-      <a class="github-button" href="https://github.com/gradio-app" data-size="large"
-        aria-label="Follow @gradio-app on GitHub">Follow @gradio-app</a>
       <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="large"
         data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>
     </div>
@@ -128,36 +128,36 @@
         <div id="interface_4"></div>
       </div>      
     </div>
-  </main>
-  <div id="summaries" class="container">
-    <div>
-      <div id="setup" class="summary_box">
-        <h3>Fast, easy setup</h3>
-        <p>Gradio can be installed directly through pip. Creating a Gradio interface only requires adding a couple lines of code to your project. You can choose from a variety of interface types to interface your function.</p>
-        <p>More on <a href="getting_started">Getting Started >></a>
-        <p>
+    <div id="summaries" class="container">
+      <div>
+        <div id="setup" class="summary_box">
+          <h3>Fast, easy setup</h3>
+          <p>Gradio can be installed directly through pip. Creating a Gradio interface only requires adding a couple lines of code to your project. You can choose from a variety of interface types to interface your function.</p>
+          <p>More on <a href="getting_started">Getting Started >></a>
+          <p>
+        </div>
+        <div id="present" class="summary_box">
+          <h3>Present and share</h3>
+          <p>Gradio can be embedded in Python notebooks or presented as a webpage. A Gradio interface can automatically generate a public link you can share with colleagues that lets them interact with the model on your computer remotely from their own devices.</p>
+          <p>More on <a href="getting_started#sharing">Sharing >></a>
+          <p>
+        </div>
       </div>
-      <div id="present" class="summary_box">
-        <h3>Present and share</h3>
-        <p>Gradio can be embedded in Python notebooks or presented as a webpage. A Gradio interface can automatically generate a public link you can share with colleagues that lets them interact with the model on your computer remotely from their own devices.</p>
-        <p>More on <a href="getting_started#sharing">Sharing >></a>
-        <p>
-      </div>
+      <img src="static/home/img/demo-jupyter.jpg" id="notebook-shot">
     </div>
-    <img src="static/home/img/demo-jupyter.jpg" id="notebook-shot">
-  </div>
-  <div class="container" id="contact-box">
-    <h3>Contact Us.</h3>
-    <p>Want to integrate Gradio in a large team? We can help with <b>Gradio for Teams</b>. Get in touch.</p>
-    <form method="POST" action="https://formspree.io/admin@gradio.app">
-      <input type="text" name="email" id="email" placeholder="Email">
-      <button type="submit" id="submit" class="primary">Submit</button>
-    </form>
-    <p>Running into any issues? Contact us directly with any questions
-      <a href="mailto:team@gradio.app" target="_blank">here</a>, or <a
-              href="https://github.com/gradio-app/gradio-UI/issues/new/choose" target="_blank">open an issue</a>
-      at our github repo.</p>
-  </div>
+    <div class="container" id="contact-box">
+      <h3>Contact Us.</h3>
+      <p>Want to integrate Gradio in a large team? We can help with <b>Gradio for Teams</b>. Get in touch.</p>
+      <form method="POST" action="https://formspree.io/admin@gradio.app">
+        <input type="text" name="email" id="email" placeholder="Email">
+        <button type="submit" id="submit" class="primary">Submit</button>
+      </form>
+      <p>Running into any issues? Contact us directly with any questions
+        <a href="mailto:team@gradio.app" target="_blank">here</a>, or <a
+                href="https://github.com/gradio-app/gradio-UI/issues/new/choose" target="_blank">open an issue</a>
+        at our github repo.</p>
+    </div>
+  </main>
   <footer>
     <img src="static/home/img/logo_inline.png" />
   </footer>
@@ -205,15 +205,20 @@
             for (var i = 0; i < img_data.length; i += 4) {
               input.push(img_data[i + 3] / 255);
             }
-            if (data == cached_input) {
+            if (JSON.stringify(data) == JSON.stringify(cached_input)) {
               resolve(cached_output);
             } else if (Math.max(...input) == 0) {
+              if (cached_input == null) {
+                console.log("predict");
+                window.model.predict([tf.tensor(new Array(28 * 28).fill(0)).reshape([1, 28, 28, 1])]);
+              }
               let result = {
                 "label": "",
               }
               cached_output = {"data": [result]};
               resolve(cached_output);
             } else if (window.model) {
+              console.log("predict 2");
               window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function(scores){
                 scores = scores[0];
                 let labeled_scores = []
