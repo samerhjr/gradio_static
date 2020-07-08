@@ -128,9 +128,9 @@ iface = gr.Interface(
         <a href="/#contact-box">Let us know</a> what interfaces we should add next, or feel free to
         contribute to the <a href="https://github.com/gradio-app/gradio-UI" target="_blank">open-source library</a>.
       </p>
-      <h3 id="sharing">Sharing Interfaces & Privacy</h3>
+      <h3 id="sharing">Sharing Interfaces Publicly & Privacy</h3>
       <p>
-        Interfaces can be shared by setting <code>share=True</code> in the
+        Interfaces can be easily shared publicly by setting <code>share=True</code> in the
         <code>launch()</code> method. Like this: </p>
 
       <pre><code class="lang-python">gr.Interface(classify_image, image, label).launch(share=True)</code></pre>
@@ -138,15 +138,22 @@ iface = gr.Interface(
       <p>
         This generates a public, shareable link that you can send to anybody! When you send this link, the user
         on the other side can try out the model in their browser. Because the processing happens on your device
-        (as long as your device stays on!), you don't have to worry about any dependencies.
+          (as long as your device stays on!), you don't have to worry about any dependencies. If you're working out of
+          colab notebook, a share link is always automatically created. It usually looks something like this: <strong>
+          7860.gradio.app</strong>. Although the link is served through a gradio link, we are only a proxy for your local server, and do not store any data sent through the interfaces.
+      </strong></p>
 
-        If you're working out of colab notebook, a share link is always
-        created. Links expire after 8 hours, and are publicly accessible, meaning that anyone can use your model
-        for prediction, if they know your link. Although the link is served through a <code>gradio.app</code>
-        link, we are only a proxy for your local server, and do not store any data sent through the interfaces.
+        <p>Keep in mind, however, that these links are publicly accessible, meaning that anyone can use your model
+            for prediction! Therefore, make sure not to expose any
+            sensitive information through the functions you write, or allow any critical changes to occur on
+            your device. If you set <code>share=False</code> (the default), only a local link is created, which
+            can be shared <a href="https://www.ssh.com/ssh/tunneling/example">port-forwarded</a> with specific
+            collaborators. </p>
+
+        <p>
       </p>
       <p>
-        Need longer links, or private links? <a href="/#contact-box">Contact us for Gradio Teams</a>.
+        Links expire after 6 hours. Need longer links, or private links? <a href="/#contact-box">Contact us for Gradio Teams</a>.
       </p>
       <div class="screenshot">
         <img src="static/home/img/sharing.png">
