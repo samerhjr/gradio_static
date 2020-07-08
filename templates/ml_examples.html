@@ -23,7 +23,7 @@
     <div class="container">
       <h2>Machine Learning Examples</h2>
       <p>Let's see Gradio working with a few ML examples.</p>
-      <h3>MobileNet in Tensorflow</h3>
+      <h3>Image Classification in Tensorflow / Keras</h3>
       <p>
         We'll start with the MobileNet image classifier, which we'll load using Tensorflow! Since this is an image classification model, we will use the <code>Image</code> input interface. We'll output a dictionary of labels and their corresponding confidence scores with the <code>Label</code> output interface. (The original MobileNet architecture <a href="https://arxiv.org/abs/1704.04861" target="_blank">can be found here</a>)
       </p>
@@ -58,7 +58,7 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pr
             interfaces.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
 
-    <h3>ResNet in Pytorch
+    <h3>Image Classification in Pytorch
 
       <a
             href="https://colab.research.google.com/drive/1JC2vJxfCxg2xpJESzZN00QRDk2npzgZ2?usp=sharing" target="_blank"><img
@@ -75,18 +75,18 @@ from torchvision import transforms
 import requests
 from PIL import Image
 
-model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=True)
-model.eval()
+model = torch.hub.load('pytorch/vision:v0.6.0', 'resnet18', pretrained=True).eval()
 
-response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
-idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
+# Download human-readable labels for ImageNet.
+response = requests.get("https://git.io/JJkYN")
+labels = response.text.split("\n")
 
 def predict(inp):
   inp = Image.fromarray(inp.astype('uint8'), 'RGB')
   inp = transforms.ToTensor()(inp).unsqueeze(0)
   with torch.no_grad():
     prediction = torch.nn.functional.softmax(model(inp)[0], dim=0)
-  return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+  return {labels[i]: float(prediction[i]) for i in range(1000)}
 
 inputs = gr.inputs.Image()
 outputs = gr.outputs.Label(num_top_classes=3)
@@ -97,7 +97,7 @@ interface.launch()</code></pre>
       <div id="interface_8"></div>
 
       <h3>
-        GPT-2
+        Text Generation with Transformers (GPT-2)
         <a href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
         </a>
       </h3>
@@ -114,7 +114,8 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_tok
 
 def generate_text(inp):
     input_ids = tokenizer.encode(inp, return_tensors='tf')
-    beam_output = model.generate(input_ids, max_length=100, num_beams=5, no_repeat_ngram_size=2, early_stopping=True)
+    beam_output = model.generate(input_ids, max_length=100, num_beams=5,
+          no_repeat_ngram_size=2, early_stopping=True)
     output = tokenizer.decode(beam_output[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
     return ".".join(output.split(".")[:-1]) + "."
 
@@ -125,7 +126,7 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       </p>
       <div id="interface_9"></div>
 
-      <h3>BERT-QA
+      <h3>Answering Questions with BERT-QA
         <a href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"
           target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a></h3>
 
@@ -154,7 +155,7 @@ gr.Interface(qa_func,
       <div id="interface_10"></div>
 
       <h3>
-        6. Numerical Interface: Titanic Model
+        Numerical Interfaces: Titanic Survival Model
         <a href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"
           target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
       </h3>
@@ -184,7 +185,7 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
       <div id="interface_11"></div>
 
       <h3>
-        Multiple Models: Comparing Inception to MobileNet
+        Multiple Image Classifiers: Comparing Inception to MobileNet
         <a href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
       </h3>
       <p>
@@ -198,8 +199,9 @@ import numpy as np
 from PIL import Image
 import requests
 
-response = requests.get("https://gist.githubusercontent.com/yrevar/942d3a0ac09ec9e5eb3a/raw/238f720ff059c1f82f368259d1ca4ffa5dd8f9f5/imagenet1000_clsidx_to_labels.txt")
-idx_to_labels = {index : name.split('\'')[1].split(',')[0] for index, name in enumerate(response.text.split("\n"))}
+# Download human-readable labels for ImageNet.
+response = requests.get("https://git.io/JJkYN")
+labels = response.text.split("\n")
 
 mobile_net = tf.keras.applications.MobileNetV2()
 inception_net = tf.keras.applications.InceptionV3()
@@ -208,16 +210,17 @@ def classify_image_with_mobile_net(im):
 	arr = im.reshape((-1, 224, 224, 3))
 	arr = tf.keras.applications.mobilenet.preprocess_input(arr)
 	prediction = mobile_net.predict(arr).flatten()
-	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+    return {labels[i]: float(prediction[i]) for i in range(1000)}
 
 
 def classify_image_with_inception_net(im):
+    # Resize the image to
 	im = Image.fromarray(im.astype('uint8'), 'RGB')
 	im = im.resize((299, 299))
 	arr = np.array(im).reshape((-1, 299, 299, 3))
 	arr = tf.keras.applications.inception_v3.preprocess_input(arr)
 	prediction = inception_net.predict(arr).flatten()
-	return {idx_to_labels[i].split(',')[0]: float(prediction[i]) for i in range(1000)}
+    return {labels[i]: float(prediction[i]) for i in range(1000)}
 
 imagein = gr.inputs.Image()
 label = gr.outputs.Label(num_top_classes=3)
