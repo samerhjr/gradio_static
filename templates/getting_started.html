@@ -67,10 +67,10 @@ gr.Interface(fn=greet, inputs="text", outputs="text").launch()</code></pre>
 def greet(name):
   return "Hello " + name + "!"
 
-iface = gr.Interface(
+gr.Interface(
   greet, 
   gr.inputs.Textbox(lines=2, placeholder="Name Here..."), 
-  "text")</code></pre>
+  "text").launch()</code></pre>
       <div id="interface_5"></div>
       <h3>Multiple Inputs and Outputs</h3>
       <p>
@@ -86,10 +86,10 @@ def greet(name, is_morning, temperature):
   celsius = (temperature - 32) * 5 / 9
   return greeting, round(celsius, 2)
 
-iface = gr.Interface(
+gr.Interface(
   greet, 
   ["text", "checkbox", gr.inputs.Slider(0, 100)],
-  ["text", "number"])</code></pre>
+  ["text", "number"]).launch()</code></pre>
       <div id="interface_6"></div>
       <p>We simply wrap  the components in a list. Furthermore, if we wanted to compare multiple functions that have the same input and return types, we can even pass a list of functions for quick comparison.</p>
       <h3>Working with Images</h3>
@@ -106,8 +106,8 @@ def sepia(img):
   sepia_img /= sepia_img.max()                          
   return sepia_img
 
-iface = gr.Interface(
-  sepia, gr.inputs.Image(shape=(200, 200)), "image")</code></pre>
+gr.Interface(
+  sepia, gr.inputs.Image(shape=(200, 200)), "image").launch()</code></pre>
       <div id="interface_7"></div>
 
       <p>Additionally, our <code>Image</code> input interface comes with
@@ -136,15 +136,15 @@ iface = gr.Interface(
         on the other side can try out the model in their browser. Because the processing happens on your device
           (as long as your device stays on!), you don't have to worry about any dependencies. If you're working out of
           colab notebook, a share link is always automatically created. It usually looks something like this: <strong>
-          7860.gradio.app</strong>. Although the link is served through a gradio link, we are only a proxy for your local server, and do not store any data sent through the interfaces.
+          XXXXX.gradio.app</strong>. Although the link is served through a gradio link, we are only a proxy for your local server, and do not store any data sent through the interfaces.
       </strong></p>
 
         <p>Keep in mind, however, that these links are publicly accessible, meaning that anyone can use your model
             for prediction! Therefore, make sure not to expose any
             sensitive information through the functions you write, or allow any critical changes to occur on
             your device. If you set <code>share=False</code> (the default), only a local link is created, which
-            can be shared <a href="https://www.ssh.com/ssh/tunneling/example">port-forwarded</a> with specific
-            collaborators. </p>
+            can be shared by <a href="https://www.ssh.com/ssh/tunneling/example">port-forwarding</a> with specific
+            users. </p>
 
         <p>
       </p>
