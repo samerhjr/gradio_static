@@ -302,11 +302,23 @@ form {
   padding: 16px;
 }
 #docs-content h3 {
-  padding-top: 24px;
+  color: #ed9013;
 }
-#docs-content #textbox {
+#docs-content h3 small {
+  color: black;
+}
+#docs-content h2 {
+  margin-bottom: 0;
+}
+.space {
+  height: 16px;
+}
+#docs-content h3 {
   padding-top: 8px;
 }
 #sidebar > :first-child, #docs-content > :first-child {
-  margin-top: 0;
+  margin-top: 0 !important;
+}
+.func {
+  margin-bottom: 40px;
 }
