@@ -4,6 +4,7 @@
   <title>Gradio</title>
   <link href="static/home/style/style.css" rel="stylesheet">
   {% include 'header.html' %}
+  <link href="static/home/style/prism.css" rel="stylesheet">
 </head>
 
 <body>
@@ -43,32 +44,36 @@
       <p>Below are a few demos. Check the <a href="getting_started">Getting Started</a> for full code examples.</p>
       <div id="demo-nav">
         <button demo="1" class="selected demo-link">
-          Digit Classifier
+          <div class="demo-long">Digit Classifier</div>
+          <div class="demo-short">Demo 1</div>
           <div class="demo-type">img &rarr; {label: confidence}</div>
         </button>
         <button demo="2" class="demo-link">
-          Q&A with Paragraph
+          <div class="demo-long">Q&A with Paragraph</div>
+          <div class="demo-short">Demo 2</div>
           <div class="demo-type">(text, text) &rarr; text</div>
         </button>
         <button demo="3" class="demo-link">
-          Face Segmentation
+          <div class="demo-long">Face Segmentation</div>
+          <div class="demo-short">Demo 3</div>
           <div class="demo-type">webcam &rarr; img</div>
         </button>
         <button demo="4" class="demo-link">
-          Outbreak Forecast
+          <div class="demo-long">Outbreak Forecast</div>
+          <div class="demo-short">Demo 4</div>
           <div class="demo-type">(number, text, list[text], bool) &rarr; plot</div>
         </button>
       </div>
       <div class="demo-window" demo="1">
         <div class="demo-code">
-          <div class="codeblock"><code>
-              import <varl>gradio</varl> as <varl>gr</varl><br><br>
-              def <func>recognize_digit(</func><varl>img</varl><func>)</func>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement digit recognition model on input array </comm><br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return dictionary of labels and confidences </comm><br><br>
-              gr.<func>Interface(</func><varl>fn</varl>=<func>recognize_digit</func>, 
-              <varl>inputs</varl>="sketchpad", <varl>outputs</varl>="label"<func>)</func>.<func>launch()</func>
-            </code></div>
+          <pre><code class="lang-python">import gradio as gr
+
+def recognize_digit(img):
+    # ... implement digit recognition model on input array 
+    # ... return dictionary of labels and confidences 
+
+gr.Interface(fn=recognize_digit, 
+inputs="sketchpad", outputs="label").launch()</code></pre>
         </div>
         <div class="instructions">
           The single line of code above produces produces the web interface below. Draw a number 0 through 9 on the sketchpad below and click submit to get the model classification!
@@ -77,14 +82,14 @@
       </div>
       <div class="demo-window" demo="2">
         <div class="demo-code">
-          <div class="codeblock"><code>
-              import <varl>gradio</varl> as <varl>gr</varl><br><br>
-              def <func>answer_question(</func><varl>paragraph</varl>, <varl>question</varl><func>)</func>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement Q&amp;A model</comm><br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return answer to question</comm><br><br>
-              gr.<func>Interface(</func><varl>fn</varl>=<func>answer_question</func>, 
-              <varl>inputs</varl>=["textbox", "text"], <varl>outputs</varl>="text"<func>)</func>.<func>launch()</func>
-            </code></div>
+          <pre><code class="lang-python">import gradio as gr
+
+def answer_question(paragraph, question):
+    # ... implement Q&amp;A model
+    # ... return answer to question
+
+gr.Interface(fn=answer_question, 
+inputs=["textbox", "text"], outputs="text").launch()</code></pre>
         </div>
         <div class="instructions">
           Provide a context paragraph and ask a question that can be answered with the context information. Go ahead, type in some information and a question. Then, click submit to get the answer!
@@ -93,15 +98,15 @@
       </div>      
       <div class="demo-window" demo="3">
         <div class="demo-code">
-          <div class="codeblock"><code>
-              import <varl>gradio</varl> as <varl>gr</varl><br><br>
-              def <func>face_segmentation(</func><varl>img</varl><func>)</func>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... implement face segmentation model on input 200x200 numpy array</comm><br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return segmentation mask as numpy array</comm><br><br>
-              <varl>webcam</varl> = gr.in.Webcam(<varl>shape</varl>=(200, 200))<br>
-              gr.<func>Interface(</func><varl>fn</varl>=<func>face_segmentation</func>, 
-              <varl>inputs</varl>=webcam, <varl>outputs</varl>="image"<func>)</func>.<func>launch()</func>
-            </code></div>
+          <pre><code class="lang-python">import gradio as gr
+
+def face_segmentation(img):
+    # ... implement face segmentation model on input 200x200 numpy array
+    # ... return segmentation mask as numpy array
+
+webcam = gr.in.Webcam(shape=(200, 200))
+gr.Interface(fn=face_segmentation, 
+inputs=webcam, outputs="image").launch()</code></pre>
         </div>
         <div class="instructions">
           Take a snapshot from your webcam and click submit to generate a face segmentation.  
@@ -110,17 +115,18 @@
       </div> 
       <div class="demo-window" demo="4">
         <div class="demo-code">
-          <div class="codeblock"><code>
-              import <varl>gradio</varl> as <varl>gr</varl>, <varl>matplotlib.pyplot</varl> as <varl>plt</varl><br><br>
-              def <func>outbreak_forecast(</func><varl>r</varl>, <varl>month</varl>, <varl>countries</varl>, <varl>social_distancing</varl><func>)</func>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... run model to forecast outbreak and generate plots</comm><br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<comm># ... return plt</comm><br><br>
-              <varl>r</varl> = gr.in.Slider(1, 5)<br>
-              <varl>month</varl> = gr.in.Dropdown(["May", "June", "July"])<br>
-              <varl>countries</varl> = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])<br><br>
-              gr.<func>Interface(</func><varl>fn</varl>=<func>outbreak_forecast</func>, 
-              <varl>inputs</varl>=[r, month, countries, "checkbox"], <varl>outputs</varl>="plot"<func>)</func>.<func>launch()</func>
-            </code></div>
+          <pre><code class="lang-python">import gradio as gr, matplotlib.pyplot as plt
+
+def outbreak_forecast(r, month, countries, social_distancing):
+    # ... run model to forecast outbreak and generate plots
+    # ... return plt
+
+r = gr.in.Slider(1, 5)
+month = gr.in.Dropdown(["May", "June", "July"])
+countries = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])
+
+gr.Interface(fn=outbreak_forecast, 
+inputs=[r, month, countries, "checkbox"], outputs="plot").launch()</code></pre>
         </div>
         <div class="instructions">
           Provide the parameters below and click submit to view the forecast of a simulated disease outbreak. This is <strong>not</strong> based on an actual disease and uses synthetic data.
@@ -178,6 +184,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   {% include 'footer.html' %}
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
+  <script src="static/home/js/prism.js"></script>
   <script>
     $(".demo-link").click(function() {
       let demo_num = $(this).attr("demo");
