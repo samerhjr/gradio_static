@@ -129,17 +129,6 @@
         <em>None</em>
       </div>
       <div class="func">
-        <h3 id="checkboxgroup"><small>gradio.inputs.</small>CheckboxGroup(<small>self, choices, label=None</small>)</h3>
-        <p>Component creates a set of checkboxes of which a subset can be selected. Provides a list of strings representing the selected choices as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>choices</strong> - list of strings that represent each checkbox label.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <em>None</em>
-      </div>
-      <div class="func">
         <h3 id="radio"><small>gradio.inputs.</small>Radio(<small>self, choices, label=None</small>)</h3>
         <p>Component creates a set of radio buttons of which only one can be selected. Provides string representing selected choice as an argument to the wrapped function.</p>
         <h4>Parameters</h4>
@@ -173,21 +162,6 @@
         <h4>String Shortcuts</h4>
         <ul>
           <li>"image" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="sketchpad"><small>gradio.inputs.</small>Sketchpad(<small>shape=(28, 28), invert_colors=True, flatten=False, label=None</small>)</h3>
-        <p>Component creates a sketchpad for black and white illustration. Provides numpy array of shape <code>(width, height)</code> as an argument to the wrapped function. </p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>shape</strong> - tuple representing width and height to crop image to.</li>
-          <li><strong>invert_colors</strong> - whether to represent black as 1 and white as 0 in the numpy array.</li>
-          <li><strong>flatten</strong> - whether to reshape the numpy array to a single dimension.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"sketchpad" - default implementation.</li>
         </ul>
       </div>
       <div class="func">
@@ -245,19 +219,6 @@
         </ul>
       </div>
       <div class="func">
-        <h3 id="textbox_out"><small>gradio.outputs.</small>Textbox(<small>self, label=None</small>)</h3>
-        <p>Component creates a textbox to render output text. Expects a string or number to be returned by the function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"text" - default implementation.</li>
-          <li>"number" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
         <h3 id="label"><small>gradio.outputs.</small>Label(<small>self, num_top_classes=None, label=None</small>)</h3>
         <p>Component displays a classification labels for an input. Expects a string for the most confident label or a dictionary mapping each string label to a confidence score between 0 and 1 to be returned by the function.</p>
         <h4>Parameters</h4>
@@ -298,7 +259,13 @@
       </div>
     </main>
     <footer>
-      <img src="static/home/img/logo_inline.png" />
+      <div id="footer-set" class="container">
+        <img id="bottom-logo" src="static/home/img/logo_inline.png" />
+        <div>
+          <a href="https://twitter.com/teamGradio" target="_blank"><img class="social-logo" src="static/home/img/twitter.png" /></a>
+          <a href="https://github.com/gradio-app/gradio-UI"><img class="social-logo" src="static/home/img/github.svg" /></a>
+        </div>
+      </div>
     </footer>
     <script src="static/home/js/prism.js"></script>
   </body>

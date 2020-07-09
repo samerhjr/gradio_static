@@ -101,11 +101,19 @@ code comm {
 footer {
   margin-top: 40px;
   background-color: #f6f6f6;
-  text-align: center;
+  padding: 12px 0;
 }
-footer img {
+#footer-set {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#bottom-logo {
   height: 32px;
-  padding: 8px 0;
+}
+.social-logo {
+  height: 22px;
+  margin-left: 12px;
 }
 #demo-nav {
   display: flex;
@@ -145,10 +153,6 @@ footer img {
 }
 #tagline2 {
   font-size: 1.2rem;
-}
-#summaries {
-  display: flex;
-  align-items: center;
 }
 #notebook-shot {
   width: 600px;
@@ -322,4 +326,18 @@ form {
 }
 .func {
   margin-bottom: 40px;
+}
+#logos {
+  background-color: whitesmoke;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+#logo_set {
+  display: flex;
+  justify-content: space-between;
+}
+#logo_set img {
+  height: 22px;
+  filter: grayscale(100%);
 }

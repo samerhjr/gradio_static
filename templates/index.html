@@ -128,22 +128,30 @@
         <div id="interface_4"></div>
       </div>      
     </div>
-    <div id="summaries" class="container">
-      <div>
-        <div id="setup" class="summary_box">
-          <h3>Fast, easy setup</h3>
-          <p>Gradio can be installed directly through pip. Creating a Gradio interface only requires adding a couple lines of code to your project. You can choose from a variety of interface types to interface your function.</p>
-          <p>More on <a href="getting_started">Getting Started >></a>
-          <p>
-        </div>
-        <div id="present" class="summary_box">
-          <h3>Present and share</h3>
-          <p>Gradio can be embedded in Python notebooks or presented as a webpage. A Gradio interface can automatically generate a public link you can share with colleagues that lets them interact with the model on your computer remotely from their own devices.</p>
-          <p>More on <a href="getting_started#sharing">Sharing >></a>
-          <p>
-        </div>
+    <div id="logos">
+      <h5>Works with these libraries</h5>
+      <div id="logo_set" class="container">
+        <img src="static/home/img/logos/tf.png">
+        <img src="static/home/img/logos/pytorch.png">
+        <img src="static/home/img/logos/jupyter.png">
+        <img src="static/home/img/logos/colab.png">
+        <img src="static/home/img/logos/matplotlib.png">
+        <img src="static/home/img/logos/scikit.png">
       </div>
-      <img src="static/home/img/demo-jupyter.jpg" id="notebook-shot">
+    </div>
+    <div id="summaries" class="container">
+      <div id="setup" class="summary_box">
+        <h3>Fast, easy setup</h3>
+        <p>Gradio can be installed directly through pip. Creating a Gradio interface only requires adding a couple lines of code to your project. You can choose from a variety of interface types to interface your function.</p>
+        <p>More on <a href="getting_started">Getting Started >></a>
+        <p>
+      </div>
+      <div id="present" class="summary_box">
+        <h3>Present and share</h3>
+        <p>Gradio can be embedded in Python notebooks or presented as a webpage. A Gradio interface can automatically generate a public link you can share with colleagues that lets them interact with the model on your computer remotely from their own devices.</p>
+        <p>More on <a href="getting_started#sharing">Sharing >></a>
+        <p>
+      </div>
     </div>
     <div class="container" id="contact-box">
       <h3>Contact Us.</h3>
@@ -159,7 +167,13 @@
     </div>
   </main>
   <footer>
-    <img src="static/home/img/logo_inline.png" />
+    <div id="footer-set" class="container">
+      <img id="bottom-logo" src="static/home/img/logo_inline.png" />
+      <div>
+        <a href="https://twitter.com/teamGradio" target="_blank"><img class="social-logo" src="static/home/img/twitter.png" /></a>
+        <a href="https://github.com/gradio-app/gradio-UI"><img class="social-logo" src="static/home/img/github.svg" /></a>
+      </div>
+    </div>
   </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   {% include 'footer.html' %}
