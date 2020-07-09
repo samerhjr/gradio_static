@@ -53,7 +53,8 @@
     <div id="docs-content">
       <h2>Creating an Interface</h2>
       <div class="func">
-        <h3 id="interface"><small>gradio.</small>Interface(<small>fn, inputs, outputs, live=False</small>)</h3>
+        <h3 id="interface"><small>gradio.</small>Interface(<small>fn, inputs, outputs, live=False, capture_session=False, title=None,
+        description=None, examples=None</small>)</h3>
         <p>Interfaces are created with Gradio using the <code>gradio.Interface()</code> function.</p>
         <h4>Parameters</h4>
         <ul>
@@ -61,6 +62,12 @@
           <li><strong>inputs</strong> - a single Gradio input component, or list of Gradio input components. Components can either be passed as instantiated objects, or referred to by their string shortcuts. The number of input components should match the number of parameters in fn.</li>
           <li><strong>outputs</strong> - a single Gradio output component, or list of Gradio output components. Components can either be passed as instantiated objects, or referred to by their string shortcuts. The number of output components should match the number of values returned by fn.</li>
           <li><strong>live</strong> - whether the interface should automatically reload on change.</li>
+          <li><strong>capture_session</strong> - if True, captures the default graph and session (needed for Tensorflow 1.x)</li>
+          <li><strong>title</strong> - a title for the interface; if provided, appears above the input and output components.</li>
+          <li><strong>description</strong> - a description for the interface; if provided, appears above the input and output components.</li>
+          <li><strong>examples</strong> - sample inputs for the function; if provided, appears below the UI components and can be used to
+            populate the interface. Should be nested list, in which the outer list consists of samples and each inner list
+            consists of an input corresponding to each input component. </li>
         </ul>
       </div>
       <div class="func">

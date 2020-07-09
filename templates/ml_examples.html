@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Gradio | Getting Started</title>
+  <title>Gradio | ML Examples</title>
   <link href="static/home/style/style.css" rel="stylesheet">
   {% include 'header.html' %}
   <link href="static/home/style/prism.css" rel="stylesheet">
@@ -9,7 +9,7 @@
 
 <body>
   <header class="container">
-    <img id="logo" src="static/home/img/logo_inline.png" />
+    <a href="/"><img id="logo" src="static/home/img/logo_inline.png" /></a>
     <nav>
       <a href="/">Home</a>
       <a href="/getting_started">Getting Started</a>
@@ -24,7 +24,7 @@
       <h2>Machine Learning Examples</h2>
         <p>After you're familiar with the <a href="/getting_started">basics of Gradio library</a>, you'll probably want to try it on a machine
           learning model. Let's see Gradio working with a few machine learning examples.</p>
-      <h3>Image Classification in Tensorflow / Keras <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
+      <h3>Image Classification in Tensorflow / Keras <a href="https://colab.research.google.com/drive/1NWE_SDgQPI6GIpnhtWeEOHCPejC2FaZc?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
         </a></h3>
       <p>
         We'll start with the Inception Net image classifier, which we'll load
@@ -56,20 +56,20 @@ def classify_image(inp):
 image = gr.inputs.Image(shape=(299, 299, 3))
 label = gr.outputs.Label(num_top_classes=3)
 
-gr.Interface(fn=classify_image, inputs=image, outputs=label).launch()</code></pre>
+gr.Interface(fn=classify_image, inputs=image, outputs=label, capture_session=True).launch()</code></pre>
       <p>This code will produce the interface below. The interface gives you a way to test
       Inception Net by dragging and dropping images, and also allows you to use naturally modify the input image using image editing tools that
           appear when you click EDIT. Notice here we provided actual <code>gradio.inputs</code> and <code>gradio.outputs</code> objects to the Interface
           function instead of using string shortcuts. This lets us use built-in
           preprocessing (e.g. image resizing)
           and postprocessing (e.g. choosing the number of labels to display) provided by these
-            interfaces.
+            interfaces. Finally, we use <code>capture_session=True</code> to ensure compatibility with TF 1.x.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
 
     <h3>Image Classification in Pytorch
 
       <a
-            href="https://colab.research.google.com/drive/1JC2vJxfCxg2xpJESzZN00QRDk2npzgZ2?usp=sharing" target="_blank"><img
+            href="https://colab.research.google.com/drive/1S6seNoJuU7_-hBX5KbXQV4Fb_bbqdPBk?usp=sharing" target="_blank"><img
             src="https://colab.research.google.com/assets/colab-badge.svg"
       /></a></h3>
 
@@ -98,15 +98,13 @@ def predict(inp):
 
 inputs = gr.inputs.Image()
 outputs = gr.outputs.Label(num_top_classes=3)
-interface = gr.Interface(fn=predict, inputs=inputs, outputs=outputs)
-
-interface.launch()</code></pre>
+gr.Interface(fn=predict, inputs=inputs, outputs=outputs).launch()</code></pre>
       <p>This code will produce the interface below.</p>
       <div id="interface_8"></div>
 
       <h3>
         Text Generation with Transformers (GPT-2)
-        <a href="https://colab.research.google.com/drive/1fmt1L6qBzEQo6Nc5t4SPxRCrh7FvxIVc?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
+        <a href="https://colab.research.google.com/drive/1o_-QIR8yVphfnbNZGYemyEr111CHHxSv?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
         </a>
       </h3>
 
@@ -127,7 +125,7 @@ def generate_text(inp):
     output = tokenizer.decode(beam_output[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
     return ".".join(output.split(".")[:-1]) + "."
 
-output_text = gr.outputs.Textbox(lines=15)
+output_text = gr.outputs.Textbox()
 gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <p>
         This code will produce the interface below. That's all that's needed!
@@ -135,7 +133,7 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <div id="interface_9"></div>
 
       <h3>Answering Questions with BERT-QA
-        <a href="https://colab.research.google.com/drive/1hYIwl9elB6kv2n7Yl9CpnOYf14hzs9el?usp=sharing"
+        <a href="https://colab.research.google.com/drive/1RuiMJz_7jDXpi59jDgW02NsBnlz1aY1S?usp=sharing"
           target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a></h3>
 
       <p>What if our model takes more than one input? Let's wrap a 2-input to 1-output interface around BERT-QA,
@@ -158,13 +156,13 @@ gr.Interface(qa_func,
         gr.inputs.Textbox(lines=7),
         gr.inputs.Textbox(lines=1),
     ],
-    gr.outputs.Textbox(lines=7, label="Answer")).launch()</code></pre>
+    gr.outputs.Textbox(label="Answer")).launch()</code></pre>
       <p> This code will produce the interface below.</p>
       <div id="interface_10"></div>
 
       <h3>
         Numerical Interfaces: Titanic Survival Model
-        <a href="https://colab.research.google.com/drive/1yMp-YBfJgyaKG3vMDmDtuCmm4YGY1R6X?usp=sharing"
+        <a href="https://colab.research.google.com/drive/1xOU3sDHs7yZjuBosbQ8Zb2oc4BegfSFX?usp=sharing"
           target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
       </h3>
 
@@ -194,7 +192,7 @@ gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</c
 
       <h3>
         Multiple Image Classifiers: Comparing Inception to MobileNet
-        <a href="https://colab.research.google.com/drive/1LsMyL1ksbeEuWrkbCgWWKCVO9Nenv9nA?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
+        <a href="https://colab.research.google.com/drive/1yhuSqDhJ5UEVZ-n7WDM-l64JkrshblZl?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
       </h3>
       <p>
         What if we want to compare two models? The code below generates a UI that takes one image input and returns predictions from both
@@ -251,6 +249,7 @@ gr.Interface(
       <p>This code will produce the interface below. Looks like MobileNet is
         about 3 times faster! </p>
       <div id="interface_12"></div>
+    </div>
     </main>
     <footer>
       <div id="footer-set" class="container">
