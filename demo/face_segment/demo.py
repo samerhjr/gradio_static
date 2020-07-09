@@ -17,6 +17,7 @@ if not os.path.exists(weights):
 model1 = FCN()
 model1.load_weights(weights)
 
+
 def segment_face(inp):
     im = Image.fromarray(np.uint8(inp))
     im = im.resize((500, 500))
@@ -32,4 +33,4 @@ def segment_face(inp):
     return result / 255
 
 
-iface = gr.Interface(segment_face, "webcam", "image")
+iface = gr.Interface(segment_face, "webcam", "image", capture_session=True)
