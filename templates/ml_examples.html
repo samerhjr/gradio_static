@@ -66,6 +66,10 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label, capture_session=Tru
             interfaces. Finally, we use <code>capture_session=True</code> to ensure compatibility with TF 1.x.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1c6gQiW88wKBwWq96nqEwuQ1Kyt5LejiU?usp=sharing" target="_blank">colab notebook</a>!</p>
 
+        <div class="screenshot">
+        <img src="static/home/img/inception-net.png">
+        </div>
+
     <h3>Image Classification in Pytorch
 
       <a
@@ -100,8 +104,9 @@ inputs = gr.inputs.Image()
 outputs = gr.outputs.Label(num_top_classes=3)
 gr.Interface(fn=predict, inputs=inputs, outputs=outputs).launch()</code></pre>
       <p>This code will produce the interface below.</p>
-      <div id="interface_8"></div>
-
+        <div class="screenshot">
+        <img src="static/home/img/resnet.png">
+        </div>
       <h3>
         Text Generation with Transformers (GPT-2)
         <a href="https://colab.research.google.com/drive/1o_-QIR8yVphfnbNZGYemyEr111CHHxSv?usp=sharing" target="_blank"><img src="https://colab.research.google.com/assets/colab-badge.svg" />
@@ -130,7 +135,9 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <p>
         This code will produce the interface below. That's all that's needed!
       </p>
-      <div id="interface_9"></div>
+      <div class="screenshot">
+        <img src="static/home/img/gpt-2.png">
+      </div>
 
       <h3>Answering Questions with BERT-QA
         <a href="https://colab.research.google.com/drive/1RuiMJz_7jDXpi59jDgW02NsBnlz1aY1S?usp=sharing"
@@ -153,13 +160,15 @@ def qa_func(context, question):
 
 gr.Interface(qa_func,
     [
-        gr.inputs.Textbox(lines=7),
-        gr.inputs.Textbox(lines=1),
+        gr.inputs.Textbox(lines=7, label="Context"),
+        gr.inputs.Textbox(label="Question"),
     ],
     gr.outputs.Textbox(label="Answer")).launch()</code></pre>
       <p> This code will produce the interface below.</p>
-      <div id="interface_10"></div>
 
+        <div class="screenshot">
+        <img src="static/home/img/bert-qa.png">
+        </div>
       <h3>
         Numerical Interfaces: Titanic Survival Model
         <a href="https://colab.research.google.com/drive/1xOU3sDHs7yZjuBosbQ8Zb2oc4BegfSFX?usp=sharing"
@@ -188,7 +197,9 @@ fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (briti
 
 gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
       <p>This code will produce the interface below. </p>
-      <div id="interface_11"></div>
+      <div class="screenshot">
+        <img src="static/home/img/inception-net.png">
+      </div>
 
       <h3>
         Multiple Image Classifiers: Comparing Inception to MobileNet
@@ -204,10 +215,17 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import requests
+from urllib.request import urlretrieve
 
 # Download human-readable labels for ImageNet.
 response = requests.get("https://git.io/JJkYN")
 labels = response.text.split("\n")
+
+# Download sample images
+urlretrieve("https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_BE6RJF_16x9.jpg?itok=nP17Fm9H","monkey.jpg")
+urlretrieve("https://www.discoverboating.com/sites/default/files/inline-images/buying-a-sailboat-checklist.jpg","sailboat.jpg")
+urlretrieve("https://external-preview.redd.it/lG5mI_9Co1obw2TiY0e-oChlXfEQY3tsRaIjpYjERqs.jpg?auto=webp&s=ea81982f44b83efbb803c8cff8953ee547624f70","bicycle.jpg")
+urlretrieve("https://www.chamaripashoes.com/blog/wp-content/uploads/2018/09/Robert-Downey-Jr..jpg","rdj.jpg")
 
 mobile_net = tf.keras.applications.MobileNetV2()
 inception_net = tf.keras.applications.InceptionV3()
@@ -231,11 +249,11 @@ def classify_image_with_inception_net(im):
 imagein = gr.inputs.Image()
 label = gr.outputs.Label(num_top_classes=3)
 sample_images = [
-                 ["https://www.sciencemag.org/sites/default/files/styles/article_main_large/public/cc_BE6RJF_16x9.jpg?itok=nP17Fm9H"],
-                 ["https://www.discoverboating.com/sites/default/files/inline-images/buying-a-sailboat-checklist.jpg"],
-                 ["https://external-preview.redd.it/lG5mI_9Co1obw2TiY0e-oChlXfEQY3tsRaIjpYjERqs.jpg?auto=webp&s=ea81982f44b83efbb803c8cff8953ee547624f70"]
+                 ["monkey.jpg"],
+                 ["rdj.jpg"],
+                 ["sailboat.jpg"],
+                 ["bicycle.jpg"]
 ]
-
 gr.Interface(
     [classify_image_with_mobile_net, classify_image_with_inception_net],
     imagein,
@@ -248,15 +266,18 @@ gr.Interface(
     examples=sample_images).launch();</code></pre>
       <p>This code will produce the interface below. Looks like MobileNet is
         about 3 times faster! </p>
-      <div id="interface_12"></div>
+       <div class="big_screenshot">
+        <img src="static/home/img/inception-mobile.png">
+       </div>
     </div>
     </main>
     <footer>
       <div id="footer-set" class="container">
         <img id="bottom-logo" src="static/home/img/logo_inline.png" />
         <div>
-          <a href="https://twitter.com/teamGradio" target="_blank"><img class="social-logo" src="static/home/img/twitter.png" /></a>
-          <a href="https://github.com/gradio-app/gradio-UI"><img class="social-logo" src="static/home/img/github.svg" /></a>
+          <a href="https://twitter.com/GradioML" target="_blank"><img
+                  class="social-logo" src="static/home/img/twitter.png" /></a>
+          <a href="https://github.com/gradio-app/gradio"><img class="social-logo" src="static/home/img/github.svg" /></a>
         </div>
       </div>
     </footer>
