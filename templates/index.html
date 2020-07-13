@@ -72,8 +72,7 @@ def recognize_digit(img):
     # ... implement digit recognition model on input array 
     # ... return dictionary of labels and confidences 
 
-gr.Interface(fn=recognize_digit, 
-inputs="sketchpad", outputs="label").launch()</code></pre>
+gr.Interface(fn=recognize_digit, inputs="sketchpad", outputs="label").launch()</code></pre>
         </div>
         <div class="instructions">
           The single line of code above produces produces the web interface below. Draw a number 0 through 9 on the sketchpad below and click submit to get the model classification!
@@ -88,8 +87,7 @@ def answer_question(paragraph, question):
     # ... implement Q&amp;A model
     # ... return answer to question
 
-gr.Interface(fn=answer_question, 
-inputs=["textbox", "text"], outputs="text").launch()</code></pre>
+gr.Interface(fn=answer_question, inputs=["textbox", "text"], outputs="text").launch()</code></pre>
         </div>
         <div class="instructions">
           Provide a context paragraph and ask a question that can be answered with the context information. Go ahead, type in some information and a question. Then, click submit to get the answer!
@@ -105,8 +103,7 @@ def face_segmentation(img):
     # ... return segmentation mask as numpy array
 
 webcam = gr.in.Webcam(shape=(200, 200))
-gr.Interface(fn=face_segmentation, 
-inputs=webcam, outputs="image").launch()</code></pre>
+gr.Interface(fn=face_segmentation, inputs=webcam, outputs="image").launch()</code></pre>
         </div>
         <div class="instructions">
           Take a snapshot from your webcam and click submit to generate a face segmentation.  
@@ -126,7 +123,7 @@ month = gr.in.Dropdown(["May", "June", "July"])
 countries = gr.in.CheckboxGroup(["USA", "Canada", "Mexico", "UK"])
 
 gr.Interface(fn=outbreak_forecast, 
-inputs=[r, month, countries, "checkbox"], outputs="plot").launch()</code></pre>
+    inputs=[r, month, countries, "checkbox"], outputs="plot").launch()</code></pre>
         </div>
         <div class="instructions">
           Provide the parameters below and click submit to view the forecast of a simulated disease outbreak. This is <strong>not</strong> based on an actual disease and uses synthetic data.
@@ -182,7 +179,7 @@ inputs=[r, month, countries, "checkbox"], outputs="plot").launch()</code></pre>
       </div>
     </div>
   </footer>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="static/home/js/github-buttons.js"></script>
   {% include 'footer.html' %}
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
   <script src="static/home/js/prism.js"></script>
