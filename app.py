@@ -2,12 +2,12 @@ from flask import request, Flask, Response, render_template, jsonify, redirect
 import sys
 import json
 
-# from demo.hello_world import demo as qa
-# from demo.hello_world import demo as face_segment
-# from demo.hello_world import demo as outbreak
-from demo.qa import demo as qa
-from demo.face_segment import demo as face_segment
-from demo.outbreak import demo as outbreak
+from demo.hello_world import demo as qa
+from demo.hello_world import demo as face_segment
+from demo.hello_world import demo as outbreak
+# from demo.qa import demo as qa
+# from demo.face_segment import demo as face_segment
+# from demo.outbreak import demo as outbreak
 
 from demo.double import demo as double
 from demo.hello_world import demo as hello_world

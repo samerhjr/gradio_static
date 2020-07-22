@@ -66,7 +66,7 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label, capture_session=Tru
             interfaces. Finally, we use <code>capture_session=True</code> to ensure compatibility with TF 1.x.
           Try it out in your device or run it in a <a href="https://colab.research.google.com/drive/1NWE_SDgQPI6GIpnhtWeEOHCPejC2FaZc?usp=sharing" target="_blank">colab notebook</a>!</p>
 
-        <div class="screenshot">
+        <div class="wscreenshot">
         <img src="static/home/img/inception-net.png">
         </div>
 
@@ -104,7 +104,7 @@ inputs = gr.inputs.Image()
 outputs = gr.outputs.Label(num_top_classes=3)
 gr.Interface(fn=predict, inputs=inputs, outputs=outputs).launch()</code></pre>
       <p>This code will produce the interface below.</p>
-        <div class="screenshot">
+        <div class="wscreenshot">
         <img src="static/home/img/resnet.png">
         </div>
       <h3>
@@ -135,7 +135,7 @@ gr.Interface(generate_text,"textbox", output_text).launch()</code></pre>
       <p>
         This code will produce the interface below. That's all that's needed!
       </p>
-      <div class="screenshot">
+      <div class="wscreenshot">
         <img src="static/home/img/gpt-2.png">
       </div>
 
@@ -166,7 +166,7 @@ gr.Interface(qa_func,
     gr.outputs.Textbox(label="Answer")).launch()</code></pre>
       <p> This code will produce the interface below.</p>
 
-        <div class="screenshot">
+        <div class="wscreenshot">
         <img src="static/home/img/bert-qa.png">
         </div>
       <h3>
@@ -197,7 +197,7 @@ fare = gr.inputs.Slider(minimum=0, maximum=1000, default=100, label="Fare (briti
 
 gr.Interface(predict_survival, [sex, age, fare], "label", live=True).launch()</code></pre>
       <p>This code will produce the interface below. </p>
-      <div class="screenshot">
+      <div class="wscreenshot">
         <img src="static/home/img/titanic.png">
       </div>
 
@@ -266,7 +266,7 @@ gr.Interface(
     examples=sample_images).launch();</code></pre>
       <p>This code will produce the interface below. Looks like MobileNet is
         about 3 times faster! </p>
-       <div class="big_screenshot">
+       <div class="big_wscreenshot">
         <img src="static/home/img/inception-mobile.png">
        </div>
     </div>
