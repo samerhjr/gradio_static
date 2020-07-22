@@ -1,9 +1,14 @@
 from flask import request, Flask, Response, render_template, jsonify, redirect
 import sys
+import json
 
-from demo.qa import demo as qa
-from demo.face_segment import demo as face_segment
-from demo.outbreak import demo as outbreak
+from demo.hello_world import demo as qa
+from demo.hello_world import demo as face_segment
+from demo.hello_world import demo as outbreak
+# from demo.qa import demo as qa
+# from demo.face_segment import demo as face_segment
+# from demo.outbreak import demo as outbreak
+
 from demo.double import demo as double
 from demo.hello_world import demo as hello_world
 from demo.hello_world_2 import demo as hello_world_2
@@ -35,9 +40,12 @@ def getting_started():
     ])
 
 
+with open("docs.json") as docs_file:
+    docs_data = json.load(docs_file)
+
 @app.route('/docs')
 def docs():
-    return render_template("docs.html")
+    return render_template("docs.html", docs=docs_data)
 
 
 @app.route('/ml_examples')

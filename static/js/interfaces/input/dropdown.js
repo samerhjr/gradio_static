@@ -9,6 +9,7 @@ const dropdown = {
     }
     html += "</select>"
     this.target.html(html);
+    this.target.find(".dropdown").selectmenu();
   },
   submit: function() {
     checked_val = this.target.find("option:selected").val();
@@ -22,5 +23,6 @@ const dropdown = {
   load_example: function(data) {
     let child = this.choices.indexOf(data) + 1;
     this.target.find("option:nth-child(" + child + ")").prop("selected", true);
+    this.target.find(".dropdown").selectmenu("refresh");
   }
 }

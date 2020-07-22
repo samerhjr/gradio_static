@@ -2,3 +2,4 @@ demo/face_segment/face_seg_model_weights.h5
 __pycache__
 virtenv/
 titanic_model.sav
+*.bak

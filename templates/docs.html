@@ -1,281 +1,190 @@
 <html>
 
 <head>
-  <title>Gradio | Docs</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123499302-2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+    <title>Gradio | Docs</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123499302-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'UA-123499302-2');
-  </script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-  <link href="static/home/style/style.css" rel="stylesheet">
-  <link href="static/home/style/prism.css" rel="stylesheet">
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-123499302-2');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="static/home/style/style.css" rel="stylesheet">
+    <link href="static/home/style/prism.css" rel="stylesheet">
 </head>
 
 <body>
-  <header class="container">
-    <img id="logo" src="static/home/img/logo_inline.png" />
-    <nav>
-      <a href="/">Home</a>
-      <a href="/getting_started">Getting Started</a>
-      <a class="selected" href="/docs">Docs</a>
-      <a href="/ml_examples" class="hidable">ML Examples</a>
-      <a href="/hub" class="hidable">Hub</a>
-      <a id="contact-link" href="/#contact-box" class="hidable">Contact</a>
-    </nav>
-  </header>
-  <main id="docs" class="container">
-    <div id=sidebar>
-      <h4>Creating Interfaces</h4>
-      <a href="#interface">Interfaces</a>
-      <a href="#launch">Launching</a>
-      <h4>Input Components</h4>
-      <a href="#textbox">Textbox</a>
-      <a href="#slider">Slider</a>
-      <a href="#checkbox">Checkbox</a>
-      <a href="#checkboxgroup">CheckboxGroup</a>
-      <a href="#radio">Radio</a>
-      <a href="#dropdown">Dropdown</a>
-      <a href="#image">Image</a>
-      <a href="#sketchpad">Sketchpad</a>
-      <a href="#webcam">Webcam</a>
-      <a href="#microphone">Microphone</a>
-      <h4>Output Components</h4>
-      <a href="#textbox_out">Textbox</a>
-      <a href="#label">Label</a>
-      <a href="#image_out">Image</a>
-      <a href="#keyvalues">Key Values</a>
-    </div>
-    <div id="docs-content">
-      <h2>Creating an Interface</h2>
-      <div class="func">
-        <h3 id="interface"><small>gradio.</small>Interface(<small>fn, inputs, outputs, live=False, capture_session=False, title=None,
-        description=None, examples=None</small>)</h3>
-        <p>Interfaces are created with Gradio using the <code>gradio.Interface()</code> function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>fn</strong> - the function to wrap an interface around.</li>
-          <li><strong>inputs</strong> - a single Gradio input component, or list of Gradio input components. Components can either be passed as instantiated objects, or referred to by their string shortcuts. The number of input components should match the number of parameters in fn.</li>
-          <li><strong>outputs</strong> - a single Gradio output component, or list of Gradio output components. Components can either be passed as instantiated objects, or referred to by their string shortcuts. The number of output components should match the number of values returned by fn.</li>
-          <li><strong>live</strong> - whether the interface should automatically reload on change.</li>
-          <li><strong>capture_session</strong> - if True, captures the default graph and session (needed for Tensorflow 1.x)</li>
-          <li><strong>title</strong> - a title for the interface; if provided, appears above the input and output components.</li>
-          <li><strong>description</strong> - a description for the interface; if provided, appears above the input and output components.</li>
-          <li><strong>examples</strong> - sample inputs for the function; if provided, appears below the UI components and can be used to
-            populate the interface. Should be nested list, in which the outer list consists of samples and each inner list
-            consists of an input corresponding to each input component. </li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="launch"><small>gradio.Interface.</small>launch(<small>share=False</small>)</h3>
-        <p>Generates the UI for the interface.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>share</strong> - whether to create a publicly shareable link from your computer for the interface.</li>
-        </ul>
-      </div>
-      <h2>Input Components</h2>
-      <div class="func">
-        <h3 id="textbox"><small>gradio.inputs.</small>Textbox(<small>self, lines=1, placeholder=None, default=None, numeric=False, label=None</small>)</h3>
-        <p>Component creates a textbox for user to enter input. Provides a string (or number is <code>is_numeric</code> is true) as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>lines</strong> - number of line rows to provide in textarea.</li>
-          <li><strong>placeholder</strong> - placeholder hint to provide behind textarea.</li>
-          <li><strong>default</strong> - default text to provide in textarea.</li>
-          <li><strong>numeric</strong> - whether the input should be parsed as a number instead of a string.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"text" - default implementation.</li>
-          <li>"textbox" - sets <code>lines = 7</code>.</li>
-          <li>"number" - sets <code>is_numeric = True</code>.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="slider"><small>gradio.inputs.</small>Slider(<small>self, minimum=0, maximum=100, default=None, label=None</small>)</h3>
-        <p>Component creates a slider that ranges from <code>minimum</code> to <code>maximum</code>. Provides a number as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>minimum</strong> - minimum value for slider.</li>
-          <li><strong>maximum</strong> - maximum value for slider.</li>
-          <li><strong>default</strong> - default value.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"slider" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="checkbox"><small>gradio.inputs.</small>Checkbox(<small>self, label=None</small>)</h3>
-        <p>Component creates a checkbox that can be set to <code>True</code> or <code>False</code>. Provides a boolean as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"checkbox" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="checkboxgroup"><small>gradio.inputs.</small>CheckboxGroup(<small>self, choices, label=None</small>)</h3>
-        <p>Component creates a set of checkboxes of which a subset can be selected. Provides a list of strings representing the selected choices as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>choices</strong> - list of strings that represent each checkbox label.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <em>None</em>
-      </div>
-      <div class="func">
-        <h3 id="radio"><small>gradio.inputs.</small>Radio(<small>self, choices, label=None</small>)</h3>
-        <p>Component creates a set of radio buttons of which only one can be selected. Provides string representing selected choice as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>choices</strong> - list of strings that represent each radio label.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <em>None</em>
-      </div>
-      <div class="func">
-        <h3 id="dropdown"><small>gradio.inputs.</small>Dropdown(<small>self, choices, label=None</small>)</h3>
-        <p>Component creates a dropdown of which only one can be selected. Provides string representing selected choice as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>choices</strong> - list of strings that represent each dropdown element.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <em>None</em>
-      </div>
-      <div class="func">
-        <h3 id="image"><small>gradio.inputs.</small>Image(<small>self, shape=(224, 224), image_mode='RGB', label=None</small>)</h3>
-        <p>Component creates an image upload box with editing capabilities. Provides numpy array of shape <code>(width, height, 3)</code> if <code>image_mode</code> is "RGB" as an argument to the wrapped function. Provides numpy array of shape <code>(width, height)</code> if <code>image_mode</code> is "L" as an argument to the wrapped function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>shape</strong> - tuple representing width and height to crop image to.</li>
-          <li><strong>image_mode</strong> - "RGB" if color, or "L" if black and white.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"image" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="sketchpad"><small>gradio.inputs.</small>Sketchpad(<small>shape=(28, 28), invert_colors=True, flatten=False, label=None</small>)</h3>
-        <p>Component creates a sketchpad for black and white illustration. Provides numpy array of shape <code>(width, height)</code> as an argument to the wrapped function. </p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>shape</strong> - tuple representing width and height to crop image to.</li>
-          <li><strong>invert_colors</strong> - whether to represent black as 1 and white as 0 in the numpy array.</li>
-          <li><strong>flatten</strong> - whether to reshape the numpy array to a single dimension.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"sketchpad" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="webcam"><small>gradio.inputs.</small>Webcam(<small>shape=(224, 224), label=None</small>)</h3>
-        <p>Component creates a webcam for captured image input. Provides numpy array of shape <code>(width, height, 3)</code> as an argument to the wrapped function. </p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>shape</strong> - tuple representing width and height to crop image to.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"webcam" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="microphone"><small>gradio.inputs.</small>Microphone(<small>label=None</small>)</h3>
-        <p>Component creates a microphone element for audio imputs. Provides numpy array of shape <code>(samples, 2)</code> as an argument to the wrapped function. </p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"microphone" - default implementation.</li>
-        </ul>
-        <h2>Output Components</h2>
-      </div>
-      <div class="func">
-        <h3 id="textbox_out"><small>gradio.outputs.</small>Textbox(<small>self, label=None</small>)</h3>
-        <p>Component creates a textbox to render output text or number.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"text" - default implementation.</li>
-          <li>"number" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="label"><small>gradio.outputs.</small>Label(<small>self, num_top_classes=None, label=None</small>)</h3>
-        <p>Component displays a classification labels for an input. Expects a string for the most confident label or a dictionary mapping each string label to a confidence score between 0 and 1 to be returned by the function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>num_top_classes</strong> - number of most confident classes to show.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"label" - default implementation.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="image_out"><small>gradio.outputs.</small>Image(<small>self, plot=False, label=None</small>)</h3>
-        <p>Component displays an image. Expects a numpy array of shape <code>(width, height, 3)</code>to be returned by the function, or a <code>matplotlib.pyplot</code> if <code>plot = True</code>.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>plot</strong> - whether to expect a plot to be returned by the function.</li>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"image" - default implementation.</li>
-          <li>"plot" - sets <code>plot = True</code>.</li>
-        </ul>
-      </div>
-      <div class="func">
-        <h3 id="keyvalues"><small>gradio.outputs.</small>KeyValues(<small>self, label=None</small>)</h3>
-        <p>Component displays a table representing values for multiple fields. Expects a list of 2-length tuples that represent (key, value) pairs to be returned by the function.</p>
-        <h4>Parameters</h4>
-        <ul>
-          <li><strong>label</strong> - component name in interface.</li>
-        </ul>
-        <h4>String Shortcuts</h4>
-        <ul>
-          <li>"keyvalues" - default implementation.</li>
-        </ul>
-      </div>
+    <header class="container">
+        <img id="logo" src="static/home/img/logo_inline.png" />
+        <nav>
+            <a href="/">Home</a>
+            <a href="/getting_started">Getting Started</a>
+            <a class="selected" href="/docs">Docs</a>
+            <a href="/ml_examples" class="hidable">ML Examples</a>
+            <a href="/hub">Hub</a>
+            <a id="contact-link" href="/#contact-box" class="hidable">Contact</a>
+        </nav>
+    </header>
+    <main id="docs" class="container">
+        <div id=sidebar>
+            <h4>Creating Interfaces</h4>
+            <a href="#interface">Interfaces</a>
+            <a href="#launch">Launching</a>
+            <h4>Input Components</h4>
+            {% for input in docs["inputs"] %}
+            <a href="#i_{{ input["name"].lower() }}">{{ input["name"] }}</a>
+            {% endfor %}
+            <h4>Output Components</h4>
+            {% for output in docs["outputs"] %}
+            <a href="#o_{{ output["name"].lower() }}">{{ output["name"] }}</a>
+            {% endfor %}
+        </div>
+        <div id="docs-content">
+            <h2>Creating an Interface</h2>
+            <div class="func">
+                <h3 id="interface">gradio.<span>Interface(</span><!--
+                 -->{% for param in docs.interface["params"] %}<!--
+                   -->{% if param|length == 1 %}<!--
+                     -->{{ param[0] }}<!--
+                   -->{% else %}<!--
+                     -->{{ param[0] }}={{ param[1] }}<!--
+                   -->{% endif %}<!--
+                   -->{% if not loop.last %}, {% endif %}<!--
+                 -->{% endfor %}<span>)</span><!--
+             --></h3>
+                <p>{{ docs.interface["doc"] }}</p>
+                <h4>Parameters</h4>
+                <ul>
+                    {% for param in docs.interface["params_doc"] %}
+                    <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="func">
+                <h3 id="launch">gradio.Interface.<span>launch(</span><!--
+                 -->{% for param in docs.launch["params"] %}<!--
+                   -->{% if param|length == 1 %}<!--
+                     -->{{ param[0] }}<!--
+                   -->{% else %}<!--
+                     -->{{ param[0] }}={{ param[1] }}<!--
+                   -->{% endif %}<!--
+                   -->{% if not loop.last %}, {% endif %}<!--
+                 -->{% endfor %}<span>)</span><!--
+             --></h3>
+                <p>Generates the UI for the interface.</p>
+                <h4>Parameters</h4>
+                <ul>
+                    {% for param in docs.launch["params_doc"] %}
+                    <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h2>Input Components</h2>
+            {% for func in docs["inputs"] %}
+            <div class="func">
+                <h3 id="i_{{ func["name"].lower() }}">gradio.inputs.<span>{{ func["name"] }}(</span><!--
+                 -->{% for param in func["params"] %}<!--
+                   -->{% if param|length == 1 %}<!--
+                     -->{{ param[0] }}<!--
+                   -->{% else %}<!--
+                     -->{{ param[0] }}={{ param[1] }}<!--
+                   -->{% endif %}<!--
+                   -->{% if not loop.last %}, {% endif %}<!--
+                 -->{% endfor %}<span>)</span><!--
+             --></h3>
+                <p>{{ func["doc"] }}</p>
+                <p>Input type: <strong>{{ func["type"] }}</strong></p>
+                <h4>Parameters</h4>
+                <ul>
+                    {% for param in func["params_doc"] %}
+                    <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
+                    {% endfor %}
+                </ul>
+                <h4>String Shortcuts</h4>
+                {% if func["shortcuts"]|length %}
+                <ul>
+                    {% for param in func["shortcuts"] %}
+                    <li>"{{ param[0] }}" - 
+                        {% if param[1]|length == 0 %}
+                        Uses defaults implementation.
+                        {% else %}
+                            Sets <code>
+                            {% for pair in param[1].items() %}
+                              {{pair[0]}}={{pair[1]}}<!--
+                             -->{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                            </code>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <em>None.</em>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <h2>Output Components</h2>
+            {% for func in docs["outputs"] %}
+            <div class="func">
+                <h3 id="o_{{ func["name"].lower() }}">gradio.outputs.<span>{{ func["name"] }}(</span><!--
+                 -->{% for param in func["params"] %}<!--
+                   -->{% if param|length == 1 %}<!--
+                     -->{{ param[0] }}<!--
+                   -->{% else %}<!--
+                     -->{{ param[0] }}={{ param[1] }}<!--
+                   -->{% endif %}<!--
+                   -->{% if not loop.last %}, {% endif %}<!--
+                 -->{% endfor %}<span>)</span><!--
+             --></h3>
+                <p>{{ func["doc"] }}</p>
+                <p>Output type: <strong>{{ func["type"] }}</strong></p>
+                <h4>Parameters</h4>
+                <ul>
+                    {% for param in func["params_doc"] %}
+                    <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
+                    {% endfor %}
+                </ul>
+                <h4>String Shortcuts</h4>
+                {% if func["shortcuts"]|length %}
+                <ul>
+                    {% for param in func["shortcuts"] %}
+                    <li>"{{ param[0] }}" - 
+                        {% if param[1]|length == 0 %}
+                        Uses defaults implementation.
+                        {% else %}
+                            Sets <code>
+                            {% for pair in param[1].items() %}
+                              {{pair[0]}}={{pair[1]}}<!--
+                             -->{% if not loop.last %},{% endif %}
+                            {% endfor %}
+                            </code>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <em>None.</em>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
     </main>
     <footer>
-      <div id="footer-set" class="container">
-        <img id="bottom-logo" src="static/home/img/logo_inline.png" />
-        <div>
-          <a href="https://twitter.com/GradioML" target="_blank"><img
-                  class="social-logo" src="static/home/img/twitter.png" /></a>
-          <a href="https://github.com/gradio-app/gradio"><img class="social-logo" src="static/home/img/github.svg" /></a>
+        <div id="footer-set" class="container">
+            <img id="bottom-logo" src="static/home/img/logo_inline.png" />
+            <div>
+                <a href="https://twitter.com/GradioML" target="_blank"><img class="social-logo" src="static/home/img/twitter.png" /></a>
+                <a href="https://github.com/gradio-app/gradio"><img class="social-logo" src="static/home/img/github.svg" /></a>
+            </div>
         </div>
-      </div>
     </footer>
     <script src="static/home/js/prism.js"></script>
-  </body>
+</body>
 
 </html>
