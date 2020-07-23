@@ -228,7 +228,6 @@ gr.Interface(fn=outbreak_forecast,
               resolve(cached_output);
             } else if (Math.max(...input) == 0) {
               if (cached_input == null) {
-                console.log("predict");
                 window.model.predict([tf.tensor(new Array(28 * 28).fill(0)).reshape([1, 28, 28, 1])]);
               }
               let result = {

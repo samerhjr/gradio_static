@@ -230,7 +230,9 @@ footer {
 
 form {
     display: flex;
-    margin: 0;
+    margin-left: -8px;
+    margin-top: -8px;
+    flex-wrap: wrap;
 }
 
 .contact-field {
@@ -238,7 +240,6 @@ form {
     background-color: white;
     border: solid 1px black;
     box-sizing: border-box;
-    margin-right: 8px;
     cursor: text;
 }
 
@@ -246,6 +247,8 @@ form {
     font-size: 1.2rem;
     padding: 8px;
     border-radius: 2px;
+    margin-left: 8px;
+    margin-top: 8px;
 }
 
 .wscreenshot,
