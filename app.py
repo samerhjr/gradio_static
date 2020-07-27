@@ -18,7 +18,7 @@ from demo.sepia import demo as sepia
 
 app = Flask(__name__)
 
-HUB_URL = "http://localhost:5000"
+HUB_URL = "https://gradiohub.com"
 
 @app.route('/')
 def home_page():
