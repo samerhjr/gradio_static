@@ -1,0 +1,25 @@
+<html>
+
+<head>
+  <title>Gradio | Hub</title>
+  {% include 'static_header.html' %}
+  <link href="/static/home/style/hub.css" rel="stylesheet">
+</head>
+
+<body id="hub_host">
+  <header class="container">
+    <a href="/"><img id="logo" src="/static/home/img/logo_inline.png" /></a>
+    <div id="star-link">
+      <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="small" data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>      
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/hub">Hub</a>
+    </nav>
+  </header>
+  <iframe id="host" src="{{ model_url }}"></iframe>
+
+<script src="/static/home/js/github-buttons.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<html>
+
+<head>
+  <title>Gradio | Hub</title>
+  {% include 'static_header.html' %}
+  <link href="static/home/style/hub.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header class="container">
+    <a href="/"><img id="logo" src="static/home/img/logo_inline.png" /></a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/getting_started">Getting Started</a>
+      <a href="/docs">Docs</a>
+      <a href="/ml_examples" class="hidable">ML Examples</a>
+      <a class="selected" href="/hub">Hub</a>
+      <a id="contact-link" href="/#contact-box" class="hidable">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <div class="container">
+      <h2>Hub</h2>
+        <p class="hub_desc">
+          Run predictions from state-of-the-art machine learning models in Tensorflow & PyTorch right from your browser. Use intuitive GUIs, no preprocessing or coding required! Inference time may run up to 15 seconds for predictions. For quicker models or API access, <a href="https://gradio.app/#contact-box">contact us</a>.
+        </p>
+        <p id="star-link">
+          <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>      
+        </p>
+        <div id="gallery">
+          {% for model in hosted_models %}
+              <div class="app_card">
+                <img src={{ model[2] }}>
+                <h4>{{ model[0] }}</h4>
+                <p class="model_desc">{{model[1]}}</p>
+                <div class="card_buttons">
+                  <a href="{{ model[3] }}" target="_blank"><button class="code"> <i class="fa fa-github"></i> Code</button></a> &nbsp;
+                  <a href="/hub/{{ model[3].split("/")[-1] }}"><button class="interface-btn"> <i class="fa fa-play"></i> Interface</button></a>
+                </div>
+              </div>
+          {% endfor %}
+        </div>
+        <p class="hub_desc">If you'd like to see a specific model uploaded here, <a href="https://gradio.app/#contact-box">let us know</a>. 😊</p>
+
+      </div>
+    </div>
+  </main>
+
+</div>
+<script src="static/home/js/github-buttons.js"></script>
+</body>
+
+</html>

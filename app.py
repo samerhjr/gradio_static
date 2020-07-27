@@ -1,6 +1,7 @@
-from flask import request, Flask, Response, render_template, jsonify, redirect
+from flask import request, Flask, Response, render_template, jsonify, abort
 import sys
 import json
+import requests
 
 # from demo.hello_world import demo as qa
 # from demo.hello_world import demo as face_segment
@@ -17,6 +18,7 @@ from demo.sepia import demo as sepia
 
 app = Flask(__name__)
 
+HUB_URL = "http://localhost:5000"
 
 @app.route('/')
 def home_page():
@@ -60,7 +62,21 @@ def sharing():
 
 @app.route('/hub')
 def hub():
-    return redirect("http://hub.gradio.app", code=302)
+    hub_data = requests.get(HUB_URL + "/data").json()
+    return render_template("hub.html", hosted_models=hub_data)
+
+
+@app.route('/hub/<repo>')
+def hub_host(repo):
+    hub_data = requests.get(HUB_URL + "/data").json()
+    for model in hub_data:
+        if model[3].endswith(repo):
+            model_url = model[4]
+            break
+    else:
+        abort(404)
+
+    return render_template("hub_host.html", model_url=model_url)
 
 
 @app.route('/model/<m_id>', methods=["POST"])

@@ -1,0 +1,93 @@
+button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button.code {
+    background-color: #e7e7e7;
+    color: black
+}
+
+button.interface-btn {
+    background-color: #4CAF50;
+}
+
+a {
+    color: inherit;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 1rem;
+}
+
+.app_card {
+    padding: 8px;
+    border: solid 1px lightgray;
+    box-shadow: 0px 12px 34px -21px gray;
+    margin: 30px 10px;
+}
+
+.app_card:hover {
+    box-shadow: 0px 12px 34px -21px black;
+}
+
+.app_card h4 {
+    text-align: center;
+}
+
+.app_card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.desc {
+    padding: 10px 0;
+}
+
+.model_desc {
+    padding: 10px;
+}
+
+.card_buttons {
+    text-align: center;
+}
+
+.app_card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card_buttons {
+    margin-top: auto;
+}
+
+#star-link {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#hub_host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-top: 12px;
+}
+#host {
+    width: 100%;
+    border: none;
+    flex-grow: 1;
+}
