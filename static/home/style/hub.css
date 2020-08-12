@@ -17,6 +17,10 @@ button.interface-btn {
     background-color: #4CAF50;
 }
 
+button.interface-btn:hover {
+    color: white;
+}
+
 a {
     color: inherit;
 }
@@ -84,8 +88,41 @@ button:hover {
     height: 100%;
     margin: 0;
     box-sizing: border-box;
-    padding-top: 12px;
 }
+
+#hub_host header {
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 8px 0;
+}
+
+#hub_host #star-link {
+    transform: scale(0.6);
+    padding-bottom: 0;
+}
+
+#header_holder {
+    background-color: whitesmoke;
+}
+
+#hub_host #logo {
+    height: 16px;
+    margin-bottom: 4px;
+}
+
+#hub_host, #hub_host > * {
+    margin: 0;
+}
+
+#back > * {
+    vertical-align: middle;
+}
+
+
+#gradio-tag {
+    font-size: 12px;
+}
+
 #host {
     width: 100%;
     border: none;
