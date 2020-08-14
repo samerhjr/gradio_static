@@ -1,30 +1,44 @@
 function gradio(config, fn, target) {
   target = $(target);
   target.html(`
-    <div class="panels">
-      <div class="panel input_panel">
-        <div class="input_interfaces">
-        </div>          
-        <div class="panel_buttons">
-          <input class="clear panel_button" type="reset" value="CLEAR">
-          <input class="submit panel_button" type="submit" value="SUBMIT"/>
-        </div>
-      </div>
-      <div class="panel output_panel">
-        <div class="loading invisible">
-          <img class="loading_in_progress" src="static/img/logo_loading.gif">
-          <img class="loading_failed" src="static/img/logo_error.png">
-        </div>
-        <div class="output_interfaces">
-        </div>
-        <div class="panel_buttons">
-          <input class="screenshot panel_button" type="button" value="SCREENSHOT"/>
-          <div class="screenshot_logo">
-            <img src="static/img/logo_inline.png">
+    <div class="share invisible">
+      Live at <a class="share-link" target="_blank"></a>.
+      <button class="share-copy">Copy Link</button>
+    </div>
+    <div class="container">
+      <h1 class="title"></h1>
+      <p class="description"></p>
+      <div class="panels">
+        <div class="panel input_panel">
+          <div class="input_interfaces">
+          </div>          
+          <div class="panel_buttons">
+            <input class="clear panel_button" type="reset" value="CLEAR">
+            <input class="submit panel_button" type="submit" value="SUBMIT"/>
           </div>
         </div>
+        <div class="panel output_panel">
+          <div class="loading invisible">
+            <img class="loading_in_progress" src="/static/img/logo_loading.gif">
+            <img class="loading_failed" src="/static/img/logo_error.png">
+          </div>
+          <div class="output_interfaces">
+          </div>
+          <div class="panel_buttons">
+            <input class="screenshot panel_button" type="button" value="SCREENSHOT"/>
+            <div class="screenshot_logo">
+              <img src="/static/img/logo_inline.png">
+            </div>
+            <input class="flag panel_button" type="button" value="FLAG"/>
+        </div>
       </div>
-    </div>`);
+    </div>
+    <div class="examples invisible">
+      <h3>Examples <small>(click to load)</small></h3>
+      <table>
+      </table>
+    </div>
+`);
     let io_master = Object.create(io_master_template);
     io_master.fn = fn
     io_master.target = target;
@@ -42,13 +56,22 @@ function gradio(config, fn, target) {
       "checkboxgroup" : checkbox_group,
       "slider" : slider,
       "dropdown" : dropdown,
+      "audio" : audio_input,
+      "file" : file_input,
+      "dataframe" : dataframe_input,
     }
     let output_to_object_map = {
       "csv" : {},
       "image" : image_output,
       "label" : label_output,
       "keyvalues" : key_values,
-      "textbox" : textbox_output
+      "textbox" : textbox_output,
+      "highlightedtext": highlighted_text,
+      "audio": audio_output,
+      "json": json_output,
+      "html": html_output,
+      "file" : file_output,
+      "dataframe" : dataframe_output,
     }
     let id_to_interface_map = {}
     
@@ -56,6 +79,22 @@ function gradio(config, fn, target) {
       interface.id = id;
       id_to_interface_map[id] = interface;
     }
+    if (config["title"]) {
+      target.find(".title").text(config["title"]);
+    }
+    if (config["description"]) {
+      target.find(".description").text(config["description"]);
+    }
+    if (config["share_url"]) {
+      let share_url = config["share_url"];
+      target.find(".share").removeClass("invisible");
+      target.find(".share-link").text(share_url).attr("href", share_url);
+      target.find(".share-copy").click(function() {
+        copyToClipboard(share_url);
+        target.find(".share-copy").text("Copied!");
+      })
+    };
+
   
     _id = 0;
     let input_interfaces = [];
@@ -117,6 +156,7 @@ function gradio(config, fn, target) {
         output_interface.clear();
       }
       target.find(".flag").removeClass("flagged");
+      target.find(".flag").val("FLAG");
       target.find(".flag_message").empty();
       target.find(".loading").addClass("invisible");
       target.find(".loading_time").text("");
@@ -124,9 +164,48 @@ function gradio(config, fn, target) {
       io_master.last_input = null;
       io_master.last_output = null;
     });
-    if (config["allow_screenshot"]) {
+
+    if (config["allow_screenshot"] && !config["allow_flagging"]) {
       target.find(".screenshot").css("visibility", "visible");
+      target.find(".flag").css("display", "none")
     }
+    if (!config["allow_screenshot"] && config["allow_flagging"]) {
+      target.find(".flag").css("visibility", "visible");
+      target.find(".screenshot").css("display", "none")
+    }
+    if (config["allow_screenshot"] && config["allow_flagging"]) {
+      target.find(".screenshot").css("visibility", "visible");
+      target.find(".flag").css("visibility", "visible")
+    }
+    if (config["examples"]) {
+      target.find(".examples").removeClass("invisible");
+      let html = "<thead>"
+      for (let i = 0; i < config["input_interfaces"].length; i++) {
+        label = config["input_interfaces"][i][1]["label"];
+        html += "<th>" + label + "</th>";
+      }
+      html += "</thead>";
+      html += "<tbody>";
+      for (let [i, example] of config["examples"].entries()) {
+        html += "<tr row="+i+">";
+        for (let [j, col] of example.entries()) {
+          if (input_interfaces[j].load_example_preview) {
+            col = input_interfaces[j].load_example_preview(col);
+          }
+          html += "<td>" + col + "</td>";
+        }
+        html += "</tr>";
+      }
+      html += "</tbody>";
+      target.find(".examples table").html(html);
+      target.find(".examples tr").click(function() {
+        let example_id = parseInt($(this).attr("row"));
+        for (let [i, value] of config["examples"][example_id].entries()) {
+          input_interfaces[i].load_example(value);
+        }
+      })
+    };
+
     target.find(".screenshot").click(function() {
       $(".screenshot").hide();
       $(".screenshot_logo").show();
@@ -146,11 +225,22 @@ function gradio(config, fn, target) {
       target.find(".submit").click(function() {
         io_master.gather();
         target.find(".flag").removeClass("flagged");
+        target.find(".flag").val("FLAG");
       })
     }
     if (!config.show_input) {
       target.find(".input_panel").hide();
-    } 
+    }
+
+    target.find(".flag").click(function() {
+    if (io_master.last_output) {
+      target.find(".flag").addClass("flagged");
+      target.find(".flag").val("FLAGGED");
+      io_master.flag();
+
+    // io_master.flag($(".flag_message").val());
+      }
+    })
 
     return io_master;
 }

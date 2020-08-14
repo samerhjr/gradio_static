@@ -2,12 +2,12 @@
 
 <head>
   <title>Gradio | Hub</title>
-  {% include 'static_header.html' %}
+  {% include 'header.html' %}
   <link href="/static/home/style/hub.css" rel="stylesheet">
 </head>
 
 <body id="hub_host">
-  <div id="header_holder">
+  <div id="header_holder" class="container">
     <header class="container">
       <a href="/hub" id="back">
         <img src="/static/home/img/back.png">
@@ -23,9 +23,16 @@
       </div>
     </header>
   </div>
-  <iframe id="host" src="{{ model_url }}" allow="camera *;microphone *"></iframe>
+  <div id="interface" class="container"></div>
 
 <script src="/static/home/js/github-buttons.js"></script>
+{% include 'footer.html' %}
+<script>
+  let model_url = "{{ model_url }}"
+  $.get(`${model_url}static/config.json`, function(config) {
+    gradio_url(config, `${model_url}api/predict/`, "#interface");
+  })
+</script>
 </body>
 
 </html>
