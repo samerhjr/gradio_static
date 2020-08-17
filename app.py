@@ -2,6 +2,7 @@ from flask import request, Flask, Response, render_template, jsonify, abort
 import sys
 import json
 import requests
+import os
 
 # from demo.hello_world import demo as qa
 # from demo.hello_world import demo as face_segment
@@ -32,8 +33,8 @@ def home_page():
 def getting_started():
     demos = [
         double,
-        hello_world, 
-        hello_world_2, 
+        hello_world,
+        hello_world_2,
         hello_world_3,
         sepia,
     ]
@@ -84,19 +85,43 @@ def model_api(m_id):
     m_id = int(m_id)
     data = request.get_json(force=True)["data"]
     demos = [
-        qa, 
-        face_segment, 
-        outbreak, 
+        qa,
+        face_segment,
+        outbreak,
         double,
-        hello_world, 
-        hello_world_2, 
-        hello_world_3, 
-        sepia, 
+        hello_world,
+        hello_world_2,
+        hello_world_3,
+        sepia,
     ]
     output = demos[m_id].iface.process(data)
     return jsonify({
         "data": output[0]
     })
+
+
+@app.route('/analytics')
+def analytics():
+    """
+    Returns Gradio analytics
+    """
+
+    sudoPassword = ''
+    command = 'lsof -PiTCP -sTCP:LISTEN'
+    open_ports = os.popen('echo %s|sudo -S %s' % (sudoPassword, command)).read()
+    num_live_interfaces = 0
+    x = open_ports.split("(LISTEN)")
+
+    for i in x:
+        if 'paramiko' in i:
+            num_live_interfaces = num_live_interfaces + 1
+
+    num_live_interfaces = num_live_interfaces/2
+    return render_template("analytics.html",
+                           num_live_interfaces=num_live_interfaces)
+    # scheduler = BlockingScheduler()
+    # scheduler.add_job(get_num_live_interfaces, 'interval', seconds=5)
+    # scheduler.start()
 
 
 def run(debug=False):
