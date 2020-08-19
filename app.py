@@ -77,7 +77,7 @@ def hub_host(repo):
     else:
         abort(404)
 
-    return render_template("hub_host.html", model_url=model_url)
+    return render_template("hub_host.html", model_url=model_url, model_config=model[5])
 
 
 @app.route('/model/<m_id>', methods=["POST"])

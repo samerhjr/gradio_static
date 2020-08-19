@@ -29,9 +29,8 @@
 {% include 'footer.html' %}
 <script>
   let model_url = "{{ model_url }}"
-  $.get(`${model_url}static/config.json`, function(config) {
-    gradio_url(config, `${model_url}api/predict/`, "#interface");
-  })
+  let config = JSON.parse({{ model_config|tojson }});
+  gradio_url(config, `${model_url}api/predict/`, "#interface");
 </script>
 </body>
 
