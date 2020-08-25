@@ -114,7 +114,23 @@
                 {% else %}
                 <em>None.</em>
                 {% endif %}
-            </div>
+                <h4>Demos</h4>
+                <div class="all_demo_screenshots">
+                {% for demo in func["demos"] %}
+                  <div class="demo">
+                    <strong>{{ demo[0] }}:</strong>
+                    <a class="demo_code" target="_blank" href="https://github.com/gradio-app/gradio/blob/master/demo/{{ demo[0] }}">
+                      Link to Code
+                    </a>
+                    <div class="demo_screenshots">
+                      {% for screenshot in demo[1] %}
+                      <img src="https://github.com/gradio-app/gradio/blob/master/demo/screenshots/{{ demo[0][:-3] }}/{{ screenshot }}?raw=true">
+                      {% endfor %}
+                    </div>                      
+                  </div>
+                {% endfor %}
+                </div>
+              </div>
             {% endfor %}
             <h2>Output Components</h2>
             {% for func in docs["outputs"] %}
@@ -158,7 +174,23 @@
                 {% else %}
                 <em>None.</em>
                 {% endif %}
-            </div>
+                <h4>Demos</h4>
+                <div class="all_demo_screenshots">
+                {% for demo in func["demos"] %}
+                  <div class="demo">
+                    <strong>{{ demo[0] }}:</strong>
+                    <a class="demo_code" target="_blank" href="https://github.com/gradio-app/gradio/blob/master/demo/{{ demo[0] }}">
+                      Link to Code
+                    </a>
+                    <div class="demo_screenshots">
+                      {% for screenshot in demo[1] %}
+                      <img src="https://github.com/gradio-app/gradio/blob/master/demo/screenshots/{{ demo[0][:-3] }}/{{ screenshot }}?raw=true">
+                      {% endfor %}
+                    </div>                      
+                  </div>
+                {% endfor %}
+                </div>
+              </div>
             {% endfor %}
         </div>
     </main>

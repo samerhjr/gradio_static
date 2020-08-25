@@ -228,6 +228,41 @@ footer {
     margin: 0
 }
 
+#quotes {
+    font-weight: lighter;
+    display: flex;
+}
+
+.quote-set {
+    margin-top: 24px;
+    position: relative;
+    flex-basis: 0;
+    flex-grow: 1;
+    padding: 16px;
+}
+
+.quote-statement {
+    padding: 8px 0 0 16px;
+    font-size: 22px;
+    font-style: italic;
+    padding: 8px;
+}
+
+.quote-mark {
+    position: absolute;
+    z-index: -1;
+}
+
+.quote-mark img {
+    height: 24px;
+}
+
+.quote-credit {
+    font-size: 14px;
+    text-align: right;
+    font-weight: bold;
+}
+
 form {
     display: flex;
     margin-left: -8px;
@@ -336,6 +371,7 @@ pre[class*="language-"] {
 #docs-content {
     padding: 16px;
     font-family: monospace;
+    max-width: 788px;
 }
 
 #docs-content ul {
@@ -462,4 +498,36 @@ pre[class*="language-"] {
         top: 20px !important;
         left: 280px !important;
     }
+    #docs-content {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    #quotes {
+        font-weight: lighter;
+        display: block;
+    }
+}
+
+.all_demo_screenshots {
+    display: flex;
+    overflow-x: scroll;
+    margin-right: -40px;
+    padding-bottom: 4px;
+    max-width: 100%;
+}
+
+.demo {
+    border: solid 1px lightgray;
+    padding: 12px;
+    border-radius: 4px;
+    margin-right: 40px;
+}
+
+.demo_code {
+    font-weight: normal;
+}
+
+.demo_screenshots img {
+    margin-top: 8px;
+    width: 600px;
 }
