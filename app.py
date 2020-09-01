@@ -65,10 +65,9 @@ def sharing():
     return render_template("getting_started.html")
 
 
-hub_data = requests.get(HUB_URL + "/data").json()
-
 @app.route('/hub')
 def hub():
+    hub_data = requests.get(HUB_URL + "/data").json()
     return render_template("hub.html", hosted_models=hub_data)
 
 
