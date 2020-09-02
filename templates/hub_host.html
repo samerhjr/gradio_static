@@ -30,7 +30,7 @@
 <script>
   let model_url = "{{ model_url }}"
   let config = JSON.parse({{ model_config|tojson }});
-  gradio_url(config, `${model_url}api/predict/`, "#interface");
+  gradio_url(config, `${model_url}api/predict/`, "#interface", model_url + "file/");
 </script>
 </body>
 
