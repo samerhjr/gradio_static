@@ -64,6 +64,7 @@ def ml_examples():
 def sharing():
     return render_template("getting_started.html")
 
+hub_data = requests.get(HUB_URL + "/data").json()
 
 @app.route('/hub')
 def hub():
