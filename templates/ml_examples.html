@@ -70,6 +70,17 @@ gr.Interface(fn=classify_image, inputs=image, outputs=label, capture_session=Tru
         <img src="static/home/img/inception-net.png">
         </div>
 
+        <h3>Add Interpretation</h3>
+        <p>The above code also shows how you can add interpretation to your
+        interface. You can use our out of the box functions for text and image
+            interpretation or use your own interpretation functions. To use
+            the out of the box functions just specify “default” for the
+            interpretation parameter (Note: this only works for text/image
+            input and label outputs).</p>
+        <pre><code class="lang-python">gr.Interface(classify_image, image, 
+            label, capture_session=True, interpretation="default").launch();
+        </code></pre>
+
     <h3>Image Classification in Pytorch
 
       <a
