@@ -114,6 +114,10 @@
                 {% else %}
                 <em>None.</em>
                 {% endif %}
+                {% if func["interpret"] %}
+                <h4>Interpretation</h4>
+                This interface supports interpretation. {{ func["interpret"] }}
+                {% endif %}
                 <h4>Demos</h4>
                 <div class="all_demo_screenshots">
                 {% for demo in func["demos"] %}

@@ -19,6 +19,8 @@ from demo.double import demo as double
 from demo.hello_world import demo as hello_world
 from demo.hello_world_2 import demo as hello_world_2
 from demo.hello_world_3 import demo as hello_world_3
+from demo.hello_interpretation import demo as hello_interpretation
+from demo.hello_interpretation_2 import demo as hello_interpretation_2
 from demo.sepia import demo as sepia
 
 app = Flask(__name__)
@@ -41,6 +43,8 @@ def getting_started():
         hello_world_2,
         hello_world_3,
         sepia,
+        hello_interpretation,
+        hello_interpretation_2,
     ]
     return render_template("getting_started.html", configs=[
         demo.iface.get_config_file() for demo in demos
@@ -84,8 +88,8 @@ def hub_host(repo):
     return render_template("hub_host.html", model_url=model_url, model_config=model[5])
 
 
-@app.route('/model/<m_id>', methods=["POST"])
-def model_api(m_id):
+@app.route('/model/<m_id>/<action>', methods=["POST"])
+def model_api(m_id, action):
     m_id = int(m_id)
     data = request.get_json(force=True)["data"]
     demos = [
@@ -97,11 +101,18 @@ def model_api(m_id):
         hello_world_2,
         hello_world_3,
         sepia,
+        hello_interpretation,
+        hello_interpretation_2,
     ]
-    output = demos[m_id].iface.process(data)
-    return jsonify({
-        "data": output[0]
-    })
+    iface = demos[m_id].iface
+    if action == "predict":
+        output = iface.process(data)
+        return jsonify({
+            "data": output[0]
+        })
+    elif action == "interpret":
+        output = iface.interpret(data)
+        return jsonify(output)
 
 
 @app.route('/analytics')
