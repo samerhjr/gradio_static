@@ -127,9 +127,9 @@ iface = gr.Interface(
   fn=gender_of_sentence, inputs=gr.inputs.Textbox(default="She went to his house to get her keys."),
   outputs="label", interpretation="default").launch()</code></pre>
                 <div id="interface_8"></div>
-          <p>Notice the <code>interpretation</code> keyword argument. We're going to use Gradio's default interpreter here. After you submit and click Interpret, you'll see the interface automatically highlights the parts of the text that contributed to the final output orange! The parts that conflict with the output are highlight blue.</p>
+          <p>Notice the <code>interpretation</code> keyword argument. We're going to use Gradio's default interpreter here. After you submit and click Interpret, you'll see the interface automatically highlights the parts of the text that contributed to the final output orange! The parts that conflict with the output are highlighted blue.</p>
           <p>Gradio's default interpretation works with a limited set of interface setups, such as text-to-label, or image-to-label. We're working on expanding the default interpreter to be much more customizable and support more interfaces.</p>
-          <p>You can also write your own interpretation function. The demo below adds custom interpretation to the previous demo. This function will take the same inputs as the main wrapped function. The output of this interpretation function will be used to highlight the input of each input interface - therefore the number of outputs here corresponds to the number of input interfaces. To see the format for interpretation for each input interface, check the <a href="/docs"">Documentation</a></p>
+          <p>You can also write your own interpretation function. The demo below adds custom interpretation to the previous demo. This function will take the same inputs as the main wrapped function. The output of this interpretation function will be used to highlight the input of each input interface - therefore the number of outputs here corresponds to the number of input interfaces. To see the format for interpretation for each input interface, check the <a href="/docs"">Documentation</a>.</p>
           <pre><code class="lang-python"># ... continued from above
 import re            
 def interpret_gender(sentence):
