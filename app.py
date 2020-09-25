@@ -88,6 +88,19 @@ def hub_host(repo):
     return render_template("hub_host.html", model_url=model_url, model_config=model[5])
 
 
+# REMOVE LATER WITH DEMO_HOST.HTML
+@app.route('/demo/<repo>')
+def hub_host(repo):
+    for model in hub_data:
+        if model[3].endswith(repo):
+            model_url = model[4]
+            break
+    else:
+        abort(404)
+
+    return render_template("demo_host.html", model_url=model_url, model_config=model[5])
+
+
 @app.route('/model/<m_id>/<action>', methods=["POST"])
 def model_api(m_id, action):
     m_id = int(m_id)
