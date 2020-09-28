@@ -1,13 +1,96 @@
 <html>
 
 <head>
-  <title>Gradio | Hub</title>
+  <title>Gradio | Saliency Cropping</title>
   {% include 'header.html' %}
   <link href="/static/home/style/hub.css" rel="stylesheet">
 </head>
 
 <body id="hub_host">
+  <div id="header_holder" class="container">
+    <header class="container">
+      <a href="/" id="back">
+        <img src="/static/home/img/back.png">
+        <span>Go to Gradio</span>
+      </a>
+      <div id="gradio-tag">
+        <a href="/" class="primary">
+          <img id="logo" src="/static/home/img/logo_host.png">
+        </a>
+        <div id="star-link">
+          <a class="github-button" href="https://github.com/gradio-app/gradio-UI" data-icon="octicon-star" data-size="small" data-show-count="true" aria-label="Star gradio-app/gradio-UI on GitHub">Star</a>
+        </div>
+      </div>
+    </header>
+  </div>
+  <h1 class="title">The Flaws of Saliency Based Image Cropping</h1>
   <div id="interface"></div>
+  <p class="note">Note: When you click flag, the input and output will be
+    saved by
+    our
+  team. Please only flag images you own and which you consent to be shared
+    with us. These images will be used for research and may be shared
+    publicly. Images that are not flagged are not saved.</p>
+
+  <p class="text">There has been a lot of discussion last week and before it
+    around
+    the
+    way Twitter crops images to preview them on the timeline. Twitter, like
+    many tech companies of various sizes, uses saliency based image cropping
+    models to do this - but these models can often lead to blatantly biased
+    results when deployed in production. This prompted us to build an
+    interface that allows anyone to upload an image and see how the model
+    decided where to crop it. This interface was launched as a collaboration
+    between <a href="https://www.vinayprabhu.com/">Vinay Prabhu</a>, <a
+            href="https://abebabirhane.wordpress.com/">Abeba Birhane</a>, <a
+            href="https://twitter.com/IDoTheThinking">Darrell Owens</a>, and
+    the Gradio team. You can find more of our work on <a
+            href="https://twitter.com/cropping_bias">@cropping_bias</a>.
+  </p>
+  <p class="text">
+    You can use it by uploading your own image (or clicking an example to
+    load it). More instructions below. To build it, we looked for a SoTA
+    model that was open-sourced. We used the <a
+          href="https://github.com/alexanderkroner/saliency">MSI-Net</a> model
+    which
+                                                <a
+                                                        href="https://saliency.tuebingen.ai/results.html">ranked high</a>
+    on the MIT/Tuebingen Saliency Benchmark. The associated paper is
+    <a
+            href="https://www.sciencedirect.com/science/article/pii/S0893608020301660">Contextual Encoder–Decoder Network for Visual Saliency Prediction</a>
+    by Kroner et al. Since this model only goes from image to saliency
+    map, and doesn't perform any cropping, we wrote the cropping function
+    which is a sliding window with a fixed aspect ratio (16,9) that
+    maximizes sum of saliency. Our code is open-sourced, and you can find
+    everything
+    required to
+    build this interface
+    <a href="https://github.com/gradio-app/saliency">here</a>.
+  </p>
+
+  <p class="text">
+    Twitter uses a similar approach, details of which can be found in this
+    <a
+            href="https://blog.twitter.com/engineering/en_us/topics/infrastructure/2018/Smart-Auto-Cropping-of-Images.html">blog post</a>.
+  </p>
+
+  <p class="text">
+    Click 'Submit' to view the prediction. To see the saliency map that
+    created the crop, just click 'Show Saliency' and submit again.
+    You can manipulate your photo (crop, flip, add text, etc) by uploading it
+    and clicking
+    'Edit'.
+    'Screenshot' will download a screenshot of the interface in your browser.
+    'Flag' will get the input and output saved by our team. Please only flag
+    images you own and which you consent to be shared with us. These images
+    will be used for research and may be shared publicly. Images that are not
+    flagged are not saved.
+  </p>
+
+  <p class="text">
+  For any questions, you can reach out to us at vinayup@gmail.com, or
+    hello@gradio.app
+  </p>
 
 <script src="/static/home/js/github-buttons.js"></script>
 {% include 'footer.html' %}

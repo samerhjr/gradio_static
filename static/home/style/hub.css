@@ -29,6 +29,22 @@ button:hover {
     cursor: pointer;
 }
 
+.title {
+    text-align: center;
+}
+
+p.text {
+    font-size: large;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+p.note {
+    text-align: right;
+    padding-left: 550px;
+    padding-right: 60px;
+}
+
 #gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
