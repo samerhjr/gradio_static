@@ -33,16 +33,26 @@ button:hover {
     text-align: center;
 }
 
-p.text {
+p.subtitle {
+    text-align: center;
     font-size: large;
     padding-left: 50px;
     padding-right: 50px;
 }
 
+
+p.text {
+    font-size: large;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 20px
+}
+
 p.note {
-    text-align: right;
-    padding-left: 550px;
-    padding-right: 60px;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: small;
 }
 
 #gallery {

@@ -5,23 +5,23 @@ import requests
 import os
 import sys
 
-if len(sys.argv) == 2 and sys.argv[1] == "q":
-    print("- quick mode -")
-    from demo.hello_world import demo as qa
-    from demo.hello_world import demo as face_segment
-    from demo.hello_world import demo as outbreak
-else:
-    from demo.qa import demo as qa
-    from demo.face_segment import demo as face_segment
-    from demo.outbreak import demo as outbreak
-from demo.hello_world import demo as hello_interpretation
-from demo.hello_world import demo as hello_interpretation_2
-
-from demo.double import demo as double
-from demo.hello_world import demo as hello_world
-from demo.hello_world_2 import demo as hello_world_2
-from demo.hello_world_3 import demo as hello_world_3
-from demo.sepia import demo as sepia
+# if len(sys.argv) == 2 and sys.argv[1] == "q":
+#     print("- quick mode -")
+#     from demo.hello_world import demo as qa
+#     from demo.hello_world import demo as face_segment
+#     from demo.hello_world import demo as outbreak
+# else:
+#     from demo.qa import demo as qa
+#     from demo.face_segment import demo as face_segment
+#     from demo.outbreak import demo as outbreak
+# from demo.hello_world import demo as hello_interpretation
+# from demo.hello_world import demo as hello_interpretation_2
+#
+# from demo.double import demo as double
+# from demo.hello_world import demo as hello_world
+# from demo.hello_world_2 import demo as hello_world_2
+# from demo.hello_world_3 import demo as hello_world_3
+# from demo.sepia import demo as sepia
 
 app = Flask(__name__)
 
