@@ -23,7 +23,7 @@
       </div>
     </header>
   </div>
-  <h1 class="title">The Flaws of Saliency Based Image Cropping</h1>
+  <h1 class="title">Investigating Saliency Based Image Cropping</h1>
 
   <p class="subtitle">By <a href="https://www.vinayprabhu.com/">Vinay
     Prabhu</a>, <a
@@ -40,75 +40,106 @@
     why the model chose to crop there. 5. Clicking 'Screenshot' will
     download a
     screenshot of
-    your input and output in your browser. 6. <span style="font-weight:bold">Important</span>: 'Flag' will get
-    the
-    input and output saved by our team. Please only flag
-    images you own and which you consent to be shared with us. These images
-    will be used for research and may be shared publicly. Images that are not
-    flagged are not saved.</p>
+    your input and output in your browser.</p>
 
   <div id="interface"></div>
 
-  <div id="interface"></div>
-
-  <p class="text">There has been a lot of discussion last week and before it
-    around
-    the
-    way Twitter crops images to preview them on the timeline. Twitter, like
-    many tech companies of various sizes, uses saliency based image cropping
-    models to do this - but these models can often lead to blatantly biased
-    results when deployed in production. This prompted us to build an
-    interface that allows anyone to upload an image and see how the model
-    decided where to crop it. This interface was launched as a collaboration
-    between <a href="https://www.vinayprabhu.com/">Vinay Prabhu</a>, <a
-            href="https://abebabirhane.wordpress.com/">Abeba Birhane</a>, <a
-            href="https://twitter.com/IDoTheThinking">Darrell Owens</a>, and
-    the Gradio team. You can find more of our work on <a
-            href="https://twitter.com/cropping_bias">@cropping_bias</a>.
-  </p>
   <p class="text">
-    You can use it by uploading your own image (or clicking an example to
-    load it). More instructions on the top. To build it, we looked for a SoTA
-    model that was open-sourced. We used the <a
-          href="https://github.com/alexanderkroner/saliency">MSI-Net</a> model
-    which
-                                                <a
-                                                        href="https://saliency.tuebingen.ai/results.html">ranked high</a>
-    on the MIT/Tuebingen Saliency Benchmark. The associated paper is
+    Last week, the saliency-based image cropping algorithm deployed by
+    twitter came into <a
+          href="https://www.theguardian.com/technology/2020/sep/21/twitter-apologises-for-racist-image-cropping-algorithm">scrutiny</a>. Inspired by some of the <a href="https://medium.com/@VinayPrabhu/on-the-twitter-cropping-controversy-critique-clarifications-and-comments-7ac66154f687">conversations</a>
+                         that
+    unraveled on Twitter and the widely shared reported incidents of racial
+    discrimination, we sought to investigate, experiment, and elucidate the
+    workings of cropping algorithms.</p>
+
+  <span style="font-weight:bold"><p class="text">
+    Democratizing the audit
+  </p></span>
+
+  <p class="text">
+    In order to democratize the scrutiny of this technology, we have created an educational saliency based cropping app where you can upload images and see what a state-of-the-art machine learning model similar to the one deployed by twitter thinks are important parts of the image and see how that results in what parts of the image are cropped out. (Please note that, the exact model and the cropping policy used by twitter are both, to the best of our knowledge, proprietary and beyond easy access. Therefore, our reconstruction is limited to what is available in peer-reviewed open sourced academic literature). We have also added an interactive TOAST UI image editor that one can use to further explore the brittleness of this technology.
+  </p>
+
+  <span style="font-weight:bold"><p class="text">
+  On saliency based cropping
+  </p></span>
+
+
+  <p class="text">
+  Saliency based cropping is not unique to Twitter. This very same
+    technology is also used by other tech firms including <a
+          href="https://twitter.com/AnimaAnandkumar/status/1308096236159893505?s=20">Google</a>,
+                                                             <a
+                                                                     href="https://patents.google.com/patent/US9626584B2/en">Adobe</a>, and
     <a
-            href="https://www.sciencedirect.com/science/article/pii/S0893608020301660">Contextual Encoder–Decoder Network for Visual Saliency Prediction</a>
-    by Kroner et al. Since this model only goes from image to saliency
-    map, and doesn't perform any cropping, we wrote the cropping function
-    which is a sliding window with a fixed aspect ratio (16,9) that
-    maximizes sum of saliency. Our code is open-sourced, and you can find
-    everything
-    required to
-    build this interface
-    <a href="https://github.com/gradio-app/saliency">here</a>.
+            href="https://developer.apple.com/documentation/vision/cropping_images_using_saliency">Apple</a>. This technique, which twitter <a href="https://blog.twitter.com/engineering/en_us/topics/infrastructure/2018/Smart-Auto-Cropping-of-Images.html">admittedly uses</a> on it’s
+       platform, typically entails two phases: The
+          saliency mask
+                                                      estimation phase and the cropping phase.
   </p>
 
-  <p class="text">
-    Twitter uses a similar approach, details of which can be found in this
-    <a
-            href="https://blog.twitter.com/engineering/en_us/topics/infrastructure/2018/Smart-Auto-Cropping-of-Images.html">blog post</a>.
+
+    <p class="text">In the first phase, a saliency mask is estimated using a
+      machine
+    learning model that ingests an input image and speculates which parts of
+    the image are interesting and/or important (retain-worthy) and which
+    parts of the image are discardable (or crop-worthy). These machine
+    learning models are typically trained on datasets such as <a
+              href="http://salicon.net/">SALICON</a>,
+      <a href="http://saliency.mit.edu/datasets.html">MIT-1003</a> and CAT2000
+      with attention-annotated “ground truth”
+       saliency
+    maps collected by either using volunteers or crowd-sourcing exercises
+      .</p>
+<p class="text">In the second phase, the saliency map output in the first
+    phase
+    is
+          then used to come up with a cropping policy that results in a
+    cropped image with the so-perceived non-salient parts of the image being
+    removed and the so-perceived salient parts of the image being retained
+    .</p>
+
+    <p class="text">
+As it turns out, this cropping process is a double edged sword. As it is evident in these example images, even the cropped image seems fair, the cropping has in fact, masked the differential saliency that the machine learning model associates with the different constituent faces in the image and some of these nuanced facets of biased ugliness are obfuscated in the finally rendered image.
   </p>
 
-  <p class="text">
-    Click 'Submit' to view the prediction. To see the saliency map that
-    created the crop, just click 'Show Saliency' and submit again.
-    You can manipulate your photo (crop, flip, add text, etc) by uploading it
-    and clicking
-    'Edit'.
-    'Screenshot' will download a screenshot of the interface in your browser.
-    'Flag' will get the input and output saved by our team. Please only flag
-    images you own and which you consent to be shared with us. These images
-    will be used for research and may be shared publicly. Images that are not
-    flagged are not saved.
-  </p>
+    <span style="font-weight:bold"><p class="text">
+On the saliency model we used on the gradio app
+    </p></span>
 
   <p class="text">
-  For any questions, you can reach out to us at vinayup@gmail.com, or
-    hello@gradio.app
+  Given that both twitter’s saliency-estimation model and the cropping
+    policy are not in the public domain, we used a similar model from
+    peer-reviewed machine learning literature that emulates twitter’s
+    cropping algorithm. We looked for a SoTA model that was open-sourced. We
+    used the <a href="https://github.com/alexanderkroner/saliency">MSI-Net</a>
+                model which ranked high on the <a
+          href="https://saliency.tuebingen.ai/results.html">MIT/Tuebingen
+    Saliency Benchmark</a>. The associated paper is <a
+          href="https://www.sciencedirect.com/science/article/pii/S0893608020301660">Contextual
+          Encoder–Decoder
+    Network for Visual Saliency Prediction</a> by Kroner et al. Since this
+    model only maps an input image to saliency map, and doesn’t perform any
+    cropping, we authored a cropping function which is a sliding window with
+    a fixed aspect ratio (16,9) that maximizes sum of saliency. Our code is
+    open-sourced, and you can find everything required to build this
+    interface <a href="https://github.com/gradio-app/saliency">here</a>.
+
+  </p>
+   <span style="font-weight:bold"><p class="text">
+Participation
+   </p></span>
+   <p class="text">
+The gradio saliency based image cropping app is open for anyone to interact and experiment with. Upload an image and simply click the submit button, which will show you a heatmap of features that the algorithm picks up as “important”. We do not save or store your images.
+If you come across an unusual, discriminatory, or biased saliency
+     distribution that you’d like for us to pay heed to, please let us know
+     by dropping it <a href="https://t.co/mY6I2sXRGZ?amp=1">here</a>. (However,
+     please make sure that the images
+                       that
+     you are uploading are consensually sourced and adhere to <a
+           href="https://creativecommons.org/about/cclicenses/">CC-BY
+     regulations</a>.)
   </p>
 
 <script src="/static/home/js/github-buttons.js"></script>
