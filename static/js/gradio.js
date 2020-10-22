@@ -50,6 +50,7 @@ function gradio(config, fn, target, example_file_path) {
       "image" : image_input,
       "sketchpad" : sketchpad_input,
       "textbox" : textbox_input,
+      "number" : number_input,
       "webcam" : webcam,
       "microphone" : microphone,
       "radio" : radio,
@@ -253,7 +254,7 @@ function gradio_url(config, url, target, example_file_path) {
   return gradio(config, function(data, action) {
     return new Promise((resolve, reject) => {
       $.ajax({type: "POST",
-        url: url + action,
+        url: url + action + "/",
         data: JSON.stringify({"data": data}),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',

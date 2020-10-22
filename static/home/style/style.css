@@ -372,6 +372,7 @@ pre[class*="language-"] {
     padding: 16px;
     font-family: monospace;
     max-width: 788px;
+    line-height: 1.7em;
 }
 
 #docs-content ul {

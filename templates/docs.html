@@ -93,8 +93,8 @@
                     <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
                     {% endfor %}
                 </ul>
-                <h4>String Shortcuts</h4>
                 {% if func["shortcuts"]|length %}
+                <h4>String Shortcuts</h4>
                 <ul>
                     {% for param in func["shortcuts"] %}
                     <li>"{{ param[0] }}" - 
@@ -111,12 +111,30 @@
                     </li>
                     {% endfor %}
                 </ul>
-                {% else %}
-                <em>None.</em>
                 {% endif %}
-                {% if func["interpret"] %}
-                <h4>Interpretation</h4>
-                This interface supports interpretation. {{ func["interpret"] }}
+                {% if func["interpret_params"] %}
+                <strong>Default Interpretation:</strong> {{ func["interpret"] }}
+                <p>gradio.inputs.{{ func["name"] }}.interpret(</span><!--
+                -->{% for param in func["interpret_params"] %}<!--
+                  -->{% if param|length == 1 %}<!--
+                    -->{{ param[0] }}<!--
+                  -->{% else %}<!--
+                    -->{{ param[0] }}={{ param[1] }}<!--
+                  -->{% endif %}<!--
+                  -->{% if not loop.last %}, {% endif %}<!--
+                -->{% endfor %}<span>)</span><!--
+            --></p>
+                <ul>
+                  {% for param in func["interpret_params_doc"] %}
+                  <li><strong>{{ param[0] }}</strong> <em>({{ param[1] }})</em> - {{ param[2] }}</li>
+                  {% endfor %}
+                </ul>
+                <strong>Custom Interpretation:</strong> Return the following in the interpretation function.
+                <ul>
+                    {% for ret in func["interpret_returns_doc"] %}
+                    <li><em>({{ ret[0] }})</em> - {{ ret[1] }}</li>
+                    {% endfor %}
+                </ul>
                 {% endif %}
                 <h4>Demos</h4>
                 <div class="all_demo_screenshots">

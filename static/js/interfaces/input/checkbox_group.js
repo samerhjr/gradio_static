@@ -5,10 +5,11 @@ const checkbox_group = {
     html = "<div class='checkbox_group'>"
     for ([index, choice] of opts.choices.entries()) {
       html += `
-        <label for="${this.id}_${index}">
+      <label for="${this.id}_${index}">
           <input id="${this.id}_${index}" type="checkbox" name="${this.id}" value="${index}">
-          ${choice}
-        </label>`;
+          <span>${choice}<span>          
+        </label>
+        `;
     }
     html += "</div>"
     this.target.html(html);
@@ -22,7 +23,30 @@ const checkbox_group = {
     })
     this.io_master.input(this.id, val_names);
   },
+  show_interpretation: function(data) {
+    this.target.find(".interpret_check").remove();
+    for (let i = 0; i < data.length; i++) {
+      let html = "<div class='interpret_sub'>"
+      for (let j = 0; j < data[i].length; j++) {
+        let score = data[i][j];
+        let mark = ["&#x2717;", "&#x2713;"][j];
+        if (score == null) {
+          html += `<div class='interpret_check interpret_select'>
+              ${mark}
+          </div>`
+        } else {
+          html += `<div class='interpret_check' title='${score}'
+            style='background-color: ${getSaliencyColor(score)}'>
+              ${mark}
+            </div>`
+        }
+      }
+      html += "</div>"
+      this.target.find("label").eq(i).append(html);
+    }
+  },
   clear: function() {
+    this.target.find(".interpretation").empty();    
     this.target.find("input").prop("checked", false);    
     this.target.find("input").button("refresh");  
   },

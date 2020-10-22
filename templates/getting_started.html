@@ -204,6 +204,7 @@ iface = gr.Interface(
   <script>
     configs = {{configs|tojson}};
     for (let [i, config] of configs.entries()) {
+      console.log(i)
       model_num = 3 + i;
       gradio_url(config, "/model/" + model_num + "/", "#interface_" + model_num);
     }

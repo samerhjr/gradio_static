@@ -1,9 +1,9 @@
 from flask import request, Flask, Response, render_template, jsonify, abort
 import sys
-import json
 import requests
 import os
 import sys
+import generate_docs
 
 if len(sys.argv) == 2 and sys.argv[1] == "q":
     print("- quick mode -")
@@ -14,8 +14,8 @@ else:
     from demo.qa import demo as qa
     from demo.face_segment import demo as face_segment
     from demo.outbreak import demo as outbreak
-from demo.hello_world import demo as hello_interpretation
-from demo.hello_world import demo as hello_interpretation_2
+from demo.hello_interpretation import demo as hello_interpretation
+from demo.hello_interpretation_2 import demo as hello_interpretation_2
 
 from demo.double import demo as double
 from demo.hello_world import demo as hello_world
@@ -51,8 +51,7 @@ def getting_started():
     ])
 
 
-with open("docs.json") as docs_file:
-    docs_data = json.load(docs_file)
+docs_data = generate_docs.generate()
 
 @app.route('/docs')
 def docs():
@@ -101,7 +100,7 @@ def demo_host(repo):
     return render_template("demo_host.html", model_url=model_url, model_config=model[5])
 
 
-@app.route('/model/<m_id>/<action>', methods=["POST"])
+@app.route('/model/<m_id>/<action>/', methods=["POST"])
 def model_api(m_id, action):
     m_id = int(m_id)
     data = request.get_json(force=True)["data"]

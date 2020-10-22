@@ -61,17 +61,21 @@ function paintSaliency(data, ctx, width, height) {
   data.forEach(function(row) {
     var c = 0
     row.forEach(function(cell) {
-      if (cell < 0) {
-        var color = [7,47,95];
-      } else {
-        var color = [112,62,8];
-      }
-      ctx.fillStyle = colorToString(interpolate(cell, [255,255,255], color));
+      ctx.fillStyle = getSaliencyColor(cell);
       ctx.fillRect(c * cell_width, r * cell_height, cell_width, cell_height);
       c++;
     })
     r++;
   })
+}
+
+function getSaliencyColor(value) {
+  if (value < 0) {
+    var color = [52, 152, 219];
+  } else {
+    var color = [231, 76, 60];
+  }
+  return colorToString(interpolate(Math.abs(value), [255,255,255], color));
 }
 
 function getObjectFitSize(contains /* true = contain, false = cover */, containerWidth, containerHeight, width, height){
@@ -100,10 +104,14 @@ function getObjectFitSize(contains /* true = contain, false = cover */, containe
 // val should be in the range [0.0, 1.0]
 // rgb1 and rgb2 should be an array of 3 values each in the range [0, 255]
 function interpolate(val, rgb1, rgb2) {
+  if (val > 1) {
+    val = 1;
+  }
+  val = Math.sqrt(val);
   var rgb = [0,0,0];
   var i;
   for (i = 0; i < 3; i++) {
-    rgb[i] = rgb1[i] * (1.0 - val) + rgb2[i] * val;
+    rgb[i] = Math.round(rgb1[i] * (1.0 - val) + rgb2[i] * val);
   }
   return rgb;
 }

@@ -2,7 +2,8 @@
 
 <head>
   <title>Gradio | Hub</title>
-  {% include 'header.html' %}
+  {% include 'static_header.html' %}
+  <link href="https://gradio-static.s3-us-west-2.amazonaws.com/stylesheet.css" rel="stylesheet">
   <link href="/static/home/style/hub.css" rel="stylesheet">
 </head>
 
@@ -26,7 +27,7 @@
   <div id="interface"></div>
 
 <script src="/static/home/js/github-buttons.js"></script>
-{% include 'footer.html' %}
+{% include 'footer_aws.html' %}
 <script>
   let model_url = "{{ model_url }}"
   let config = JSON.parse({{ model_config|tojson }});
