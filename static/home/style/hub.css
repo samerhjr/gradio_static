@@ -41,10 +41,16 @@ p.subtitle {
 }
 
 
-p.text {
+p.subheader {
     font-size: large;
     padding-left: 50px;
     padding-right: 50px;
+}
+
+p.text {
+    font-size: large;
+    padding-left: 200px;
+    padding-right: 200px;
     padding-top: 20px
 }
 
