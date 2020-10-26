@@ -4,24 +4,20 @@ import requests
 import os
 import sys
 import generate_docs
+import importlib
 
 if len(sys.argv) == 2 and sys.argv[1] == "q":
     print("- quick mode -")
-    from demo.hello_world import demo as qa
-    from demo.hello_world import demo as face_segment
-    from demo.hello_world import demo as outbreak
+    all_demo_names = ["hello_world", "hello_world", "hello_world"]
 else:
-    from demo.qa import demo as qa
-    from demo.face_segment import demo as face_segment
-    from demo.outbreak import demo as outbreak
-from demo.hello_interpretation import demo as hello_interpretation
-from demo.hello_interpretation_2 import demo as hello_interpretation_2
+    all_demo_names = ["qa", "face_segment", "outbreak"]
+all_demo_names += ["hello_world", "hello_world_2", "hello_world_3", "sepia", "calculator", "hello_interpretation", "hello_interpretation_2"]
 
-from demo.double import demo as double
-from demo.hello_world import demo as hello_world
-from demo.hello_world_2 import demo as hello_world_2
-from demo.hello_world_3 import demo as hello_world_3
-from demo.sepia import demo as sepia
+all_demos, all_code = [], []
+for demo_name in all_demo_names:
+    all_demos.append(importlib.import_module("demo." + demo_name + ".demo"))
+    with open(os.path.join("demo", demo_name, "demo.py")) as demo_code:
+        all_code.append(demo_code.read())
 
 app = Flask(__name__)
 
@@ -29,7 +25,7 @@ HUB_URL = "https://gradiohub.com"
 
 @app.route('/')
 def home_page():
-    demos = [qa, face_segment, outbreak]
+    demos = all_demos[:3]
     return render_template("index.html", configs=[
         demo.iface.get_config_file() for demo in demos
     ])
@@ -37,19 +33,10 @@ def home_page():
 
 @app.route('/getting_started')
 def getting_started():
-    demos = [
-        double,
-        hello_world,
-        hello_world_2,
-        hello_world_3,
-        sepia,
-        hello_interpretation,
-        hello_interpretation_2,
-    ]
+    demos, code = all_demos[3:], all_code[3:]
     return render_template("getting_started.html", configs=[
         demo.iface.get_config_file() for demo in demos
-    ])
-
+    ], code=code)
 
 docs_data = generate_docs.generate()
 
@@ -104,19 +91,7 @@ def demo_host(repo):
 def model_api(m_id, action):
     m_id = int(m_id)
     data = request.get_json(force=True)["data"]
-    demos = [
-        qa,
-        face_segment,
-        outbreak,
-        double,
-        hello_world,
-        hello_world_2,
-        hello_world_3,
-        sepia,
-        hello_interpretation,
-        hello_interpretation_2,
-    ]
-    iface = demos[m_id].iface
+    iface = all_demos[m_id].iface
     if action == "predict":
         output = iface.process(data)
         return jsonify({
