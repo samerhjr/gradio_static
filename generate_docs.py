@@ -22,6 +22,8 @@ def get_demos():
             with open(join(GRADIO_DIR, "demo", demo)) as demo_file:
                 first_line = demo_file.readline()
                 match = re.match(demo_regex, first_line)
+                if not match:
+                    continue
                 inputs = match.group(1).split(", ")
                 outputs = match.group(2).split(", ")
                 for i in inputs:

@@ -293,6 +293,15 @@ form {
     text-align: center;
 }
 
+#getting_started main img {
+    display: block;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    max-width: 800px;
+}
+
 .colab {
     position: absolute;
     top: 10px;
