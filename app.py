@@ -6,23 +6,15 @@ import importlib
 import markdown2
 from string import Template
 import re
+import click
 
 GRADIO_DIR = "../gradio"
 GRADIO_DEMO_DIR = os.path.join(GRADIO_DIR, "demo")
 sys.path.insert(0, GRADIO_DEMO_DIR)
+PORT = 5001
 
-if len(sys.argv) == 2 and sys.argv[1] == "q":
-    print("- quick mode -")
-    all_demo_names = ["hello_world", "hello_world", "hello_world"]
-else:
-    all_demo_names = ["question_answer", "face_segment", "outbreak_forecast"]
-all_demo_names += ["hello_world", "hello_world_2", "hello_world_3", "sepia_filter", "calculator", "gender_sentence_default_interpretation", "gender_sentence_custom_interpretation"]
-
-all_demos, all_code = [], []
-for demo_name in all_demo_names:
-    all_demos.append(importlib.import_module(demo_name))
-    with open(os.path.join(GRADIO_DEMO_DIR, demo_name + ".py")) as demo_code:
-        all_code.append(demo_code.read())
+all_demos = []
+all_code = []
 
 app = Flask(__name__)
 
@@ -132,13 +124,28 @@ def analytics():
     # scheduler.add_job(get_num_live_interfaces, 'interval', seconds=5)
     # scheduler.start()
 
-
-def run(debug=False):
-    app.run(debug=debug, port=5001)
-
+@app.cli.command("clean-connections")
+def clean_connections():
+    from subprocess import Popen, PIPE
+    pipe = Popen('sudo netstat -tnp | grep -i "paramiko"', shell=True, stdout=PIPE)
+    for line in pipe.stdout:
+        print(line.strip())
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        run(debug=True)
+    if len(sys.argv) == 2 and sys.argv[1] == "-q":
+        debug_mode = True
+        print("--- Quick debug mode ---")
+        all_demo_names = ["hello_world", "hello_world", "hello_world"]
     else:
-        run(debug=False)
+        print("--- Running with all demos ---")
+        print("--- Run `python app.py -q` for debug mode ---")
+        debug_mode = False
+        all_demo_names = ["question_answer", "face_segment", "outbreak_forecast"]
+    
+    all_demo_names += ["hello_world", "hello_world_2", "hello_world_3", "sepia_filter", "calculator", "gender_sentence_default_interpretation", "gender_sentence_custom_interpretation"]
+    for demo_name in all_demo_names:
+        all_demos.append(importlib.import_module(demo_name))
+        with open(os.path.join(GRADIO_DEMO_DIR, demo_name + ".py")) as demo_code:
+            all_code.append(demo_code.read())
+
+    app.run(debug=debug_mode, port=PORT)
