@@ -11,7 +11,7 @@ for line in pipe.stdout:
     public_ip = re.findall(r"\d+\.\d+.\d+.\d+", line)[1]
     duration = Popen('ps -o etime= -p {}'.format(pid), shell=True, stdout=PIPE).stdout.read().strip()
     if len(duration) > 9:  # Hacky way to determine if > 24 hours since format is [dd]-hh:mm:ss
-        print(pid, "killed after", duration, "ip": public_ip)
+        print(pid, "killed after", duration, "ip:", public_ip)
         os.kill(int(pid), signal.SIGTERM)  
     else:
         print(pid, "survives from ip:", public_ip)
