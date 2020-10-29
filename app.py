@@ -124,13 +124,6 @@ def analytics():
     # scheduler.add_job(get_num_live_interfaces, 'interval', seconds=5)
     # scheduler.start()
 
-@app.cli.command("clean-connections")
-def clean_connections():
-    from subprocess import Popen, PIPE
-    pipe = Popen('sudo netstat -tnp | grep -i "paramiko"', shell=True, stdout=PIPE)
-    for line in pipe.stdout:
-        print(line.strip())
-
 if __name__ == "__main__":
     if len(sys.argv) == 2 and sys.argv[1] == "-q":
         debug_mode = True
