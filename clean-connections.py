@@ -14,4 +14,4 @@ for line in pipe.stdout:
         print(pid, "killed after", duration, "ip": public_ip)
         os.kill(int(pid), signal.SIGTERM)  
     else:
-        print(pid, "survives from ip": public_ip)
+        print(pid, "survives from ip:", public_ip)
