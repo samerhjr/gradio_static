@@ -13,3 +13,5 @@ for line in pipe.stdout:
     if len(duration) > 9:  # Hacky way to determine if > 24 hours since format is [dd]-hh:mm:ss
         print(pid, "killed after", duration, "ip": public_ip)
         os.kill(int(pid), signal.SIGTERM)  
+    else:
+        print(pid, "survives from ip": public_ip)
