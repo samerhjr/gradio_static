@@ -3,6 +3,8 @@ import re
 import os
 import signal
 
+IP_WHITELIST = [] 
+
 # Sometimes the `o` gets truncated away, so this is safer
 pipe = Popen('sudo netstat -tnp | grep -i "paramik"', shell=True, stdout=PIPE)
 for line in pipe.stdout:
