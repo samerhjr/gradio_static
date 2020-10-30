@@ -14,6 +14,7 @@ pipe = Popen('sudo netstat -tnp | grep -i "paramik"', shell=True, stdout=PIPE)
 for line in pipe.stdout:
     line = line.strip()
     pid = re.findall(r"\d+\/sshd", line)[0][:-5]
+    print(line)
     public_ip = re.findall(r"\d+\.\d+.\d+.\d+", line)[1]
     duration = Popen('ps -o etime= -p {}'.format(pid), shell=True, stdout=PIPE).stdout.read().strip()
     if len(duration) > 9 and not(public_ip in IP_WHITELIST):  # Hacky way to determine if > 24 hours since format is [dd]-hh:mm:ss
